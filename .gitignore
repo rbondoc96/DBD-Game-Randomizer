@@ -1,0 +1,11 @@
+# Testing
+**/.pytest_cache/*
+
+# Frontend
+**/node_modules/*
+
+# Test Images
+**/imgs/*
+
+# Static Images from DB
+**/media/*
