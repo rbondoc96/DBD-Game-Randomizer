@@ -27,7 +27,7 @@ class EffectType(models.Model):
         verbose_name_plural = "Effect Types"
 
 class Effect(models.Model):
-    summary = models.CharField(max_length=255)
+    summary = models.CharField(max_length=255, unique=True)
     type = models.ForeignKey(EffectType, null=True, on_delete=models.SET_NULL)
 
     affects_all = models.BooleanField(

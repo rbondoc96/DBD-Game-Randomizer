@@ -125,11 +125,11 @@ USE_TZ = True
 
 STATIC_URL = '/frontend/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/static/frontend/assets'),
+    os.path.join(BASE_DIR, 'frontend/public/assets/'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "assets")
+MEDIA_URL = "/assets/"
 
 
 REST_FRAMEWORK = {

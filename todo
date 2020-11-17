@@ -1,0 +1,25 @@
+1. Organize template files
+2. Finish program to automatically create the images into assets
+    - Maybe, change organization so that it matches the current structures
+    in the DBD UI folder?
+    - Or, create a program that will organize DBD packs to an easier structure to follow
+    - Or, the program will take the package of new Perk images, find the old template images it will replace, and then regenerate the new perks based on the newly added backgrounds and design overlays **** i like this one
+
+3. Image will be created / put together and then uploaded to the model's ImageField.
+    - Use a signal for this
+    - BG will be determined using Rarity
+    - Border will be determined using the Model
+    - Item will be determined using Name
+
+
+Populating DB
+1. Add all characters
+2. Add effects from items, addons, powers, perks, offerings
+3. Create and populate those 5
+
+
+# Everything can be decomposed into ??
+- Effects
+- Actions
+    - Receive a Token
+- Conditions

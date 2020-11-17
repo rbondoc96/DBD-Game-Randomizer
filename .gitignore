@@ -8,4 +8,8 @@
 **/imgs/*
 
 # Static Images from DB
-**/media/*
+**/assets/*
+
+# Docker Volumes
+.pgadmin-data
+.pgdata

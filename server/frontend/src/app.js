@@ -1,6 +1,6 @@
 import React from "react"
-import ReactDOM from "react-dom"
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+
+import GameForm from "./components/GameForm"
 
 // Partials
 // import NavBar from "./components/navbar"
@@ -12,14 +12,8 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
 export default function App(props) {
     return(
-        <Router>
-            <div className="app">
-            hI
-                <Switch>
-                    {/* <Route exact path="/" component={Home} />
-                    <Route path="*" component={Error404} /> 404 page */}
-                </Switch>
-            </div>
-        </Router>
+        <div className="app">
+            <GameForm />        
+        </div>
     )
 }
