@@ -1,8 +1,10 @@
 from django.urls import path
 
-from game.api import CharacterAPI, GameAPI
+from game.api import CharacterAPI, GameAPI, SessionAPI, PlayerAPI
 
 urlpatterns = [
     path("api/characters/", CharacterAPI.as_view()),
     path("api/game/", GameAPI.as_view()),
+    path("api/session/", SessionAPI.as_view()),
+    path("api/player/", PlayerAPI.as_view()),
 ]

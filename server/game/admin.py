@@ -7,7 +7,10 @@ from game.models import (
     Power, PowerAddOn,
     Offering,
     Perk,
-    Rarity
+    Rarity,
+    Realm,
+    Player,
+    Session
 )
 
 admin.site.register(Character)
@@ -21,3 +24,6 @@ admin.site.register(PowerAddOn)
 admin.site.register(Offering)
 admin.site.register(Perk)
 admin.site.register(Rarity)
+admin.site.register(Player)
+admin.site.register(Session)
+admin.site.register(Realm)

@@ -10,14 +10,31 @@ def character_directory_path(instance, filename):
     filename = f"{instance.name}" + "." + filename.split(".").pop()
     return f"characters/{instance.type}s/{filename}"
 
+def template_directory_path(instance, filename):
+    filename = f"{instance.name}" + "." + filename.split(".").pop()
+    return f"templates/characters/{filename}"
+
 class Character(models.Model):
     class Type(models.TextChoices):
         SURVIVOR = "Survivor", _("Survivor")
         KILLER = "Killer", _("Killer")
 
     name = models.CharField(max_length=255, unique=True)
-    type = models.CharField(choices=Type.choices, max_length=15)     
+    type = models.CharField(choices=Type.choices, max_length=15)
+    is_licensed = models.BooleanField(
+        default=False,
+        verbose_name="Licensed Character?"
+    )     
     
+    # Template overlay that will be put overlay the bg+border layer 
+    # May or may not be transparent bg
+    template = models.ImageField(
+        upload_to=template_directory_path,
+        storage=OverwriteStorage(),
+        blank=True,
+        null=True
+    )
+
     # Storage allows for existing images to be overwritten
     image = models.ImageField(
         upload_to=character_directory_path, 
@@ -35,7 +52,17 @@ class Character(models.Model):
     def save(self, *args, **kwargs):
         super(Character, self).save(*args, **kwargs)
         
-        if self.image:
-            image = Image.open(self.image)
-            image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.image.path)
+        # if self.image:
+        #     image = Image.open(self.image)
+        #     left = 0
+        #     top = 0
+        #     right = 256
+        #     bottom = 256
+            
+        #     size = (left, top, right, bottom)
+        #     image = image.crop(size)
+        #     image.save(self.image.path)
+
+        # if self.template:
+        #     image = Image.open(self.template)
+        #     image.save(self.template.path)             

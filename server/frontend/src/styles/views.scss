@@ -1,0 +1,15 @@
+.Home {
+    display: inline-grid;
+    grid-template-rows: auto auto;
+    row-gap: 20px;
+
+    > .Button {
+        width: 100%;
+    }
+}
+
+.Session {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    column-gap: 40px;
+}

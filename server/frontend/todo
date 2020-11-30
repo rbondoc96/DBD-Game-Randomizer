@@ -1,0 +1,14 @@
+##### Flow of Views:
+
+JOIN: Join -> Session Consumer
+CREATE: Create, receive sessionId -> Join -> Session Consumer
+LEAVE: Exit page, Refresh Page (alert)
+
+Player Card
+ - Form visible only to the Player
+    - Allows player to change their role and ask the server for a random build with an API call
+
+Session
+ - Session Start Button sends all session info to the server for review
+    - All player information, checks # of killers and survivors relative to mode
+    

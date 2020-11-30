@@ -1,0 +1,129 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap);
+:root {
+  --color-bg: rgb(24, 24, 24);
+  --color-text: rgb(235, 235, 235);
+}
+
+html {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  color: rgb(235, 235, 235);
+  color: var(--color-text);
+  font-family: "Roboto", sans-serif;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(24, 24, 24);
+  background-color: var(--color-bg);
+}
+.Home {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  grid-row-gap: 20px;
+  row-gap: 20px;
+}
+.Home > .Button {
+  width: 100%;
+}
+
+.Session {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 40px;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+}
+.gameForm-container {
+  padding: 0.8em 1.5em;
+  background-color: var(--color-bg);
+}
+
+.icon-container {
+  margin: 0 1em;
+}
+
+.icon,
+.icon-name {
+  width: 100px;
+}
+
+.icon-name {
+  margin: 0;
+  word-wrap: normal;
+  text-align: center;
+}
+.Button button {
+  outline: none;
+  width: 100%;
+  padding: 1.6em 1.8em;
+  border: 1px solid var(--color-text);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+.Button button:hover {
+  cursor: pointer;
+}
+
+.TextInput,
+.SelectInput {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-row-gap: 5px;
+  row-gap: 5px;
+}
+.TextInput label,
+.SelectInput label {
+  display: block;
+}
+.TextInput select, .TextInput input,
+.SelectInput select,
+.SelectInput input {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.playerCard,
+.playerCard-header,
+.playerCard-content,
+.playerCard-character,
+.playerCard-perks,
+.playerCard-item,
+.playerCard-power,
+.playerCard-offering {
+  display: flex;
+  padding: 1.4em 0.3em;
+}
+
+.playerCard-perks {
+  flex-direction: row;
+}
+
+.playerCard,
+.playerCard-header,
+.playerCard-character {
+  flex-direction: column;
+}
+
+.playerCard {
+  border: 1px solid var(--color-text);
+}
+
+@media only screen and (max-width: 1096px) {
+  .playerCard-perks {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    grid-row-gap: 15px;
+    row-gap: 15px;
+  }
+}

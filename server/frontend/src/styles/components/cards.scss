@@ -1,0 +1,33 @@
+.playerCard,
+.playerCard-header,
+.playerCard-content,
+.playerCard-character,
+.playerCard-perks,
+.playerCard-item,
+.playerCard-power,
+.playerCard-offering {
+    display: flex;
+    padding: 1.4em 0.3em;
+}
+.playerCard-perks {
+    flex-direction: row;
+}
+.playerCard,
+.playerCard-header,
+.playerCard-character {
+    flex-direction: column;
+}
+
+.playerCard {
+    border: 1px solid var(--color-text);
+}
+
+
+@media only screen and (max-width: 1096px) {
+    .playerCard-perks {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+        row-gap: 15px;
+    }
+}

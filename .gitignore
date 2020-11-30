@@ -13,3 +13,5 @@
 # Docker Volumes
 .pgadmin-data
 .pgdata
+.redis-conf
+.redis-data
