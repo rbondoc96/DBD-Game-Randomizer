@@ -18,6 +18,8 @@ def session_players_changed(sender, instance, *args, **kwargs):
             print("no players. adding 1st")
         elif len(players) < 5:
             print("not capacity")
+        elif len(players) >= 5:
+            print("Room is at capacity")
 
     if kwargs["action"] == "post_remove":
         players = instance.players.all()

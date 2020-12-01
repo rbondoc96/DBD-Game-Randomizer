@@ -15,6 +15,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+label {
+  font-weight: 300;
+}
+
 .app {
   display: flex;
   justify-content: center;
@@ -42,6 +46,15 @@ body {
   -moz-column-gap: 40px;
        column-gap: 40px;
 }
+
+.Join > form > .Button,
+.Join > form > .TextInput,
+.Join > form > .SelectInput,
+.Create > form > .Button,
+.Create > form > .TextInput,
+.Create > form > .SelectInput {
+  width: 100%;
+}
 .gameForm-container {
   padding: 0.8em 1.5em;
   background-color: var(--color-bg);
@@ -60,6 +73,11 @@ body {
   margin: 0;
   word-wrap: normal;
   text-align: center;
+}
+.Button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .Button button {
   outline: none;
@@ -80,6 +98,7 @@ body {
   grid-template-rows: auto auto;
   grid-row-gap: 5px;
   row-gap: 5px;
+  margin: 10px 0;
 }
 .TextInput label,
 .SelectInput label {
@@ -88,9 +107,17 @@ body {
 .TextInput select, .TextInput input,
 .SelectInput select,
 .SelectInput input {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  padding: 0.6em 0.8em;
+  width: 100%;
+}
+
+.SelectInput select {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+.SelectInput option {
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 .playerCard,
 .playerCard-header,
@@ -116,6 +143,14 @@ body {
 
 .playerCard {
   border: 1px solid var(--color-text);
+}
+
+.playerCard-form-container > form {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 
 @media only screen and (max-width: 1096px) {

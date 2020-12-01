@@ -11,4 +11,19 @@ Player Card
 Session
  - Session Start Button sends all session info to the server for review
     - All player information, checks # of killers and survivors relative to mode
+
+Icon
+ - add <isHidden> property, applied to people that choose to be the Killer.
+
+
+Before Release
+- Finish populating database with everything
+- Create Event offering template
+- Clean up Front End UI
+
+
+## Docker Workflow
+- Build Docker image after changes
+- If changes need to happen, make changes in local repo
+- After changes happen, build Docker image again
     

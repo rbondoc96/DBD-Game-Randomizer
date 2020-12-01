@@ -13,3 +13,12 @@
     grid-template-columns: auto auto;
     column-gap: 40px;
 }
+
+.Join > form,
+.Create > form {
+    > .Button,
+    > .TextInput,
+    > .SelectInput {
+        width: 100%;
+    }
+}

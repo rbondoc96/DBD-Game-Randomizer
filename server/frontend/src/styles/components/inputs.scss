@@ -1,4 +1,6 @@
 .Button {
+    width: fit-content;
+
     button {
         outline: none;
         width: 100%;
@@ -20,11 +22,25 @@
     display: grid;
     grid-template-rows: auto auto;
     row-gap: 5px;
+    margin: 10px 0;
 
     label {
         display: block;
     }
     select, input {
-        width: fit-content;
+        padding: 0.6em 0.8em;
+        width: 100%;
+    }
+}
+
+.SelectInput {
+    select {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+    }
+
+    option {
+        background-color: var(--color-bg);
+        color: var(--color-text);
     }
 }

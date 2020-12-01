@@ -1,11 +1,13 @@
 from rest_framework import serializers
 
 from game.models import Session
-from game.serializers import PlayerSerializer
+from game.serializers import PlayerSerializer, RealmSerializer
 
 class SessionSerializer(serializers.ModelSerializer):
     host = PlayerSerializer()
     players = PlayerSerializer(many=True)
+    realm = serializers.StringRelatedField()
+    obsession = serializers.StringRelatedField()
     
     class Meta:
         model = Session

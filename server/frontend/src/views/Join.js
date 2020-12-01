@@ -50,7 +50,7 @@ export default function Join({
     return(
         <>
         {!session.sessionId
-        ?<div className="join">
+        ?<div className="Join">
             <form id="ws-form" onSubmit={onSubmit}>
                 <TextInput 
                     label="Player Name"

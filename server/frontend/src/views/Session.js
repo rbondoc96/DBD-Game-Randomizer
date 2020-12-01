@@ -98,6 +98,12 @@ export default function Session({
                         <div>
                             Session Mode: <span>{session.session.mode}</span>
                         </div>
+                        <div>
+                            Realm: <span>{session.session.realm}</span>
+                        </div>
+                        <div>
+                            Obsession: <span>{session.session.obsession}</span>
+                        </div>
                     </div>                
                 {session.playerId != session.session.host.playerId &&
                     <Button 

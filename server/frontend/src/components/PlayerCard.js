@@ -6,6 +6,7 @@ import Icon from "./Icon"
 import Button from "./inputs/Button"
 import TextInput from "./inputs/TextInput"
 import SelectInput from "./inputs/SelectInput"
+import CheckboxInput from "./inputs/CheckboxInput"
 
 export default function PlayerCard({
     player,
@@ -52,7 +53,11 @@ export default function PlayerCard({
         {player && player["player_id"] == session.playerId && 
             <div className="playerCard-form-container">
                 <form action="/api/player" onSubmit={onSubmit}>
-                    <input type="hidden" defaultValue={formData.action} />
+                    <input 
+                        type="hidden" 
+                        defaultValue={formData.action} 
+                        name="action"    
+                    />
                     <SelectInput 
                         onChange={onChange}
                         value={formData.playerRole}
@@ -61,15 +66,12 @@ export default function PlayerCard({
                     >
                         <option value="killer">Killer</option>
                         <option value="survivor">Survivor</option>
-                    </SelectInput>    
-                    <label htmlFor="noLicensedChars">
-                        Non-licensed characters only?
-                    </label>
-                    <input 
+                    </SelectInput>
+                    <CheckboxInput 
+                        name="noLicensedChars"
                         onChange={onChange}
-                        type="checkbox" 
-                        name="noLicensedChars" 
-                    />                
+                        label="Non-licensed characters only?"
+                    />    
                     <Button type="submit" children={"Randomize"} />
                 </form>
             </div>}
