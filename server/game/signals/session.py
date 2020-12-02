@@ -1,12 +1,30 @@
 from asgiref.sync import async_to_sync
 
 from django.dispatch import receiver
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import post_save, m2m_changed
 
 from channels.layers import get_channel_layer
 
 from game.models import Session
 from game.serializers import SessionSerializer
+
+@receiver(post_save, sender=Session)
+def session_changed(sender, instance, *args, **kwargs):
+    channel_layer = get_channel_layer()
+    session_id = instance.session_id
+    group_name = f"session-{session_id}"
+
+    serializer = SessionSerializer(instance)
+
+    event = {
+        "type": "session_data",
+        "session": serializer.data,
+    }
+
+    async_to_sync(channel_layer.group_send)(
+        group_name,
+        event
+    )    
 
 @receiver(m2m_changed, sender=Session.players.through)
 def session_players_changed(sender, instance, *args, **kwargs):

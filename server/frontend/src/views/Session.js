@@ -82,7 +82,7 @@ export default function Session({
         return(
             <>
             {session.session && <div className="Session">
-                <div className="session-players">
+                <div className="Session-players">
                 {session.session.players.map(player => {
                     return(<PlayerCard 
                         player={player}
@@ -90,8 +90,8 @@ export default function Session({
                 })}
                 </div>
 
-                <div className="session-meta">
-                    <div className="session-info">
+                <div className="Session-meta">
+                    <div className="Session-info">
                         <div>
                             Session ID: <span>{session.sessionId}</span>
                         </div>
@@ -105,13 +105,6 @@ export default function Session({
                             Obsession: <span>{session.session.obsession}</span>
                         </div>
                     </div>                
-                {session.playerId != session.session.host.playerId &&
-                    <Button 
-                        type="button" 
-                        onClick={startSession} 
-                        children={"Start Session"} 
-                    />
-                }
                 </div>                
             </div>}
             </>

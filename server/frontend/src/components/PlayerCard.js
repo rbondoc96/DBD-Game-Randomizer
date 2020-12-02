@@ -64,7 +64,9 @@ export default function PlayerCard({
                         name="playerRole"
                         label="Select Role"
                     >
-                        <option value="killer">Killer</option>
+                        {session.session.mode.toLowerCase() == "custom" && <option value="killer">
+                            Killer
+                        </option>}
                         <option value="survivor">Survivor</option>
                     </SelectInput>
                     <CheckboxInput 

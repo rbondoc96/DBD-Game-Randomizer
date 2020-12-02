@@ -7,11 +7,29 @@
         width: 100%;
     }
 }
+.Home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        width: fit-content;
+    }
+
+    h1 {
+        font-weight: 500;
+    }
+}
 
 .Session {
     display: inline-grid;
     grid-template-columns: auto auto;
     column-gap: 40px;
+}
+.Session-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .Join > form,

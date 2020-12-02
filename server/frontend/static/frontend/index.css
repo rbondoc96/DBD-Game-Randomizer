@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap);
 :root {
-  --color-bg: rgb(24, 24, 24);
+  --color-bg: rgb(15, 15, 15);
   --color-text: rgb(235, 235, 235);
 }
 
@@ -26,7 +26,7 @@ label {
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background-color: rgb(24, 24, 24);
+  background-color: rgb(15, 15, 15);
   background-color: var(--color-bg);
 }
 .Home {
@@ -39,12 +39,32 @@ label {
   width: 100%;
 }
 
+.Home-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Home-header img {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.Home-header h1 {
+  font-weight: 500;
+}
+
 .Session {
   display: inline-grid;
   grid-template-columns: auto auto;
   grid-column-gap: 40px;
   -moz-column-gap: 40px;
        column-gap: 40px;
+}
+
+.Session-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .Join > form > .Button,
@@ -79,17 +99,145 @@ label {
   width: -moz-fit-content;
   width: fit-content;
 }
+
 .Button button {
-  outline: none;
+  position: relative;
   width: 100%;
-  padding: 1.6em 1.8em;
-  border: 1px solid var(--color-text);
+  padding: 1.6em 2.2em;
   background-color: var(--color-bg);
+  border: transparent;
   color: var(--color-text);
-  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+}
+.Button button:focus {
+  outline: none;
+  border: 1px solid var(--color-text);
 }
 .Button button:hover {
   cursor: pointer;
+}
+.Button button:hover::before {
+  -webkit-animation: TopRightAnimate 0.3s linear forwards;
+          animation: TopRightAnimate 0.3s linear forwards;
+}
+.Button button:hover::after {
+  -webkit-animation: BottomLeftAnimate 0.3s linear forwards;
+          animation: BottomLeftAnimate 0.3s linear forwards;
+}
+.Button button::before, .Button button::after {
+  position: absolute;
+  content: "";
+  top: -2px;
+  left: -2px;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
+}
+@-webkit-keyframes TopRightAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@keyframes TopRightAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@-webkit-keyframes BottomLeftAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+}
+@keyframes BottomLeftAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
 }
 
 .TextInput,
@@ -108,7 +256,9 @@ label {
 .SelectInput select,
 .SelectInput input {
   padding: 0.6em 0.8em;
-  width: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .SelectInput select {
