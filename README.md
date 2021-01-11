@@ -13,8 +13,7 @@
 - Status: Development
 
 ## Roadmap
-- Project Started: November 9, 2020
-- Anticipated Release: December 2020
+- Project Start: November 2020
 
 ## Technologies
 
