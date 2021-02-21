@@ -1,21 +1,5 @@
 from django.db import models
 
-# class Buff(models.Model):
-#     summary = models.CharField()
-#     pass
-
-# class Debuff(models.Model):
-#     summary = models.CharField()
-#     pass
-
-# class SpecialAction(models.Model):
-#     summary = models.CharField()
-#     pass
-
-# class SpecialEffect(models.Model):
-#     summary = models.CharField()
-#     pass
-
 class EffectType(models.Model):
     type = models.CharField(max_length=255)
 
@@ -27,15 +11,19 @@ class EffectType(models.Model):
         verbose_name_plural = "Effect Types"
 
 class Effect(models.Model):
-    summary = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     type = models.ForeignKey(EffectType, null=True, on_delete=models.SET_NULL)
+    description = models.CharField(max_length=255, unique=True)
+
+    modifiers = models.ManyToManyField("game.Modifier", blank=True)
+    conditions = models.ManyToManyField("game.Condition", blank=True)
 
     affects_all = models.BooleanField(
         default=False,
         verbose_name="Does the Effect affect ALL players?")
 
     def __str__(self):
-        return f"[{self.type}] {self.summary}"
+        return f"[{self.type}] {self.description}"
 
     class Meta:
         ordering = ["type"]

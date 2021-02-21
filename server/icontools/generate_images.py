@@ -43,7 +43,6 @@ def generate_model_image(model, border):
                 if file.split(".")[0] == rarity
             ]
 
-            print(borders)
             if len(borders) == 1:
                 with Image.open(borders[0]) as background:
                     name = str(element.name).replace("'", "").replace(" ", "_")
@@ -58,9 +57,64 @@ def generate_model_image(model, border):
     time_elapsed = time.time() - time1
     print(f"Generated {model.__name__} images in {time_elapsed} secs")
 
-# generate_model_image(Item, "square")
-# generate_model_image(Perk, "dsquare")
+def generate_power_images():
+    BORDER_PATH = os.path.join(TEMPLATES_PATH, f"borders\\square\\common.png")
+    time1 = time.time()
+    for element in Power.objects.all():
+        with Image.open(BORDER_PATH) as background:                
+            with Image.open(element.primary_template) as template:
+                name = str(element.name).replace("'", "").replace(" ", "_")
+                name = name + "-primary"
+                background.paste(template, (0,0), mask=template)
+
+                buff = BytesIO()
+                background.save(buff, "PNG")
+
+                element.primary_image.save(
+                    f"{name}.png", 
+                    File(buff), 
+                    save=False
+                )
+
+            if element.secondary_template:
+                with Image.open(element.secondary_template) as template:
+                    name = str(element.name).replace("'", "").replace(" ", "_")
+                    name = name + "-secondary"
+                    background.paste(template, (0,0), mask=template)
+
+                    buff = BytesIO()
+                    background.save(buff, "PNG")
+
+                    element.secondary_image.save(
+                        f"{name}.png", 
+                        File(buff), 
+                        save=False
+                    )
+
+            if element.tertiary_template:
+                with Image.open(element.tertiary_template) as template:
+                    name = str(element.name).replace("'", "").replace(" ", "_")
+                    name = name + "-tertiary"
+                    background.paste(template, (0,0), mask=template)
+
+                    buff = BytesIO()
+                    background.save(buff, "PNG")
+
+                    element.tertiary_image.save(
+                        f"{name}.png", 
+                        File(buff), 
+                        save=False
+                    )    
+        element.save()
+        
+
+    time_elapsed = time.time() - time1
+    print(f"Generated Power images in {time_elapsed} secs")
+
+generate_model_image(Item, "square")
+generate_model_image(Perk, "dsquare")
 generate_model_image(Offering, "hex")
+generate_power_images()
 
 # ITEM_BORDERS_PATH = os.path.join(TEMPLATES_PATH, "borders\\square")
 # for item in Item.objects.all():        

@@ -72,6 +72,7 @@ TEMPLATES = [
     },
 ]
 
+# AGE = 24 hours
 SESSION_COOKIE_AGE = 24 * 60 * 60
 
 WSGI_APPLICATION = 'server.wsgi.application'

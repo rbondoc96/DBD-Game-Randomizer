@@ -1,7 +1,102 @@
-@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap);
 :root {
-  --color-bg: rgb(15, 15, 15);
-  --color-text: rgb(235, 235, 235);
+  --color-bg: rgba(9, 9, 10);
+  --color-bg-overlay: rgba(10, 10, 10, 1.0);
+  --color-text: rgb(238, 238, 238);
+  --color-link: rgb(201, 175, 42);
+  --color-inactive: rgb(87, 87, 87);
+  --color-border: rgb(51, 51, 51);
+  /* Colors for asset rarities */
+  --color-common: rgba(75, 55, 41, 1.0);
+  --color-uncommon: rgb(167, 131, 24, 1.0);
+  --color-rare: rgba(28, 104, 32, 1.0);
+  --color-very-rare: rgba(66, 28, 81, 1.0);
+  --color-ultra-rare: rgba(157, 18, 58, 1.0);
+  --color-event: rgb(205, 125, 6, 1.0);
+  --zIndex-1: 100;
+  --zIndex-2: 200;
+  --zIndex-3: 300;
+  --zIndex-4: 400;
+  --zIndex-5: 500;
+  --zIndex-6: 600;
+  --zIndex-7: 700;
+  --zIndex-8: 800;
+  --zIndex-9: 900;
+  /* Duration in milliseconds */
+  --msecs-100: 0.1s;
+  --msecs-200: 0.2s;
+  --msecs-300: 0.3s;
+  --msecs-400: 0.4s;
+  --msecs-500: 0.5s;
+  --msecs-600: 0.6s;
+  --msecs-700: 0.7s;
+  --msecs-800: 0.8s;
+  --msecs-900: 0.9s;
+  --msecs-1000: 1s;
+}
+
+/*
+BG color classes for Asset rarities
+*/
+.common {
+  background-color: rgba(75, 55, 41, 1.0);
+  background-color: var(--color-common);
+}
+
+.uncommon {
+  background-color: rgb(167, 131, 24, 1.0);
+  background-color: var(--color-uncommon);
+}
+
+.rare {
+  background-color: rgba(28, 104, 32, 1.0);
+  background-color: var(--color-rare);
+}
+
+.very-rare {
+  background-color: rgba(66, 28, 81, 1.0);
+  background-color: var(--color-very-rare);
+}
+
+.ultra-rare {
+  background-color: rgba(157, 18, 58, 1.0);
+  background-color: var(--color-ultra-rare);
+}
+
+.event {
+  background-color: rgb(205, 125, 6, 1.0);
+  background-color: var(--color-event);
+}
+
+/*
+Classes to force a display setting
+*/
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-iblock {
+  display: inline-block !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.d-iflex {
+  display: inline-flex !important;
+}
+
+.d-grid {
+  display: grid !important;
+}
+
+.d-igrid {
+  display: inline-grid !important;
 }
 
 html {
@@ -10,49 +105,121 @@ html {
 
 body {
   margin: 0;
-  color: rgb(235, 235, 235);
+  overflow-x: hidden;
+  color: rgb(238, 238, 238);
   color: var(--color-text);
-  font-family: "Roboto", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 label {
   font-weight: 300;
 }
 
+pre {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(238, 238, 238);
+  color: var(--color-text);
+}
+
 .app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto;
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background-color: rgb(15, 15, 15);
+  background-color: rgba(9, 9, 10);
   background-color: var(--color-bg);
 }
+/*
+Home page outer container
+*/
 .Home {
-  display: inline-grid;
+  max-width: 100vw;
+  display: grid;
   grid-template-rows: auto auto;
   grid-row-gap: 20px;
   row-gap: 20px;
-}
-.Home > .Button {
-  width: 100%;
+  justify-items: center;
 }
 
-.Home-header {
+/*
+Solo PlayerCard container
+*/
+.Home-randomizer {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-}
-.Home-header img {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
-.Home-header h1 {
-  font-weight: 500;
+
+/*
+The "Killer" and Survivor options for the randomizer.
+
+.Home-randomizer-vertical-separator     -   A line separating the 2 options for the randomizer
+.HomeRadioText-label                  -   The label that's displayed instead of the radio input circle
+.HomeRadioText-label:hover            -   Cursor->Pointer and text color change
+.HomeRadioText-label--active          -   Changes text color if it is selected
+.HomeRadioText-label:hover            -   Cursor->Pointer
+*/
+.Home-randomizer-options {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-column-gap: 2.4em;
+  -moz-column-gap: 2.4em;
+       column-gap: 2.4em;
+  margin: 2em 0;
 }
 
+.Home-randomizer-vertical-separator {
+  width: 1px;
+  height: 70px;
+  background-color: var(--color-inactive);
+  justify-self: center;
+  align-self: center;
+}
+
+.HomeRadioText {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.HomeRadioText input[type=radio] {
+  display: none;
+}
+
+.HomeRadioText:first-child,
+.HomeRadioText:last-child {
+  justify-content: flex-end;
+}
+
+.HomeRadioText-label {
+  font-weight: 600;
+  font-size: calc(24px + 1.2vw);
+  color: var(--color-inactive);
+  transition: color 0.3s;
+}
+.HomeRadioText-label:hover {
+  cursor: pointer;
+  color: var(--color-link);
+  transition: color 0.3s;
+}
+
+.HomeRadioText-label--active {
+  color: var(--color-link);
+  font-weight: 600;
+  font-size: calc(24px + 1.2vw);
+}
+.HomeRadioText-label--active:hover {
+  cursor: pointer;
+}
 .Session {
   display: inline-grid;
   grid-template-columns: auto auto;
@@ -66,65 +233,464 @@ label {
   flex-direction: column;
   justify-content: center;
 }
-
-.Join > form > .Button,
-.Join > form > .TextInput,
-.Join > form > .SelectInput,
-.Create > form > .Button,
-.Create > form > .TextInput,
-.Create > form > .SelectInput {
-  width: 100%;
-}
-.gameForm-container {
-  padding: 0.8em 1.5em;
+.NavBar {
+  position: -webkit-sticky;
+  position: sticky;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-self: end;
+  width: 950px;
+  height: 150px;
+  border-top: 1px solid var(--color-text);
+  margin: 0 auto;
   background-color: var(--color-bg);
 }
 
-.icon-container {
-  margin: 0 1em;
+.NavBar-left,
+.NavBar-right {
+  display: grid;
+  grid-template-rows: none;
+  grid-template-columns: auto auto;
+  justify-items: center;
 }
 
-.icon,
-.icon-name {
-  width: 100px;
-}
-
-.icon-name {
-  margin: 0;
-  word-wrap: normal;
+.NavBar-center {
   text-align: center;
 }
-.Button {
+.NavBar-center img {
+  width: 110px;
+  margin: 0.8rem 0;
+}
+
+/* 
+A Text Link for the Navbar component
+
+.NavLink > a            - The link text
+.NavLink--active        - The link text to the page the User is currently on
+*/
+.NavLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  width: 110px;
+  margin: 1.5rem 0;
+}
+.NavLink > a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 300;
+  transition-property: font-size;
+  transition-duration: 0.3s;
+}
+.NavLink > a:hover {
+  color: var(--color-link);
+  font-size: 24px;
+  font-weight: 400;
+  transition-property: font-size;
+  transition-duration: 0.3s;
+}
+
+.NavLink--active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  width: 110px;
+  margin: 1.5rem 0;
+}
+.NavLink--active > a {
+  text-decoration: none;
+  color: var(--color-link);
+  font-weight: 400;
+  font-size: 20px;
+  transition-property: font-size;
+  transition-duration: 0.3s;
+}
+.NavLink--active > a:hover {
+  font-size: 24px;
+  transition-property: font-size;
+  transition-duration: 0.3s;
+}
+
+/* Mobile Styles width<950px */
+.NavBar--mobile,
+.NavBar--mobile--hidden {
+  position: absolute;
+  z-index: var(--zIndex-8);
+  transition: 0.5s top;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: auto auto;
+  background-color: var(--color-bg);
+}
+.NavBar--mobile .NavBar-left,
+.NavBar--mobile .NavBar-right,
+.NavBar--mobile--hidden .NavBar-left,
+.NavBar--mobile--hidden .NavBar-right {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: none;
+  justify-items: center;
+}
+.NavBar--mobile .NavBar-center,
+.NavBar--mobile--hidden .NavBar-center {
+  display: none;
+}
+
+.NavBar--mobile {
+  top: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.NavBar--mobile--hidden {
+  top: -100%;
+}
+
+.NavBar-toggle {
+  position: fixed;
+  bottom: 3%;
+  left: 3%;
+  height: 3.5em;
+  width: 3.5em;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  transition: 0.3s border-color;
+}
+.NavBar-toggle:hover {
+  cursor: pointer;
+  border-color: var(--color-text);
+  transition: 0.3s border-color;
+}
+.Icon {
+  position: relative;
+  margin: 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.Icon:hover {
+  cursor: pointer;
+}
+.Icon:hover .Icon-info {
+  display: block;
+}
+
+.Icon-image {
+  position: relative;
+  z-index: var(--zIndex-1);
+}
+
+.Icon--md .Icon-image {
+  width: calc(40px + 4.5vw);
+}
+
+.Icon--sm .Icon-image {
+  width: calc(28px + 3.5vw);
+}
+
+.Icon-info {
+  display: none;
+  position: absolute;
+  z-index: var(--zIndex-9);
+  top: 100%;
+  right: -200%;
+  width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: var(--color-bg-overlay);
+  border: 1px solid var(--color-border);
+}
+
+.Icon-info-tier {
+  font-weight: 700;
+}
+
+.Icon-info-quote {
+  padding: 1rem 1.2rem;
+  padding-top: 0;
+}
+
+.Icon-info-header,
+.Icon-info-description {
+  padding: 0.8rem 1.2rem;
+}
+
+.Icon-info-header {
+  font-size: 1.1rem;
+}
+
+.Icon-info-owner,
+.Icon-info-quote,
+.Icon-info-rarity,
+.Icon-info-description {
+  font-size: 0.9rem;
+}
+
+.Icon-info-quote {
+  margin: 0.5em 0;
+  font-style: italic;
+}
+
+.Icon-info-description {
+  white-space: pre-wrap;
+}
+
+.Icon--common {
+  background-color: var(--color-common);
+}
+
+.Icon--uncommon {
+  background-color: var(--color-uncommon);
+}
+
+.Icon--rare {
+  background-color: var(--color-rare);
+}
+
+.Icon--very-rare {
+  background-color: var(--color-very-rare);
+}
+
+.Icon--ultra-rare {
+  background-color: var(--color-ultra-rare);
+}
+
+.Icon--event {
+  background-color: var(--color-event);
+}
+
+/*
+Styles for the IconWindow component
+
+.IconWindow-main-image-extras               - For Killers: Extra 2nd/3rd images for their powers
+*/
+.IconWindow,
+.IconWindow--hidden {
+  position: fixed;
+  z-index: var(--zIndex-9);
+  display: grid;
+  grid-template-areas: "header" "main";
+  grid-template-rows: 15% 85%;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-bg);
+  transition: 0.5s bottom;
+  /* IconWindow variables */
+  --button-height: 1.5em;
+}
+
+.IconWindow {
+  bottom: 0;
+}
+
+.IconWindow--hidden {
+  bottom: calc(-100% + var(--button-height));
+}
+
+.IconWindow-content {
+  margin-left: 2.5em;
+}
+
+.IconWindow-header {
+  grid-area: header;
+  display: grid;
+  grid-template-areas: "toggle" "header-content";
+  height: 100%;
+}
+
+.IconWindow-header-toggle {
+  grid-area: toggle;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.IconWindow-header-toggle:hover > button {
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--msecs-500) font-weight;
+}
+.IconWindow-header-toggle > button {
+  width: 100%;
+  height: var(--button-height);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--color-text);
+  font-size: calc(var(--button-height) - 0.4em);
+  font-weight: 300;
+  transition: var(--msecs-500) font-weight;
+}
+.IconWindow-header-toggle > button:focus {
+  outline: none;
+}
+
+.IconWindow-header-name h1 {
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+  grid-column-gap: 0.3em;
+  -moz-column-gap: 0.3em;
+       column-gap: 0.3em;
+  margin: 0;
+  font-size: calc(2em + 1vw);
+}
+
+.IconWindow-header-content {
+  grid-area: header-content;
+}
+
+.IconWindow-header-class {
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%) fit-content(100%);
+  grid-column-gap: 0.25em;
+  -moz-column-gap: 0.25em;
+       column-gap: 0.25em;
+  font-size: calc(1em + 0.3vw);
+}
+
+.IconWindow-main {
+  grid-area: main;
+  display: grid;
+  grid-template-areas: "description image" "separator separator" "stats stats";
+  grid-template-columns: auto 45%;
+  margin-top: 2em;
+  overflow-y: auto;
+}
+
+.IconWindow-main-description {
+  grid-area: description;
+  display: grid;
+  grid-template-rows: fit-content(100%) fit-content(100%) fit-content(100%);
+  grid-row-gap: 1.5em;
+  row-gap: 1.5em;
+  font-size: calc(1em + 0.3vw);
+  line-height: 160%;
+}
+
+.IconWindow-main-description-text {
+  white-space: pre-wrap;
+}
+
+.IconWindow-main-description-quote {
+  white-space: pre-wrap;
+  margin-top: 0.3em;
+}
+
+.IconWindow-main-image {
+  grid-area: image;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  grid-template-rows: fit-content(100%) fit-content(100%) fit-content(100%);
+  grid-row-gap: 2em;
+  row-gap: 2em;
+  width: 100%;
+}
+.IconWindow-main-image > img {
+  width: calc(125px + 5vw);
+}
+
+.IconWindow-main-image-extras {
+  display: grid;
+  grid-row-gap: 1em;
+  row-gap: 1em;
+}
+.IconWindow-main-image-extras img {
+  width: calc(100px + 4vw);
+}
+
+.IconWindow-main-separator {
+  grid-area: separator;
+}
+
+.IconWindow-main-stats {
+  grid-area: stats;
+}
+.Button,
+.HomeButton {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
 .Button button {
+  padding: 1.6em 2.2em;
+}
+
+.HomeButton {
+  width: 100%;
+}
+
+.Button a,
+.HomeButton a {
+  text-decoration: none;
+}
+
+.HomeButton button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.HomeButton button > img {
+  width: 100px;
+}
+
+.Button button {
+  font-size: 1rem;
+}
+
+.HomeButton button > div {
+  padding-right: 1.2em;
+  font-size: 1.25rem;
+  width: 100%;
+}
+
+.Button button,
+.HomeButton button {
   position: relative;
   width: 100%;
-  padding: 1.6em 2.2em;
   background-color: var(--color-bg);
-  border: transparent;
+  border: 2px solid var(--color-border);
   color: var(--color-text);
   font-family: "Roboto", sans-serif;
 }
-.Button button:focus {
+.Button button:focus,
+.HomeButton button:focus {
   outline: none;
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-text);
 }
-.Button button:hover {
+.Button button:hover,
+.HomeButton button:hover {
   cursor: pointer;
 }
-.Button button:hover::before {
-  -webkit-animation: TopRightAnimate 0.3s linear forwards;
-          animation: TopRightAnimate 0.3s linear forwards;
+.Button button:hover::before,
+.HomeButton button:hover::before {
+  -webkit-animation: TopRightAnimate var(--msecs-300) linear forwards;
+          animation: TopRightAnimate var(--msecs-300) linear forwards;
 }
-.Button button:hover::after {
-  -webkit-animation: BottomLeftAnimate 0.3s linear forwards;
-          animation: BottomLeftAnimate 0.3s linear forwards;
+.Button button:hover::after,
+.HomeButton button:hover::after {
+  -webkit-animation: BottomLeftAnimate var(--msecs-300) linear forwards;
+          animation: BottomLeftAnimate var(--msecs-300) linear forwards;
 }
-.Button button::before, .Button button::after {
+.Button button:not(:hover)::before,
+.HomeButton button:not(:hover)::before {
+  -webkit-animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+          animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+}
+.Button button:not(:hover)::after,
+.HomeButton button:not(:hover)::after {
+  -webkit-animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+          animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+}
+.Button button::before, .Button button::after,
+.HomeButton button::before,
+.HomeButton button::after {
   position: absolute;
   content: "";
   top: -2px;
@@ -134,6 +700,100 @@ label {
   background: transparent;
   border: 2px solid transparent;
   border-radius: 0.25em;
+}
+
+@-webkit-keyframes TopRightAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
+}
+
+@keyframes TopRightAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
+}
+@-webkit-keyframes BottomLeftAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
+}
+@keyframes BottomLeftAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
 }
 @-webkit-keyframes TopRightAnimate {
   0% {
@@ -239,7 +899,6 @@ label {
     border-left-color: var(--color-text);
   }
 }
-
 .TextInput,
 .SelectInput {
   display: grid;
@@ -251,64 +910,357 @@ label {
 .TextInput label,
 .SelectInput label {
   display: block;
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 .TextInput select, .TextInput input,
 .SelectInput select,
 .SelectInput input {
   padding: 0.6em 0.8em;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+/*
+An encapsulated checkbox input and its associated label.
+
+.CheckboxInput > label            - The label containing the input box and text
+*/
+.CheckboxInput {
+  width: 100%;
+}
+
+.CheckboxInput > label {
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+  grid-column-gap: 0.8em;
+  -moz-column-gap: 0.8em;
+       column-gap: 0.8em;
+  align-items: center;
+  font-weight: 300;
+  font-size: calc(1em + 0.3vw);
+  color: var(--color-text);
+  transition: var(--msecs-300) color;
+}
+.CheckboxInput > label:hover {
+  cursor: pointer;
+  color: var(--color-link);
+  transition: var(--msecs-300) color;
+}
+
+.button {
+  width: 100%;
+  color: var(--color-border);
+  padding: 0.3em;
+  font-size: calc(14px + 0.5vw);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: var(--msecs-300) border-color, var(--msecs-300) color;
+}
+.button:hover {
+  cursor: pointer;
+  color: var(--color-link);
+  border-color: var(--color-link);
+  transition: var(--msecs-300) border-color, var(--msecs-300) color;
+}
+.button:focus {
+  outline: none;
+}
+.Player {
+  display: grid;
+  grid-template-rows: fit-content(100%) auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "header header" "left right";
+  grid-column-gap: 2.4em;
+  -moz-column-gap: 2.4em;
+       column-gap: 2.4em;
+  max-width: 1280px;
+}
+
+/*
+The info bar displaying the Player's type, name, and ID 
+
+.Player-info-icon > img     - The Player's player type icon
+*/
+.PlayerInfo {
+  grid-area: header;
+  display: grid;
+  align-items: end;
+  grid-template-columns: fit-content(100%) fit-content(100%) fit-content(100%);
+  margin: 1em 0;
+}
+
+.PlayerInfo-icon {
+  display: grid;
+  align-items: center;
+}
+
+.PlayerInfo-icon > img {
+  width: 30px;
+}
+
+.PlayerInfo-name-id {
+  display: flex;
+  align-items: flex-end;
+}
+
+.PlayerInfo-name,
+.PlayerInfo-id {
+  margin-right: 0.3em;
+}
+
+.PlayerInfo-name {
+  margin-left: 0.4em;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.PlayerInfo-id {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/*
+The player's assets (character, perks, item/power, add-ons, offering)
+*/
+.Player-assets {
+  grid-area: left;
+  display: grid;
+  grid-template-areas: "character resource" "offering perks" "checkbox checkbox" "button button";
+  align-items: center;
+  grid-column-gap: 2em;
+  -moz-column-gap: 2em;
+       column-gap: 2em;
+  grid-row-gap: 1.4em;
+  row-gap: 1.4em;
+}
+
+.Player-button {
+  grid-area: button;
+  align-self: end;
+}
+
+.Player-assets-top {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
+
+/*
+The Player's character and associated name
+
+.PlayerCharacter            - Container for Character assets
+.PlayerCharacter-image > img     - The Character's portrait image 
+.PlayerCharacter-name > span     - The Character's name 
+
+Maximum width of the component is calc(50px + 6vw)
+*/
+.PlayerCharacter {
+  grid-area: character;
+  display: inline-grid;
+  grid-template-rows: fit-content(100%) fit-content(100%);
+  justify-items: center;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
-.SelectInput select {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+.PlayerCharacter-image {
+  width: calc(50px + 6vw);
 }
-.SelectInput option {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-.playerCard,
-.playerCard-header,
-.playerCard-content,
-.playerCard-character,
-.playerCard-perks,
-.playerCard-item,
-.playerCard-power,
-.playerCard-offering {
-  display: flex;
-  padding: 1.4em 0.3em;
+.PlayerCharacter-image > img {
+  width: 100%;
 }
 
-.playerCard-perks {
-  flex-direction: row;
+.PlayerCharacter-name {
+  text-align: center;
+  max-width: calc(50px + 6vw);
 }
 
-.playerCard,
-.playerCard-header,
-.playerCard-character {
-  flex-direction: column;
+.Player--lg .PlayerCharacter-name > span {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.playerCard {
-  border: 1px solid var(--color-text);
-}
+/*
+The container for the Player's 4 Perks.
 
-.playerCard-form-container > form {
+.Player-perkset             - A set of 2 Player Perks
+*/
+.PlayerPerks {
+  grid-area: perks;
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-column-gap: 15px;
-  -moz-column-gap: 15px;
-       column-gap: 15px;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-items: center;
 }
 
-@media only screen and (max-width: 1096px) {
-  .playerCard-perks {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 50% 50%;
-    grid-row-gap: 15px;
-    row-gap: 15px;
+.Player-perkset {
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
+  grid-column-gap: 0.8em;
+  -moz-column-gap: 0.8em;
+       column-gap: 0.8em;
+  margin: 0 0.6em;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+}
+
+/*
+Styles for the Player's Item/Power and Offering assets.
+
+.Player-plus-sign           - The '+' character between the 2 Item/Power add-ons
+*/
+.Player-resources {
+  grid-area: resource;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  align-items: center;
+  grid-column-gap: calc(0.8em + 0.5vw);
+  -moz-column-gap: calc(0.8em + 0.5vw);
+       column-gap: calc(0.8em + 0.5vw);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.PlayerAddons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+}
+
+.Player-plus-sign {
+  font-size: calc(24px + 1vw);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: auto 0.2em;
+}
+
+.PlayerOffering {
+  grid-area: offering;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.Player-checkbox {
+  grid-area: checkbox;
+}
+
+.Player-stats {
+  grid-area: right;
+}
+
+.Player-stats-header {
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+/*
+Styles for the PlayerStatList component
+
+*/
+.PlayerStatList:hover {
+  cursor: pointer;
+}
+.PlayerStatList:hover .PlayerStatList-header-line {
+  background-color: var(--color-link);
+  transition: background-color var(--msecs-300);
+}
+.PlayerStatList:hover .PlayerStatList-header-text {
+  color: var(--color-link);
+  transition: color var(--msecs-300);
+}
+
+.PlayerStatList-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  width: 100%;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.PlayerStatList-header--active {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  width: 100%;
+  max-width: 600px;
+  min-width: 300px;
+}
+.PlayerStatList-header--active .PlayerStatList-header-line {
+  background-color: var(--color-link);
+}
+.PlayerStatList-header--active .PlayerStatList-header-text {
+  color: var(--color-link);
+}
+
+.PlayerStatList-header-line {
+  height: 2px;
+  background-color: var(--color-inactive);
+  align-self: center;
+  transition: background-color var(--msecs-300);
+}
+
+.PlayerStatList-header-text {
+  width: 110px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-inactive);
+  transition: color var(--msecs-300);
+}
+
+.PlayerStatList-content {
+  overflow-y: scroll;
+  max-height: 220px;
+}
+
+@media only screen and (max-width: 1250px) {
+  .PlayerPerks {
+    grid-template-rows: fit-content(100%) fit-content(100%);
+    grid-template-columns: none;
+    grid-row-gap: 0.5em;
+    row-gap: 0.5em;
+    grid-column-gap: 0;
+    -moz-column-gap: 0;
+         column-gap: 0;
   }
+}
+@media only screen and (max-width: 950px) {
+  .Player {
+    grid-template-rows: fit-content(100%) auto auto;
+    grid-template-columns: none;
+    grid-template-areas: "header" "left" "right";
+  }
+
+  .Player-perkset {
+    grid-template-columns: fit-content(100%) fit-content(100%);
+  }
+
+  .Player-stats {
+    margin-top: 2.4em;
+  }
+}
+.scrollbar {
+  margin-right: 0.3em;
+}
+
+.scrollbar::-webkit-scrollbar {
+  border-radius: 0.25em;
+  width: 3px;
+  background-color: var(--color-bg);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: var(--color-bg);
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 0.25em;
+  width: 3px;
+  background-color: var(--color-text);
 }

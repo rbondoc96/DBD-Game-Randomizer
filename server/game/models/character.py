@@ -47,22 +47,7 @@ class Character(models.Model):
         ordering = ["type", "name"]
 
     def __str__(self):
-        return f"[{self.type}] {self.name}"  
+        return f"{self.name}"  
 
     def save(self, *args, **kwargs):
-        super(Character, self).save(*args, **kwargs)
-        
-        # if self.image:
-        #     image = Image.open(self.image)
-        #     left = 0
-        #     top = 0
-        #     right = 256
-        #     bottom = 256
-            
-        #     size = (left, top, right, bottom)
-        #     image = image.crop(size)
-        #     image.save(self.image.path)
-
-        # if self.template:
-        #     image = Image.open(self.template)
-        #     image.save(self.template.path)             
+        super(Character, self).save(*args, **kwargs)            

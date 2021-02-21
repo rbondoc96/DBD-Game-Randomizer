@@ -4,15 +4,15 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from game.models import(
-    Session,
-    Player,
-    Character,
-    Offering,
-    Perk,
-    Item, Power,
-    ItemAddOn, PowerAddOn,
-)
+# from game.models import(
+#     Session,
+#     Player,
+#     Character,
+#     Offering,
+#     Perk,
+#     Item, Power,
+#     ItemAddOn, PowerAddOn,
+# )
 from game.serializers import(
     SessionSerializer,
     SessionCreateSerializer,
@@ -21,8 +21,7 @@ from game.serializers import(
     PerkSerializer,
 )
 
-def get_rand_index(iterable):
-    return sample(range(0, len(iterable)), 1)[0]
+from game.utils import get_random_index
 
 def get_addons(model):
     pass
@@ -40,20 +39,20 @@ def generate_player(role="survivor", no_licensed_chars=False):
     else:
         characters = Character.objects.filter(type=role__proper)
     
-    character = characters[get_rand_index(characters)]
+    character = characters[get_random_index(characters)]
     player["character"] = character
 
     offering = None
     if randint(0,3):
         offerings = Offering.objects.all()
-        offering = offerings[get_rand_index(offerings)]
+        offering = offerings[get_random_index(offerings)]
         player["offering"] = offering
     
     item = None
     power = None
     if role == "survivor":
         items = Item.objects.all()
-        item = items[get_rand_index(items)]
+        item = items[get_random_index(items)]
         player["item"] = item
 
     elif role == "killer":
@@ -67,7 +66,7 @@ def generate_player(role="survivor", no_licensed_chars=False):
     perk_set = Perk.objects.filter(type=role__proper)
     for _ in range(0, 4):
         PLAYER.perks.add(
-            perk_set[get_rand_index(perk_set)]
+            perk_set[get_random_index(perk_set)]
         )
     PLAYER.save()
     return PLAYER
@@ -338,6 +337,14 @@ class SessionAPI(APIView):
                     pass
             # Current player role will stay
             # Other player roles will generate based on Host                 
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        print(data)
+
+        session = generate_session()
+
+        return Response({**data}, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):
         pass

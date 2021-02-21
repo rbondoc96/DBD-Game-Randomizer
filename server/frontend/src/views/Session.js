@@ -4,7 +4,7 @@ import {Redirect} from "react-router-dom"
 import {SessionContext} from "../context/SessionContext"
 
 import Button from "../components/inputs/Button"
-import PlayerCard from "../components/PlayerCard"
+import PlayerCard from "../components/player/Player"
 
 export default function Session({
     
@@ -98,8 +98,15 @@ export default function Session({
                         <div>
                             Session Mode: <span>{session.session.mode}</span>
                         </div>
-                        <div>
-                            Realm: <span>{session.session.realm}</span>
+                        <div className="Session-realm">
+                            <div>
+                                Realm: <span>
+                                    {session.session.realm.name}
+                                </span>
+                            </div>
+                            <div>
+                                <img src={session.session.realm.image} />
+                            </div>
                         </div>
                         <div>
                             Obsession: <span>{session.session.obsession}</span>

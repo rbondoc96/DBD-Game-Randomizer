@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 
 from PIL import Image
 
 from game.storage import OverwriteStorage
-import game.models as Models
 
 def item_directory_path(instance, filename):
     filename = f"{instance.name}" + "." + filename.split(".").pop()
@@ -17,14 +17,19 @@ def template_directory_path(instance, filename):
 
 class Item(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    type = models.ForeignKey(Models.ItemType, on_delete=models.CASCADE)
+    type = models.ForeignKey("game.ItemType", on_delete=models.CASCADE)
     rarity = models.ForeignKey(
-        Models.Rarity, 
+        "game.Rarity", 
         null=True, 
         on_delete=models.SET_NULL
     )
+    base_charges = models.IntegerField(
+        verbose_name="Base Charges",
+        default=8,
+        validators=[MinValueValidator(0)]
+    )
     description = models.TextField()
-    effects = models.ManyToManyField(Models.Effect, verbose_name="Effects")
+    effects = models.ManyToManyField("game.Effect", verbose_name="Effects")
     quote = models.CharField(max_length=255, blank=True, null=True)
     
     # Template overlay that will be put overlay the bg+border layer 

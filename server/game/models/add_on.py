@@ -3,7 +3,6 @@ from django.db import models
 from PIL import Image
 
 from game.storage import OverwriteStorage
-from game.models import Rarity, Effect, ItemType, Power
 
 def power_addon_directory_path(instance, filename):
     filename = f"{instance.name}" + "." + filename.split(".").pop()
@@ -23,10 +22,15 @@ def template_item_directory_path(instance, filename):
 
 class PowerAddOn(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    power = models.ForeignKey(Power, on_delete=models.CASCADE)
-    rarity = models.ForeignKey(Rarity, null=True, on_delete=models.SET_NULL)
+    power = models.ForeignKey(
+        "game.Power", 
+        on_delete=models.CASCADE)
+    rarity = models.ForeignKey(
+        "game.Rarity", 
+        null=True, 
+        on_delete=models.SET_NULL)
     description = models.TextField()
-    effects = models.ManyToManyField(Effect, verbose_name="Effects")
+    effects = models.ManyToManyField("game.Effect", verbose_name="Effects")
 
     # Template overlay that will be put overlay the bg+border layer 
     # May or may not be transparent bg
@@ -67,10 +71,15 @@ class PowerAddOn(models.Model):
 
 class ItemAddOn(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
-    rarity = models.ForeignKey(Rarity, null=True, on_delete=models.SET_NULL)
+    type = models.ForeignKey(
+        "game.ItemType", 
+        on_delete=models.CASCADE)
+    rarity = models.ForeignKey(
+        "game.Rarity", 
+        null=True, 
+        on_delete=models.SET_NULL)
     description = models.TextField()
-    effects = models.ManyToManyField(Effect, verbose_name="Effects")
+    effects = models.ManyToManyField("game.Effect", verbose_name="Effects")
 
     # Template overlay that will be put overlay the bg+border layer 
     # May or may not be transparent bg

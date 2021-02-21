@@ -23,14 +23,23 @@ def get_rand_index(iterable):
 
 
 class SessionConsumer(AsyncWebsocketConsumer):
-
+    
+    # User connects to Consumer through "ws://" URL
     async def connect(self):
+
+        # <<self.scope>> is similar to <<request>> in Django views
+        # <<self.scope["url_route"]>> - A dict with 2 keys: "kwargs" and "args"
+        # "kwargs" is a dict of named regex groups
+
+        # Grabs the <<session_id>> from the Websocket's URL
         self.session_id = self.scope["url_route"]["kwargs"]["session_id"]
         self.session_group_name = f"session-{self.session_id}"
 
+        # Grab the Player's ID stored in the session, if it exists
         self.player_id = await database_sync_to_async(
             self.scope["session"].get)("playerId")
 
+        # A session is a 6 character alphanumeric string
         session_regex = re.compile(r"^([a-zA-Z0-9]{6})$")
         
         if session_regex.match(self.session_id) is not None:
@@ -52,6 +61,7 @@ class SessionConsumer(AsyncWebsocketConsumer):
 
                     self.player_id = await database_sync_to_async(
                         self.scope["session"].get)("playerId")
+            
             else:
                 print("Creating a new player")
                 

@@ -1,10 +1,12 @@
 import React from "react"
 
-import Icon from "./Icon"
+import Icon from "./icon/Icon"
 
 export default function CharacterCard({
     character,
 }) {
+
+    console.log(character)
 
     return(
         <div className="characterCard-container">

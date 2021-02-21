@@ -1,120 +1,188 @@
-// .Button {
-//     width: fit-content;
-
-//     button {
-//         outline: none;
-//         width: 100%;
-//         padding: 1.6em 1.8em;
-//         border: 1px solid var(--color-text);
-        
-//         background-color: var(--color-bg);
-//         color: var(--color-text);    
-//         font-size: 1rem;
-        
-//         &:hover {
-//             cursor: pointer;
-//         }
-//     }    
-// } 
-
-.Button {
+.Button,
+.HomeButton {
     width: fit-content;
  }
  .Button button {
+    padding: 1.6em 2.2em;
+ }
+ .HomeButton {
+     width: 100%;
+ }
+ .Button a,
+ .HomeButton a {
+     text-decoration: none;
+ }
+ .HomeButton button {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+ }
+ .HomeButton button > img {
+     width: 100px;
+ }
+ .Button button {
+     font-size: 1rem;
+ }
+ .HomeButton button > div {
+     padding-right: 1.2em;
+     font-size: 1.25rem;
+     width: 100%;
+ }
+ .Button button,
+ .HomeButton button {
     position: relative;
     width: 100%;
-    padding: 1.6em 2.2em;
     background-color: var(--color-bg);
-    border: transparent;
+    border: 2px solid var(--color-border);
     
     color: var(--color-text);
     font-family: "Roboto", sans-serif;
  
     &:focus {
        outline: none;
-       border: 1px solid var(--color-text);      
+       border: 2px solid var(--color-text);      
     }
     
     &:hover { 
        cursor: pointer;
        &::before {
-          animation: TopRightAnimate 0.3s linear forwards;
+          animation: TopRightAnimate var(--msecs-300) linear forwards;
        }
        &::after {
-          animation: BottomLeftAnimate 0.3s linear forwards;
+          animation: BottomLeftAnimate var(--msecs-300) linear forwards;
        }
-    }
-    &::before, &::after {
-       position: absolute;
-       content: "";
-       top: -2px;
-       left: -2px;
-       width: 0;
-       height: 0;
-       background: transparent;
-       border: 2px solid transparent;
-       border-radius: 0.25em;
-    }
-    
-    @keyframes TopRightAnimate {
-     0% { 
-         width: 0; 
-         height: 0; 
-         border-top-color: var(--color-text); 
-         border-right-color: transparent; 
-         border-bottom-color: transparent; 
-         border-left-color: transparent; 
-     } 
-  
-     50% { 
-         width: 100%; 
-         height: 0; 
-         border-top-color: var(--color-text); 
-         border-right-color: var(--color-text); 
-         border-bottom-color: transparent; 
-         border-left-color: transparent; 
-     } 
-  
-     100% { 
-         width: 100%; 
-         height: 100%; 
-         border-top-color: var(--color-text); 
-         border-right-color: var(--color-text); 
-         border-bottom-color: transparent; 
-         border-left-color: transparent; 
-     }  
-    }
-    
-    @keyframes BottomLeftAnimate {
-     0% { 
-         width: 0; 
-         height: 0; 
-         border-top-color: transparent; 
-         border-right-color: transparent; 
-         border-bottom-color: transparent; 
-         border-left-color: var(--color-text); 
-     } 
-  
-     50% { 
-         width: 0; 
-         height: 100%; 
-         border-top-color: transparent; 
-         border-right-color: transparent; 
-         border-bottom-color: var(--color-text); 
-         border-left-color: var(--color-text); 
-     } 
-  
-     100% { 
-         width: 100%; 
-         height: 100%; 
-         border-top-color: transparent; 
-         border-right-color: transparent; 
-         border-bottom-color: var(--color-text); 
-         border-left-color: var(--color-text); 
-     }      
-    }
- 
+    }   
+    &:not(:hover) {
+        &::before {
+           animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+        }
+        &::after {
+           animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+        }      
+     }
+     &::before, &::after {
+        position: absolute;
+        content: "";
+        top: -2px;
+        left: -2px;
+        width: 0;
+        height: 0;
+        background: transparent;
+        border: 2px solid transparent;
+        border-radius: 0.25em;
+     }
  }
+@keyframes TopRightAnimateReverse {
+0% { 
+    width: 100%; 
+    height: 100%; 
+    border-top-color: var(--color-text); 
+    border-right-color: var(--color-text); 
+    border-bottom-color: transparent; 
+    border-left-color: transparent; 
+}      
+
+50% { 
+    width: 100%; 
+    height: 0; 
+    border-top-color: var(--color-text); 
+    border-right-color: var(--color-text); 
+    border-bottom-color: transparent; 
+    border-left-color: transparent; 
+}   
+
+100% { 
+    width: 0; 
+    height: 0; 
+    border-color: transparent;
+}       
+}
+
+@keyframes BottomLeftAnimateReverse {
+
+    0% { 
+        width: 100%; 
+        height: 100%; 
+        border-top-color: transparent; 
+        border-right-color: transparent; 
+        border-bottom-color: var(--color-text); 
+        border-left-color: var(--color-text); 
+    }
+
+    50% { 
+        width: 0; 
+        height: 100%; 
+        border-top-color: transparent; 
+        border-right-color: transparent; 
+        border-bottom-color: var(--color-text); 
+        border-left-color: var(--color-text); 
+    }       
+
+    100% { 
+        width: 0; 
+        height: 0; 
+        border-color: transparent; 
+    } 
+
+}
+
+@keyframes TopRightAnimate {
+ 0% { 
+     width: 0; 
+     height: 0; 
+     border-top-color: var(--color-text); 
+     border-right-color: transparent; 
+     border-bottom-color: transparent; 
+     border-left-color: transparent; 
+ } 
+
+ 50% { 
+     width: 100%; 
+     height: 0; 
+     border-top-color: var(--color-text); 
+     border-right-color: var(--color-text); 
+     border-bottom-color: transparent; 
+     border-left-color: transparent; 
+ } 
+
+ 100% { 
+     width: 100%; 
+     height: 100%; 
+     border-top-color: var(--color-text); 
+     border-right-color: var(--color-text); 
+     border-bottom-color: transparent; 
+     border-left-color: transparent; 
+ }  
+}
+
+@keyframes BottomLeftAnimate {
+ 0% { 
+     width: 0; 
+     height: 0; 
+     border-top-color: transparent; 
+     border-right-color: transparent; 
+     border-bottom-color: transparent; 
+     border-left-color: var(--color-text); 
+ } 
+
+ 50% { 
+     width: 0; 
+     height: 100%; 
+     border-top-color: transparent; 
+     border-right-color: transparent; 
+     border-bottom-color: var(--color-text); 
+     border-left-color: var(--color-text); 
+ } 
+
+ 100% { 
+     width: 100%; 
+     height: 100%; 
+     border-top-color: transparent; 
+     border-right-color: transparent; 
+     border-bottom-color: var(--color-text); 
+     border-left-color: var(--color-text); 
+ }      
+} 
 
 .TextInput,
 .SelectInput {
@@ -125,21 +193,62 @@
 
     label {
         display: block;
+        font-size: 1.2rem;
+        font-weight: 300;
     }
     select, input {
         padding: 0.6em 0.8em;
-        width: fit-content;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
     }
 }
 
-.SelectInput {
-    select {
-        background-color: var(--color-bg);
-        color: var(--color-text);
+/*
+An encapsulated checkbox input and its associated label.
+
+.CheckboxInput > label            - The label containing the input box and text
+*/
+.CheckboxInput {
+    width: 100%;
+}
+.CheckboxInput > label {
+    display: grid;
+    grid-template-columns: fit-content(100%) fit-content(100%);
+    column-gap: 0.8em;
+    align-items: center;
+
+    font-weight: 300;
+    font-size: calc(1em + 0.3vw);
+    color: var(--color-text);
+    transition: var(--msecs-300) color;
+
+    &:hover {
+        cursor: pointer;
+
+        color: var(--color-link);
+        transition: var(--msecs-300) color;
+    }
+}
+
+.button {
+    width: 100%;
+    color: var(--color-border);
+    padding: 0.3em;
+    font-size: calc(14px + 0.5vw);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+
+    transition: var(--msecs-300) border-color, var(--msecs-300) color;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--color-link);
+        border-color: var(--color-link);
+        transition: var(--msecs-300) border-color, var(--msecs-300) color;
     }
 
-    option {
-        background-color: var(--color-bg);
-        color: var(--color-text);
+    &:focus {
+        outline: none;
     }
 }

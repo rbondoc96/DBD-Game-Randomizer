@@ -27,7 +27,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='power',
             name='template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.power.template_directory_path),
+            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), 
+            upload_to=game.models.power.primary_template_directory_path),
         ),
         migrations.AddField(
             model_name='poweraddon',

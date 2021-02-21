@@ -5,9 +5,7 @@ export const PlayerContext = createContext()
 export function PlayerProvider({
     children
 }) {
-    const [player, setPlayer] = useState({
-        playerId: null,
-    })
+    const [player, setPlayer] = useState()
 
     return(
         <PlayerContext.Provider value={[player, setPlayer]}>

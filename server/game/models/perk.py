@@ -4,7 +4,6 @@ from django.db import models
 from PIL import Image
 
 from game.storage import OverwriteStorage
-from game.models import Rarity, Effect, Character
 
 def perk_directory_path(instance, filename):
     filename = f"{instance.name}{instance.tier}" + "." \
@@ -31,14 +30,19 @@ class Perk(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(choices=Type.choices, max_length=15)
     owner = models.ForeignKey(
-        Character, 
+        "game.Character", 
         blank=True, 
         null=True,
         on_delete=models.CASCADE)
     tier = models.IntegerField(choices=Tiers.choices)
-    rarity = models.ForeignKey(Rarity, null=True, on_delete=models.SET_NULL)
+    rarity = models.ForeignKey(
+        "game.Rarity", 
+        null=True, 
+        on_delete=models.SET_NULL)
     description = models.TextField()
-    effects = models.ManyToManyField(Effect, verbose_name="Effects")
+    effects = models.ManyToManyField(
+        "game.Effect", 
+        verbose_name="Effects")
     quote = models.CharField(max_length=255, null=True, blank=True)
 
     # Template overlay that will be put overlay the bg+border layer 

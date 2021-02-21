@@ -1,0 +1,10 @@
+.Session {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    column-gap: 40px;
+}
+.Session-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

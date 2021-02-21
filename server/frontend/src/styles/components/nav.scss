@@ -1,0 +1,146 @@
+.NavBar {
+    position: sticky;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-self: end;
+
+    width: 950px;
+    height: 150px;
+    border-top: 1px solid var(--color-text);
+    margin: 0 auto;
+
+    background-color: var(--color-bg);
+}
+.NavBar-left,
+.NavBar-right {
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: auto auto;
+    justify-items: center;
+}
+.NavBar-center {
+    text-align: center;
+    
+    img {
+        width: 110px;
+        margin: 0.8rem 0;
+    }
+}
+
+/* 
+A Text Link for the Navbar component
+
+.NavLink > a            - The link text
+.NavLink--active        - The link text to the page the User is currently on
+*/
+.NavLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    height: 50px;
+    width: 110px;
+
+    margin: 1.5rem 0;
+
+    > a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-size: 20px;
+        font-weight: 300;
+
+        transition-property: font-size;
+        transition-duration: 0.3s;
+    }
+    > a:hover {
+        color: var(--color-link);
+        font-size: 24px;
+        font-weight: 400;
+
+        transition-property: font-size;
+        transition-duration: 0.3s;
+    }
+}
+.NavLink--active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 50px;
+    width: 110px;
+
+    margin: 1.5rem 0;
+
+    > a {
+        text-decoration: none;
+        color: var(--color-link);
+        font-weight: 400;
+        font-size: 20px;
+
+        transition-property: font-size;
+        transition-duration: 0.3s;
+    }
+    > a:hover {
+        font-size: 24px;
+
+        transition-property: font-size;
+        transition-duration: 0.3s;
+    }    
+}
+
+/* Mobile Styles width<950px */
+.NavBar--mobile,
+.NavBar--mobile--hidden {
+    position: absolute;
+    z-index: var(--zIndex-8);
+    transition: 0.5s top;
+
+    width: 100vw;
+    
+    display: grid;
+    grid-template-rows: auto auto;
+    background-color: var(--color-bg);
+
+    .NavBar-left,
+    .NavBar-right {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: none;
+        justify-items: center;
+    }
+
+    .NavBar-center {
+        display: none;
+    }
+}
+.NavBar--mobile {
+    top: 0;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.NavBar--mobile--hidden {
+    top: -100%;
+}
+
+.NavBar-toggle {
+    position: fixed;
+    bottom: 3%;
+    left: 3%;
+
+    height: 3.5em;
+    width: 3.5em;
+
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    
+    transition: 0.3s border-color;
+
+    &:hover {
+        cursor: pointer;
+        border-color: var(--color-text);
+        transition: 0.3s border-color;
+    }
+}

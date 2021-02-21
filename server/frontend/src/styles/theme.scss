@@ -1,9 +1,92 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap");
 
 :root {
-    --color-bg: rgb(15, 15, 15);
-    --color-text: rgb(235, 235, 235);
+    --color-bg: rgba(9, 9, 10);
+    --color-bg-overlay: rgba(10, 10, 10, 1.0);
+    --color-text: rgb(238, 238, 238);
+    --color-link: rgb(201, 175, 42);
+    --color-inactive: rgb(87, 87, 87);
+    --color-border: rgb(51, 51, 51);
+
+
+    /* Colors for asset rarities */
+    --color-common: rgba(75, 55, 41, 1.0);
+    --color-uncommon: rgb(167, 131, 24, 1.0);
+    --color-rare: rgba(28, 104, 32, 1.0);
+    --color-very-rare: rgba(66, 28, 81, 1.0);
+    --color-ultra-rare: rgba(157, 18, 58, 1.0);
+    --color-event: rgb(205, 125, 6, 1.0);
+
+    --zIndex-1: 100;
+    --zIndex-2: 200;
+    --zIndex-3: 300;
+    --zIndex-4: 400;
+    --zIndex-5: 500;
+    --zIndex-6: 600;
+    --zIndex-7: 700;
+    --zIndex-8: 800;
+    --zIndex-9: 900;
+
+    /* Duration in milliseconds */
+    --msecs-100: 0.1s;
+    --msecs-200: 0.2s;
+    --msecs-300: 0.3s;
+    --msecs-400: 0.4s;
+    --msecs-500: 0.5s;
+    --msecs-600: 0.6s;
+    --msecs-700: 0.7s;
+    --msecs-800: 0.8s;
+    --msecs-900: 0.9s;
+    --msecs-1000: 1s;
 }
+
+/*
+BG color classes for Asset rarities
+*/
+.common {
+    background-color: var(--color-common);
+}
+.uncommon {
+    background-color: var(--color-uncommon);
+}
+.rare {
+    background-color: var(--color-rare);
+}
+.very-rare {
+    background-color: var(--color-very-rare);
+}
+.ultra-rare {
+    background-color: var(--color-ultra-rare);
+}
+.event {
+    background-color: var(--color-event);
+}
+
+/*
+Classes to force a display setting
+*/
+.d-none {
+    display: none !important;
+}
+.d-block {
+    display: block !important;
+}
+.d-iblock {
+    display: inline-block !important;
+}
+.d-flex {
+    display: flex !important;
+}
+.d-iflex {
+    display: inline-flex !important;
+}
+.d-grid {
+    display: grid !important;
+}
+.d-igrid {
+    display: inline-grid !important;
+}
+
 
 html {
     margin: 0;
@@ -11,18 +94,31 @@ html {
 
 body {
     margin: 0;
+    overflow-x: hidden;
+    
     color: var(--color-text);
-    font-family: "Roboto", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 label {
     font-weight: 300;
 }
 
+pre {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
 .app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    
+    display: grid;
+    grid-template-rows: auto auto;
     min-height: 100vh;
     height: 100%;
     width: 100%;

@@ -6,7 +6,7 @@ from game.serializers import PlayerSerializer, RealmSerializer
 class SessionSerializer(serializers.ModelSerializer):
     host = PlayerSerializer()
     players = PlayerSerializer(many=True)
-    realm = serializers.StringRelatedField()
+    realm = RealmSerializer()
     obsession = serializers.StringRelatedField()
     
     class Meta:

@@ -3,8 +3,6 @@ from django.core.exceptions import ValidationError
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
-from game.models import Player, Realm
-
 def generate_session_id():
     return get_random_string(length=6).upper()
 
@@ -22,27 +20,27 @@ class Session(models.Model):
         default=generate_session_id,
     )
     host = models.OneToOneField(
-        Player, 
+        "game.Player", 
         related_name="host", 
         on_delete=models.CASCADE,
     )
 
     mode = models.CharField(max_length=255, choices=GameMode.choices)
     players = models.ManyToManyField(
-        Player, 
+        "game.Player", 
         related_name="sessions",
         blank=True,
     )
 
     realm = models.ForeignKey(
-        Realm,
+        "game.Realm",
         verbose_name="Realm",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
     )
     obsession = models.ForeignKey(
-        Player, 
+        "game.Player", 
         related_name="obsession",
         on_delete=models.SET_NULL, 
         null=True,

@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
 from game.storage import OverwriteStorage
-from game.models import Rarity, Effect
 
 def offering_directory_path(instance, filename):
     filename = f"{instance.name}" + "." + filename.split(".").pop()
@@ -27,9 +26,9 @@ class Offering(models.Model):
         choices=Type.choices, 
         max_length=15, 
         default=Type.ALL)
-    rarity = models.ForeignKey(Rarity, on_delete=models.CASCADE)
+    rarity = models.ForeignKey("game.Rarity", on_delete=models.CASCADE)
     description = models.TextField()
-    effects = models.ManyToManyField(Effect, verbose_name="Effects")
+    effects = models.ManyToManyField("game.Effect", verbose_name="Effects")
     quote = models.CharField(max_length=255, blank=True, null=True)
 
     # Template overlay that will be put overlay the bg+border layer 
@@ -47,7 +46,10 @@ class Offering(models.Model):
         storage=OverwriteStorage(),
         blank=True,
         null=True
-    )    
+    ) 
+
+    class Meta:
+        ordering = ["type"]   
     
     def __str__(self):
         return f"[{self.type}] {self.name}"

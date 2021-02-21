@@ -7,6 +7,7 @@ export default function SelectInput({
     value,
     onChange,
     children,
+    ref,
 }) {
 
     return(
@@ -18,6 +19,7 @@ export default function SelectInput({
                 value={value}  
                 onChange={onChange}
                 children={children}
+                ref={ref}
             />
         </div>
     )

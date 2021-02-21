@@ -19,7 +19,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField()),
-                ('image', models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.power.power_directory_path)),
+                ('image', models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), 
+                upload_to=game.models.power.primary_power_directory_path)),
                 ('effects', models.ManyToManyField(to='game.Effect', verbose_name='Effects')),
             ],
             options={

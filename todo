@@ -1,15 +1,10 @@
-1. Organize template files
-2. Finish program to automatically create the images into assets
-    - Maybe, change organization so that it matches the current structures
-    in the DBD UI folder?
-    - Or, create a program that will organize DBD packs to an easier structure to follow
-    - Or, the program will take the package of new Perk images, find the old template images it will replace, and then regenerate the new perks based on the newly added backgrounds and design overlays **** i like this one
-
-3. Image will be created / put together and then uploaded to the model's ImageField.
-    - Use a signal for this
-    - BG will be determined using Rarity
-    - Border will be determined using the Model
-    - Item will be determined using Name
+# Before Release
+- Update DB to current Release
+- Prettify the Session components
+- Handle Sessions that are at capacity
+- Implement "Create a Session"
+- Add React Spinners to loading objects
+- Add Footer to the Home page with the version #, credits, and GitHub link
 
 
 Populating DB
@@ -23,3 +18,18 @@ Populating DB
 - Actions
     - Receive a Token
 - Conditions
+
+# Player Stats
+- Bloodpoint modifiers per category
+- Largest Possible
+
+Effect {
+    Modifier[{
+        "modifierType": String
+        "modifierValue": Integer
+        "conditions"
+    }] 
+}
+
+Adding Effects
+- Summing modifiers if modifierTypes match

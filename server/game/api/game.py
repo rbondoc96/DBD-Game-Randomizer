@@ -6,7 +6,7 @@ from random import randint, sample
 
 from server.permissions import ReadOnly
 
-from game.models import Perk, Character, Item, Offering
+# from game.models import Perk, Character, Item, Offering
 from game.serializers import (
     OfferingSerializer,
     ItemSerializer,

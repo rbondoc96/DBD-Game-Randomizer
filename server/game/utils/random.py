@@ -9,6 +9,8 @@ from game.models import(
     ItemAddOn, PowerAddOn,
 )
 
+from game.serializers import PowerSerializer
+
 def get_random_index(iterable):
     return sample(range(0, len(iterable)), 1)[0]
 
@@ -34,17 +36,14 @@ def generate_random_player(role, no_licensed_chars=False):
         offering = offerings[get_random_index(offerings)]
         player["offering"] = offering
     
-    item = None
-    power = None
+
     if role == "survivor":
         items = Item.objects.all()
         item = items[get_random_index(items)]
         player["item"] = item
 
-    # Need to returns killer's respective power
-    elif role == "killer":
-        power = Power.objects.all()[0]
-        player["power"] = power
+    else:
+        player["power"] = player["character"].power
 
     PLAYER = Player.objects.create(
         **player
