@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RenameField(
             model_name='power',
-            old_name='template',
-            new_name='primary_template',
+            old_name='overlay',
+            new_name='primary_overlay',
         ),
     ]

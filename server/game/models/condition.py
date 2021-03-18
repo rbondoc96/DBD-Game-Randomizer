@@ -1,13 +1,14 @@
 from django.db import models
 
 class ConditionType(models.Model):
+    
+    class Meta:
+        verbose_name = "Condition Type"
+    
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.name}"
-
-    class Meta:
-        verbose_name = "Condition Type"
 
 class Condition(models.Model):
     event = models.ForeignKey("game.Event", on_delete=models.CASCADE)

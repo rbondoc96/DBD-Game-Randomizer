@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='character',
-            name='template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.character.template_directory_path),
-        ),
+        # migrations.AddField(
+        #     model_name='character',
+        #     name='overlay',
+        #     field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.character.overlay_directory_path),
+        # ),
     ]

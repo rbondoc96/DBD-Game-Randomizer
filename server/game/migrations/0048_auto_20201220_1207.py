@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='power',
-            name='tertiary_template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.power.tertiary_template_directory_path),
+            name='tertiary_overlay',
+            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.power.tertiary_overlay_directory_path),
         ),
     ]

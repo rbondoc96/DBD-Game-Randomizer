@@ -112,45 +112,12 @@ def generate_power_images():
     print(f"Generated Power images in {time_elapsed} secs")
 
 generate_model_image(Item, "square")
+generate_model_image(ItemAddOn, "square")
+# generate_model_image(PowerAddOn, "square")
 generate_model_image(Perk, "dsquare")
 generate_model_image(Offering, "hex")
 generate_power_images()
 
-# ITEM_BORDERS_PATH = os.path.join(TEMPLATES_PATH, "borders\\square")
-# for item in Item.objects.all():        
-#     with Image.open(item.template) as template:
-#         rarity = str(item.rarity).replace(" ", "-").lower()
-#         borders = [os.path.join(ITEM_BORDERS_PATH, file) 
-#             for file in os.listdir(
-#                 os.path.join(TEMPLATES_PATH, "borders\\square")
-#             ) 
-#             if file.split(".")[0] == rarity 
-#         ]
-        
-#         if len(borders) == 1:
-#             with Image.open(borders[0]) as background:
-#                 name = str(item.name).replace("'", "").replace(" ", "_")
-#                 # file_path = os.path.join(tmpdir, f"{name}.png")
-#                 # print(file_path)
-#                 background.paste(template, (0,0), mask=template)
-                
-#                 buff = BytesIO()
-#                 background.save(buff, "PNG")
 
-#                 item.image.save(f"{name}.png", File(buff), save=False)
-#                 item.save()
-
-# PERK_BORDERS_PATH = os.path.join(TEMPLATES_PATH, "borders\\dsquare")
-# for perk in Perk.objects.all():
-#     with Image.open(perk.template) as template:
-#         rarity = str(item.rarity).replace(" ", "-").lower()            
-#         borders = [os.path.join(PERK_BORDERS_PATH, file)
-#             for file in os.listdir(
-#                 os.path.join(TEMPLATES_PATH, "borders\\dsquare")
-#             )
-#             if file.split(".")[0] == rarity
-#         ]
-
-    # Start putting together perk icons
 
 

@@ -16,50 +16,54 @@ def tertiary_power_directory_path(instance, filename):
     filename = f"{instance.name}-tertiary" + "." + filename.split(".").pop()
     return f"powers/{filename}"    
 
-def primary_template_directory_path(instance, filename):
+def primary_overlay_directory_path(instance, filename):
     filename = f"{instance.name}-primary" + "." + filename.split(".").pop()
-    return f"templates/powers/{filename}"    
+    return f"overlays/powers/{filename}"    
 
-def secondary_template_directory_path(instance, filename):
+def secondary_overlay_directory_path(instance, filename):
     filename = f"{instance.name}-secondary" + "." + filename.split(".").pop()
-    return f"templates/powers/{filename}"     
+    return f"overlays/powers/{filename}"     
 
-def tertiary_template_directory_path(instance, filename):
+def tertiary_overlay_directory_path(instance, filename):
     filename = f"{instance.name}-tertiary" + "." + filename.split(".").pop()
-    return f"templates/powers/{filename}"    
+    return f"overlays/powers/{filename}"    
 
 class Power(models.Model):
+
+    class Meta:
+        ordering = ["owner"]
+
     name = models.CharField(max_length=255, unique=True)
     owner = models.OneToOneField(
         "game.Character",
         on_delete=models.CASCADE, 
         primary_key=False
     )
-    description = models.TextField()
-    effects = models.ManyToManyField("game.Effect", verbose_name="Effects")
+    description = models.TextField(null=True, blank=True)
+    effects = models.ManyToManyField(
+        "game.Effect", 
+        verbose_name="Effects",
+        blank=True)
 
-    # Template overlay that will be put overlay the bg+border layer 
-    # May or may not be transparent bg
-    primary_template = models.ImageField(
-        upload_to=primary_template_directory_path,
+    primary_overlay = models.ImageField(
+        upload_to=primary_overlay_directory_path,
         storage=OverwriteStorage(),
         blank=True,
         null=True
     )
-    secondary_template = models.ImageField(
-        upload_to=secondary_template_directory_path,
+    secondary_overlay = models.ImageField(
+        upload_to=secondary_overlay_directory_path,
         storage=OverwriteStorage(),
         blank=True,
         null=True
     )
-    tertiary_template = models.ImageField(
-        upload_to=tertiary_template_directory_path,
+    tertiary_overlay = models.ImageField(
+        upload_to=tertiary_overlay_directory_path,
         storage=OverwriteStorage(),
         blank=True,
         null=True
     )
 
-    # Composed image
     primary_image = models.ImageField(
         upload_to=primary_power_directory_path, 
         storage=OverwriteStorage(),
@@ -80,8 +84,20 @@ class Power(models.Model):
     )    
     quote = models.CharField(max_length=255, null=True, blank=True)    
 
+    patch_version = models.CharField(
+        max_length=11,
+        verbose_name="Patch Version",
+        null=True, blank=True)
+
+    wiki_url = models.URLField(
+        max_length=2000,
+        verbose_name="Wiki Page",
+        null=True, blank=True)
+        
+
     def __str__(self):
         return f"[{self.owner.name}] {self.name}"
+
 
     def save(self, *args, **kwargs):
         super(Power, self).save(*args, **kwargs)
@@ -96,18 +112,12 @@ class Power(models.Model):
             image = image.resize((256, 256), Image.ANTIALIAS)
             image.save(self.secondary_image.path) 
 
-        if self.primary_template:
-            image = Image.open(self.primary_template)
+        if self.primary_overlay:
+            image = Image.open(self.primary_overlay)
             image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.primary_template.path)   
+            image.save(self.primary_overlay.path)   
 
-        if self.secondary_template:
-            image = Image.open(self.secondary_template)
+        if self.secondary_overlay:
+            image = Image.open(self.secondary_overlay)
             image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.secondary_template.path)                   
-    
-    class Meta:
-        ordering = ["owner"]
-        
-
-        
+            image.save(self.secondary_overlay.path)                   

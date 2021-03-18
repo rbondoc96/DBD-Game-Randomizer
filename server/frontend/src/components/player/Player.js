@@ -75,7 +75,9 @@ export default function Player({
 
     // const isHost = player.player_id == session.session.host.player_id 
 
-    const headers = (role=="killer")? ["Power", "Buffs", "Debuffs", "Tracking", "Special"] : ["Item", "Buffs", "Debuffs", "Auras", "Special"]
+    const headers = (player && player.role && player.role.toLowerCase() == "killer")
+        ? ["Power", "Buffs", "Debuffs", "Tracking", "Special"] 
+        : ["Item", "Buffs", "Debuffs", "Auras", "Special"]
 
     return(
         <div className={`Player Player--${

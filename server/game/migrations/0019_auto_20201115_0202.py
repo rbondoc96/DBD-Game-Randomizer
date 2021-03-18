@@ -16,23 +16,23 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='itemaddon',
-            name='template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.add_on.template_item_directory_path),
+            name='overlay',
+            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.add_on.overlay_item_directory_path),
         ),
         migrations.AddField(
             model_name='offering',
-            name='template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.offering.template_directory_path),
+            name='overlay',
+            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.offering.overlay_directory_path),
         ),
         migrations.AddField(
             model_name='power',
-            name='template',
+            name='overlay',
             field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), 
-            upload_to=game.models.power.primary_template_directory_path),
+            upload_to=game.models.power.primary_overlay_directory_path),
         ),
         migrations.AddField(
             model_name='poweraddon',
-            name='template',
-            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.add_on.template_power_directory_path),
+            name='overlay',
+            field=models.ImageField(blank=True, null=True, storage=game.storage.OverwriteStorage(), upload_to=game.models.add_on.overlay_power_directory_path),
         ),
     ]

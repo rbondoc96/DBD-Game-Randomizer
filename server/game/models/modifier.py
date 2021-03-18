@@ -1,22 +1,24 @@
 from django.db import models
 
 class ModifierType(models.Model):
+    
+    class Meta:
+        verbose_name = "Modifier Type"    
+    
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.name}"
-
-    class Meta:
-        verbose_name = "Modifier Type"
 
 class ModifierUnit(models.Model):
-    name = models.CharField(max_length=255)
+    
+    class Meta:
+        verbose_name = "Modifier Unit"
+
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.name}"
-
-    class Meta:
-        verbose_name = "Modifier Unit"
 
 class Modifier(models.Model):
     type = models.ForeignKey(
