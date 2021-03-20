@@ -23,10 +23,10 @@ class Item(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
     type = models.ForeignKey("game.ItemType", on_delete=models.CASCADE)
-    rarity = models.ForeignKey(
-        "game.Rarity", 
-        null=True, 
-        on_delete=models.SET_NULL
+    rarities = models.ManyToManyField(
+        "game.Rarity",
+        verbose_name="Rarities",
+        blank=True,
     )
     base_charges = models.IntegerField(
         verbose_name="Base Charges",
@@ -38,7 +38,7 @@ class Item(models.Model):
         "game.Effect", 
         verbose_name="Effects",
         blank=True)
-    quote = models.CharField(max_length=255, blank=True, null=True)
+    flavor = models.CharField(max_length=255, blank=True, null=True)
     
     overlay = models.ImageField(
         upload_to=overlay_directory_path,
@@ -46,13 +46,6 @@ class Item(models.Model):
         blank=True,
         null=True
     )
-
-    image = models.ImageField(
-        upload_to=item_directory_path, 
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )  
 
     patch_version = models.CharField(
         max_length=11,
@@ -69,14 +62,7 @@ class Item(models.Model):
         return f"[{self.type}] {self.name}"
 
     def save(self, *args, **kwargs):
-        super(Item, self).save(*args, **kwargs)
-        
-        if self.image:
-            image = Image.open(self.image)
-            width, height = image.size
-            if (width != 256) or (height != 256):
-                image = image.resize((256, 256), Image.ANTIALIAS)
-                image.save(self.image.path)        
+        super(Item, self).save(*args, **kwargs)      
 
         if self.overlay:
             image = Image.open(self.overlay)

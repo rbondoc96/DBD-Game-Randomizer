@@ -12,10 +12,11 @@ export default function PlayerAddons({
         for(let i=0; i<addons.length; i++) {
             let addon = addons[i]
             addonNodes.push(<Icon
-                src={addon.image} 
+                size="small"
+                src={addon.overlay} 
                 name={addon.name}
                 
-                rarity={addon.rarity}
+                rarities={addon.rarities}
                 reference={addon.power
                 ? addon.power.name
                 : addon.type

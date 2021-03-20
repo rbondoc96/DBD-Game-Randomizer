@@ -29,13 +29,17 @@ class Offering(models.Model):
         choices=Type.choices, 
         max_length=15, 
         default=Type.ALL)
-    rarity = models.ForeignKey("game.Rarity", on_delete=models.CASCADE)
+    rarities = models.ManyToManyField(
+        "game.Rarity",
+        verbose_name="Rarities",
+        blank=True,
+    )
     description = models.TextField(null=True, blank=True)
     effects = models.ManyToManyField(
         "game.Effect", 
         verbose_name="Effects",
         blank=True)
-    quote = models.CharField(max_length=255, blank=True, null=True)
+    flavor = models.CharField(max_length=255, blank=True, null=True)
 
     overlay = models.ImageField(
         upload_to=overlay_directory_path,
@@ -43,13 +47,6 @@ class Offering(models.Model):
         blank=True,
         null=True
     )
-
-    image = models.ImageField(
-        upload_to=offering_directory_path, 
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    ) 
 
     patch_version = models.CharField(
         max_length=11,
@@ -66,14 +63,7 @@ class Offering(models.Model):
         return f"[{self.type}] {self.name}"
 
     def save(self, *args, **kwargs):
-        super(Offering, self).save(*args, **kwargs)
-        
-        if self.image:
-            image = Image.open(self.image)
-            width, height = image.size
-            if (width != 256) or (height != 256):
-                image = image.resize((256, 256), Image.ANTIALIAS)
-                image.save(self.image.path)        
+        super(Offering, self).save(*args, **kwargs)    
 
         if self.overlay:
             image = Image.open(self.overlay)

@@ -3,8 +3,6 @@ import regeneratorRuntime from "regenerator-runtime"
 import React, {useContext, useEffect, useState} from "react"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
-import CharacterCard from "./components/CharacterCard"
-
 import {ViewContext} from "./context/ViewContext"
 import {SelfContext} from "./context/SelfContext"
 import {GameContext} from "./context/GameContext"
@@ -65,8 +63,8 @@ export default function App(props) {
                     <Route path="/create" component={Create} />
                     <Route path="/session" component={Session} />
                 </Switch>
-                <IconWindow 
-                />
+                {/* <IconWindow 
+                /> */}
                 <NavBar />
                 </div>
             </Router>

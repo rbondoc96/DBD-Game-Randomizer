@@ -30,10 +30,12 @@ class PowerAddOn(models.Model):
     power = models.ForeignKey(
         "game.Power", 
         on_delete=models.CASCADE)
-    rarity = models.ForeignKey(
-        "game.Rarity", 
-        null=True, 
-        on_delete=models.SET_NULL)
+    rarities = models.ManyToManyField(
+        "game.Rarity",
+        verbose_name="Rarities",
+        blank=True,
+    )
+
     description = models.TextField(null=True, blank=True)
     effects = models.ManyToManyField(
         "game.Effect", 
@@ -45,14 +47,7 @@ class PowerAddOn(models.Model):
         storage=OverwriteStorage(),
         blank=True,
         null=True
-    )    
-
-    image = models.ImageField(
-        upload_to=power_addon_directory_path, 
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )    
+    )       
 
     patch_version = models.CharField(
         max_length=11,
@@ -70,14 +65,7 @@ class PowerAddOn(models.Model):
 
 
     def save(self, *args, **kwargs):
-        super(PowerAddOn, self).save(*args, **kwargs)
-        
-        if self.image:
-            image = Image.open(self.image)
-            width, height = image.size
-            if (width != 256) or (height != 256):
-                image = image.resize((256, 256), Image.ANTIALIAS)
-                image.save(self.image.path)        
+        super(PowerAddOn, self).save(*args, **kwargs)      
 
         if self.overlay:
             image = Image.open(self.overlay)
@@ -96,10 +84,11 @@ class ItemAddOn(models.Model):
     type = models.ForeignKey(
         "game.ItemType", 
         on_delete=models.CASCADE)
-    rarity = models.ForeignKey(
-        "game.Rarity", 
-        null=True, 
-        on_delete=models.SET_NULL)
+    rarities = models.ManyToManyField(
+        "game.Rarity",
+        verbose_name="Rarities",
+        blank=True,
+    )
     description = models.TextField(null=True, blank=True)
     effects = models.ManyToManyField(
         "game.Effect", 
@@ -113,27 +102,13 @@ class ItemAddOn(models.Model):
         null=True
     )
 
-    image = models.ImageField(
-        upload_to=item_addon_directory_path, 
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )    
-
 
     def __str__(self):
         return f"[{self.type}] {self.name}"
 
 
     def save(self, *args, **kwargs):
-        super(ItemAddOn, self).save(*args, **kwargs)
-        
-        if self.image:
-            image = Image.open(self.image)
-            width, height = image.size
-            if (width != 256) or (height != 256):
-                image = image.resize((256, 256), Image.ANTIALIAS)
-                image.save(self.image.path)        
+        super(ItemAddOn, self).save(*args, **kwargs)      
 
         if self.overlay:
             image = Image.open(self.overlay)

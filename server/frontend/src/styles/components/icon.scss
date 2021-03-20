@@ -12,15 +12,20 @@
         }
     }
 }
+.Icon-bg {
+    position: absolute;
+}
 .Icon-image {
     position: relative;
     z-index: var(--zIndex-1);
     
 }
-.Icon--md .Icon-image {
+.Icon--md .Icon-image,
+.Icon--md .Icon-bg {
     width: calc(40px + 4.5vw);
 }
-.Icon--sm .Icon-image {
+.Icon--sm .Icon-image,
+.Icon--sm .Icon-bg {
     width: calc(28px + 3.5vw);
 }
 

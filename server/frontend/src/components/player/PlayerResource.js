@@ -10,7 +10,7 @@ export default function PlayerResource({
     type,
     name,
     quote,
-    rarity,
+    rarities,
     description,
 }) {
 
@@ -32,12 +32,12 @@ export default function PlayerResource({
             />
 
         // Resource is Survivor Item
-        } else if(rarity && (type && (type.toLowerCase() == "item"))) {
+        } else if(rarities && (type && (type.toLowerCase() == "item"))) {
             icon = <Icon 
                 src={src}
                 name={name}
 
-                rarity={rarity}
+                rarities={rarities}
                 type="Item"
 
                 description={description}

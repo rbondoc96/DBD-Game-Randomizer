@@ -104,21 +104,21 @@ export default function Player({
                     {player
                     ? player.item
                         ? <PlayerResource 
-                            src={player.item.image}
+                            src={player.item.overlay}
                             type="Item"
                             name={player.item.name}
-                            quote={player.item.quote}
-                            rarity={player.item.rarity}
+                            quote={player.item.flavor}
+                            rarities={player.item.rarities}
                             description={player.item.description}
                         />
                         : player.power
                             ? <PlayerResource 
-                                src={player.power.primary_image}
-                                src2={player.power.secondary_image}
-                                src3={player.power.tertiary_image}
+                                src={player.power.primary_overlay}
+                                src2={player.power.secondary_overlay}
+                                src3={player.power.tertiary_overlay}
                                 type="Power"
                                 name={player.power.name}
-                                quote={player.power.quote}
+                                quote={player.power.flavor}
                                 description={player.power.description}
                             />
                             : <PlayerResource />
@@ -139,11 +139,11 @@ export default function Player({
                 
                 {player && player.offering 
                 ? <PlayerOffering 
-                    src={player.offering.image}
+                    src={player.offering.overlay}
                     name={player.offering.name}
-                    rarity={player.offering.rarity}
+                    rarities={player.offering.rarities}
                     description={player.offering.description}
-                    quote={player.offering.quote}
+                    quote={player.offering.flavor}
                 />
                 : <PlayerOffering />
                 }
@@ -173,7 +173,7 @@ export default function Player({
                     </button>
                 </div>
             </div>
-            <div className="Player-stats">
+            {/* <div className="Player-stats">
                 <h3 className="Player-stats-header">Player Stats</h3>
                 <div className="Player-statlists">
                     {headers.map(str => {
@@ -184,7 +184,7 @@ export default function Player({
                         />
                     })}
                 </div>
-            </div>
+            </div> */}
         </div>        
     )
 }

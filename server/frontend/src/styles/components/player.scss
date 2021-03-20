@@ -1,24 +1,17 @@
 .Player {
     display: grid;
     grid-template-rows: fit-content(100%) auto;
-    grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-    "header header"
-    "left right";
+    "header"
+    "left";    
+    // grid-template-columns: 1fr 1fr;
+    // grid-template-areas: 
+    // "header header"
+    // "left right";
     column-gap: 2.4em;
 
     max-width: 1280px;
 }
-
-// .Player--lg {
-//     max-width: 1280px;
-// }
-// .Player--md {
-//     max-width: 650px;
-// }
-// .Player--sm {
-//     max-width: 320px;
-// }
 
 /*
 The info bar displaying the Player's type, name, and ID 
@@ -267,12 +260,11 @@ Styles for the PlayerStatList component
 
 @media only screen and (max-width: 950px) {
     .Player {
-        grid-template-rows: fit-content(100%) auto auto;
+        grid-template-rows: fit-content(100%) auto;
         grid-template-columns: none;
         grid-template-areas: 
         "header"
-        "left"
-        "right";
+        "left";
     }    
     .Player-perkset {
         grid-template-columns: fit-content(100%) fit-content(100%);

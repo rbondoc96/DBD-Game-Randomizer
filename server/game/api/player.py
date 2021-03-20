@@ -38,6 +38,7 @@ def randomize_player(instance, role, no_licensed_chars=False):
 
         offering = random_choice(offerings)
         instance.offering = offering
+
     
     # Get random Player resource (Item or Power)
     # Must reset Player resource from previous randomization
@@ -84,13 +85,16 @@ def randomize_player(instance, role, no_licensed_chars=False):
 
 
     perk_set = models.Perk.objects.filter(type=role__proper)
-    perk_set = perk_set.filter(
-        tier=3
-    )
     instance.perks.clear()
-    for _ in range(0, 4):
-        perk = perk_set[get_random_index(perk_set)]
-        
+    
+    while instance.perks.count() < 4:
+        perk = random_choice(perk_set)
+
+        if (perk in instance.perks.all()) and \
+            (perk_set.count() > 4):
+            while perk in instance.perks.all():
+                perk = random_choice(perk_set)
+                    
         instance.perks.add(perk)
         
     instance.save()
@@ -104,7 +108,7 @@ class PlayerAPI(APIView):
         # Get existing player if there is one, otherwise, create a new player
         if player is None:
             player = models.Player.objects.create()
-            data = PlayerSerializer(player).data            
+            data = PlayerSerializer(player).data          
             
             # Must be a dict, not model object
             request.session["player"] = data

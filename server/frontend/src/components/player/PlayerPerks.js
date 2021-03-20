@@ -7,19 +7,20 @@ export default function PlayerPerks({
     perks
 }) {
     var perkNodes = []
+
     if(perks) {
         for(let i=0; i<perks.length; i++) {
             let perk = perks[i]
             perkNodes.push(<Icon
-                src={perk.image} 
+                src={perk.overlay} 
                 name={perk.name}
-                tier={perk.tier}
 
-                rarity={perk.rarity}
+                tiers={perk.tiers}
+                rarities={perk.rarities}
                 reference={perk.owner}
                 type="Perk"
 
-                quote={perk.quote}
+                quote={perk.flavor}
                 description={perk.description}
                 effects={perk.effects}
             />)

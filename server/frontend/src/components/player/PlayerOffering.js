@@ -9,7 +9,7 @@ export default function PlayerOffering({
     src,
     name,
     quote,
-    rarity,
+    rarities,
     description,
 }) {
     
@@ -20,7 +20,7 @@ export default function PlayerOffering({
                 src={src}
                 name={name}
 
-                rarity={rarity}
+                rarities={rarities}
                 type="Offering"
 
                 quote={quote}

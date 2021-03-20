@@ -3,7 +3,7 @@ from rest_framework import serializers
 from game.models import Offering
 
 class OfferingSerializer(serializers.ModelSerializer):
-    rarity = serializers.StringRelatedField()
+    rarities  = serializers.StringRelatedField(many=True)
         
     class Meta:
         model = Offering

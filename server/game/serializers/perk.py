@@ -6,21 +6,23 @@ from game.serializers import EffectSerializer
 
 class PerkSerializer(serializers.ModelSerializer):
     owner = serializers.StringRelatedField()
-    rarity = serializers.StringRelatedField()
-
+    rarities  = serializers.StringRelatedField(many=True)
     effects = EffectSerializer(many=True)
     
     class Meta:
         model = Perk
-        fields = [
-            "id",
-            "owner",
-            "rarity",
-            "name",
-            "type",
-            "tier",
-            "description",
-            "quote",
-            "image",
-            "effects",
-        ] 
+        fields = "__all__"
+
+        # fields = [
+        #     "id",
+        #     "owner",
+        #     "rarity",
+        #     "name",
+        #     "type",
+        #     "tier",
+        #     "description",
+        #     "quote",
+        #     "image",
+        #     "effects",
+        #     "tiers",
+        # ] 

@@ -379,16 +379,22 @@ A Text Link for the Navbar component
   display: block;
 }
 
+.Icon-bg {
+  position: absolute;
+}
+
 .Icon-image {
   position: relative;
   z-index: var(--zIndex-1);
 }
 
-.Icon--md .Icon-image {
+.Icon--md .Icon-image,
+.Icon--md .Icon-bg {
   width: calc(40px + 4.5vw);
 }
 
-.Icon--sm .Icon-image {
+.Icon--sm .Icon-image,
+.Icon--sm .Icon-bg {
   width: calc(28px + 3.5vw);
 }
 
@@ -970,8 +976,7 @@ An encapsulated checkbox input and its associated label.
 .Player {
   display: grid;
   grid-template-rows: fit-content(100%) auto;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "header header" "left right";
+  grid-template-areas: "header" "left";
   grid-column-gap: 2.4em;
   -moz-column-gap: 2.4em;
        column-gap: 2.4em;
@@ -1232,9 +1237,9 @@ Styles for the PlayerStatList component
 }
 @media only screen and (max-width: 950px) {
   .Player {
-    grid-template-rows: fit-content(100%) auto auto;
+    grid-template-rows: fit-content(100%) auto;
     grid-template-columns: none;
-    grid-template-areas: "header" "left" "right";
+    grid-template-areas: "header" "left";
   }
 
   .Player-perkset {

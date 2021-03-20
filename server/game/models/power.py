@@ -64,25 +64,25 @@ class Power(models.Model):
         null=True
     )
 
-    primary_image = models.ImageField(
-        upload_to=primary_power_directory_path, 
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )
-    secondary_image = models.ImageField(
-        upload_to=secondary_power_directory_path,
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )
-    tertiary_image = models.ImageField(
-        upload_to=tertiary_power_directory_path,
-        storage=OverwriteStorage(),
-        blank=True,
-        null=True
-    )    
-    quote = models.CharField(max_length=255, null=True, blank=True)    
+    # primary_image = models.ImageField(
+    #     upload_to=primary_power_directory_path, 
+    #     storage=OverwriteStorage(),
+    #     blank=True,
+    #     null=True
+    # )
+    # secondary_image = models.ImageField(
+    #     upload_to=secondary_power_directory_path,
+    #     storage=OverwriteStorage(),
+    #     blank=True,
+    #     null=True
+    # )
+    # tertiary_image = models.ImageField(
+    #     upload_to=tertiary_power_directory_path,
+    #     storage=OverwriteStorage(),
+    #     blank=True,
+    #     null=True
+    # )    
+    flavor = models.CharField(max_length=255, null=True, blank=True)    
 
     patch_version = models.CharField(
         max_length=11,
@@ -101,23 +101,24 @@ class Power(models.Model):
 
     def save(self, *args, **kwargs):
         super(Power, self).save(*args, **kwargs)
-        
-        if self.primary_image:
-            image = Image.open(self.primary_image)
-            image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.primary_image.path)  
-        
-        if self.secondary_image:
-            image = Image.open(self.secondary_image)
-            image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.secondary_image.path) 
 
         if self.primary_overlay:
             image = Image.open(self.primary_overlay)
-            image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.primary_overlay.path)   
+            width, height = image.size
+            if (width != 256) or (height != 256):
+                image = image.resize((256, 256), Image.ANTIALIAS)
+                image.save(self.primary_overlay.path)           
 
         if self.secondary_overlay:
             image = Image.open(self.secondary_overlay)
-            image = image.resize((256, 256), Image.ANTIALIAS)
-            image.save(self.secondary_overlay.path)                   
+            width, height = image.size
+            if (width != 256) or (height != 256):
+                image = image.resize((256, 256), Image.ANTIALIAS)
+                image.save(self.secondary_overlay.path)     
+
+        if self.tertiary_overlay:
+            image = Image.open(self.tertiary_overlay)
+            width, height = image.size
+            if (width != 256) or (height != 256):
+                image = image.resize((256, 256), Image.ANTIALIAS)
+                image.save(self.tertiary_overlay.path)      

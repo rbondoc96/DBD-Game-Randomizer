@@ -7,7 +7,7 @@ from game.serializers import (
 
 class ItemAddOnSerializer(serializers.ModelSerializer):
     type = serializers.StringRelatedField()
-    rarity = serializers.StringRelatedField()
+    rarities  = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = ItemAddOn
@@ -15,7 +15,7 @@ class ItemAddOnSerializer(serializers.ModelSerializer):
 
 class PowerAddOnSerializer(serializers.ModelSerializer):
     power = PowerSerializer()
-    rarity = serializers.StringRelatedField()
+    rarities  = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = PowerAddOn
