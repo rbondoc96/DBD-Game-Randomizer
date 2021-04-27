@@ -1,0 +1,24 @@
+.Page {
+    width: 85vw;
+    max-width: 960px;
+    
+    justify-self: center;
+    margin-top: 2.5rem;
+}
+
+.PageHeader {
+    font-size: 1.05rem;
+}
+
+.PageFooter {
+    font-weight: var(--fontWeight-light);
+    margin: 1.5em 0;
+}
+
+.PageSubheader {
+    font-size: 1.6rem;
+}
+
+.PageText {
+    font-size: 1.3rem;
+}

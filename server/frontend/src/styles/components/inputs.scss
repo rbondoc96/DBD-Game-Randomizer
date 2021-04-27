@@ -230,25 +230,3 @@ An encapsulated checkbox input and its associated label.
         transition: var(--msecs-300) color;
     }
 }
-
-.button {
-    width: 100%;
-    color: var(--color-border);
-    padding: 0.3em;
-    font-size: calc(14px + 0.5vw);
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-
-    transition: var(--msecs-300) border-color, var(--msecs-300) color;
-
-    &:hover {
-        cursor: pointer;
-        color: var(--color-link);
-        border-color: var(--color-link);
-        transition: var(--msecs-300) border-color, var(--msecs-300) color;
-    }
-
-    &:focus {
-        outline: none;
-    }
-}

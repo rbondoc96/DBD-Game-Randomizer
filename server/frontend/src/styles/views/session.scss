@@ -1,10 +1,142 @@
 .Session {
-    display: inline-grid;
-    grid-template-columns: auto auto;
-    column-gap: 40px;
+    display: grid;
 }
 .Session-meta {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.SessionStart,
+.SessionStart--mobile {
+    display: grid;
+    
+    align-items: center;
+}
+.SessionStart {
+    grid-auto-flow: column;
+    justify-items: center;
+}
+.SessionStart--mobile {
+    grid-auto-flow: row;
+    justify-content: center;
+
+    .SessionStart-vertical-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-text);
+    }
+}
+
+.Session-create {
+    justify-self: end;
+}
+.SessionStart-vertical-line {
+    width: 2px;
+    height: 40%;
+    background-color: var(--color-text);
+}
+.Session-join {
+    justify-self: start;
+}
+
+.Session-create,
+.Session-join {
+    display: grid;
+    row-gap: calc(12px + 0.4vh);
+}
+
+.Session-create h2,
+.Session-join h2 {
+    text-align: center;
+    margin: 0;
+}
+
+.SessionRoom,
+.SessionRoom--mobile {
+    display: grid;
+}
+.SessionRoom-meta {
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+    margin: 1.5em 0;
+}
+.SessionRoom--mobile .SessionRoom-meta {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: none;
+}
+.SessionRoom-image {
+    max-width: 100%;
+    width: calc(250px + 12vw);
+    min-width: 250px;
+}
+.SessionRoom-obsession,
+.SessionRoom-mode,
+.SessionRoom-id,
+.SessionRoom-host {
+    font-size: calc(1em + 0.5vw);
+}
+.SessionRoom--mobile .SessionRoom-obsession,
+.SessionRoom--mobile .SessionRoom-mode,
+.SessionRoom--mobile .SessionRoom-id,
+.SessionRoom--mobile .SessionRoom-host {
+    font-size: calc(1em + 0.5vw);
+    text-align: center;
+}
+.SessionRoom-obsession-label,
+.SessionRoom-mode-label,
+.SessionRoom-host-label,
+.SessionRoom-id-label,
+.SessionRoom-host-value > span,
+.SessionRoom-obsession-value > span {
+    font-weight: var(--fontWeight-bold);
+}
+.SessionRoom-obsession-value,
+.SessionRoom-mode-value,
+.SessionRoom-host-value,
+.SessionRoom-id-value {
+    font-weight: var(--fontWeight-light);
+}
+.SessionRoom-left {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.SessionRoom-right {
+    display: grid;
+    row-gap: 10px;
+    margin: 1em;
+}
+.SessionRoom--mobile .SessionRoom-right {
+    display: grid;
+    row-gap: 10px;
+    margin: 1em;
+    justify-items: center;    
+}
+.SessionRoom-realm-name {
+    font-weight: var(--fontWeight-bold);
+    font-size: calc(1.5em + 0.5vw);
+    margin: 0.6em 0;
+}
+.SessionRoom--mobile .SessionRoom-realm-name {
+    font-weight: var(--fontWeight-bold);
+    font-size: calc(1.5em + 0.5vw);
+    margin: 1em 0;    
+}
+.SessionRoom-Players {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    margin-bottom: 2em;
+}
+.SessionRoom--mobile .SessionRoom-Players {
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+    margin-bottom: 0;
+}
+.SessionRoom--mobile .SessionRoom-Player {
+    margin-bottom: 2em;
 }

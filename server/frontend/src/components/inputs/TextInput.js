@@ -7,6 +7,7 @@ export default function TextInput({
     value,
     placeholder,
     onChange,
+    maxLength,
 }) {
 
     return(
@@ -18,6 +19,8 @@ export default function TextInput({
                 name={name} 
                 onChange={onChange}
                 defaultValue={value}  
+                placeholder={placeholder}
+                maxLength={maxLength}
             />
         </div>
     )

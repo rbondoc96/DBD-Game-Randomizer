@@ -49,6 +49,11 @@ To install the Python and JavaScript packages, run the following commands from t
 /server/ > python manage.py runserver   # Start Django dev server and ASGI
 ```
 
+### Starting Docker Compose for Redis
+```bash
+docker-compose up
+```
+
 ## Sources
 - Game Icon Pack
     - <a href="https://www.reddit.com/r/PerkByDaylight/comments/jsljrb/toon_pack_a_binding_of_kin_update/">Toon Pack</a> by Reddit user u/Shirbler

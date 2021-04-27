@@ -63,7 +63,7 @@ class Player(models.Model):
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
-        ordering = ["player_id"]
+        ordering = ["created", "player_id"]
 
     def __str__(self):
         return f"{self.name}#{self.player_id}"

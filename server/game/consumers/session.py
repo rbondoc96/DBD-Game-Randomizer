@@ -6,6 +6,7 @@ from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+from game.utils.logs import Logger
 from game.models import (
     Session, 
     Player, 
@@ -14,8 +15,11 @@ from game.models import (
     Character,
     Offering,
 )
-from game.serializers import SessionSerializer
+from game.serializers import SessionSerializer, PlayerCreateSerializer
 from game.utils import get_random_index, generate_random_player
+
+TAG = "SessionConsumer"
+logger = Logger(TAG)
 
 def get_rand_index(iterable):
     return sample(range(0, len(iterable)), 1)[0]
@@ -26,6 +30,7 @@ class SessionConsumer(AsyncWebsocketConsumer):
     
     # User connects to Consumer through "ws://" URL
     async def connect(self):
+        print("connecting to ws client")
 
         # <<self.scope>> is similar to <<request>> in Django views
         # <<self.scope["url_route"]>> - A dict with 2 keys: "kwargs" and "args"
@@ -35,9 +40,12 @@ class SessionConsumer(AsyncWebsocketConsumer):
         self.session_id = self.scope["url_route"]["kwargs"]["session_id"]
         self.session_group_name = f"session-{self.session_id}"
 
-        # Grab the Player's ID stored in the session, if it exists
+        # Grab the Player stored in the session, if it exists
+        self.player = await database_sync_to_async(
+            self.scope["session"].get)("player")
+
         self.player_id = await database_sync_to_async(
-            self.scope["session"].get)("playerId")
+            self.player.get)("player_id")
 
         # A session is a 6 character alphanumeric string
         session_regex = re.compile(r"^([a-zA-Z0-9]{6})$")
@@ -50,30 +58,30 @@ class SessionConsumer(AsyncWebsocketConsumer):
                     self.player = await database_sync_to_async(
                         Player.objects.get)(player_id=self.player_id)
 
-                    print("Acquired existing player: ", self.player)
+                    print("Acquired existing player:", self.player)
                     
                 except Player.DoesNotExist:
                     print("Player did not exist. Creating a new one")
 
                     self.player = await self.generate_player("survivor")
-                    self.scope["session"]["playerId"] = self.player.player_id
+                    self.scope["session"]["player"] = self.player
                     await database_sync_to_async(self.scope["session"].save)()
 
                     self.player_id = await database_sync_to_async(
-                        self.scope["session"].get)("playerId")
+                        self.player.get)("player_id")
             
             else:
                 print("Creating a new player")
                 
                 self.player = await self.generate_player("survivor")
-                self.scope["session"]["playerId"] = self.player.player_id
+                self.scope["session"]["player"] = self.player
                 await database_sync_to_async(self.scope["session"].save)()
                 
                 self.player_id = await database_sync_to_async(
-                    self.scope["session"].get)("playerId")
+                    self.player.get)("player_id")
 
+            # Look for existing session first before making a new one
             try:
-                # Look for existing session with given session id
                 self.session = await database_sync_to_async(
                     Session.objects.get)(session_id=self.session_id)
 
@@ -109,10 +117,7 @@ class SessionConsumer(AsyncWebsocketConsumer):
 
                 else:
                     print("Max number of players exceeded")
-            else:
-                # Player is already in list, just send session/pass
-                pass
-
+            
             await self.channel_layer.group_add(
                 self.session_group_name,
                 self.channel_name,
@@ -130,8 +135,6 @@ class SessionConsumer(AsyncWebsocketConsumer):
                 getattr)(serializer, "data")
 
             payload = {
-                "playerId": self.player_id,
-                "sessionId": self.session_id,
                 "session": data,
             }         
             await self.send(text_data=json.dumps(payload))
@@ -205,7 +208,7 @@ class SessionConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_session_players(self):
-        # Must convert to a list before returning. 
+        # Must convert to a list before returning
         # Returning as a QuerySet gives Synchronous Errors
         players = list(self.session.players.all())
         return players
@@ -259,24 +262,43 @@ class SessionConsumer(AsyncWebsocketConsumer):
         return PLAYER        
 
     @database_sync_to_async
-    def generate_session(self, mode, host, num_players=1):
-        data = {
+    def generate_session(self, mode, host):
+        attributes = {
             "mode": mode.title(),
             "host": host,
         }
         
         session = Session.objects.create(
-            **data,
+            **attributes,
         )
         session.players.add(host)
-        session.save()
 
-        # if num_players > 2 and (mode == "survivor" or mode == "custom"):
-        #     if host.role() == "killer":
-        #         # Generate survivors
-        #         pass
-        #     else: 
-        #         # Generate 1 killer and see if extra survivors are needed
-        #         pass
+        # "Custom" games require that the host is the killer
+        if mode == "Custom" and host.role.lower() != "killer":
+
+            reverse_role = "killer"
+
+            # Temporary instance
+            new_player = self.generate_player(role=reverse_role)
+            new_data = PlayerCreateSerializer(new_player).data
+
+            # Don't need these fields when updating an existing field
+            del new_data["id"]
+            del new_data["player_id"]
+            new_player.delete()
+            
+            serializer = PlayerCreateSerializer(
+                host, 
+                data=new_data,     
+                partial=True,
+            )
+
+            if serializer.is_valid():
+                print("Host is now the Killer.")
+                serializer.save()
+            else:
+                print("Role change unsuccessful")
+
+        session.save()
 
         return session

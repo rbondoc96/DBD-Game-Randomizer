@@ -211,7 +211,7 @@ export default function Icon({
                     break
             }
         }
-    }, [rarities])
+    }, [rarities, type])
 
 
     return(

@@ -7,7 +7,7 @@ class SessionSerializer(serializers.ModelSerializer):
     host = PlayerSerializer()
     players = PlayerSerializer(many=True)
     realm = RealmSerializer()
-    obsession = serializers.StringRelatedField()
+    obsession = PlayerSerializer()
     
     class Meta:
         model = Session

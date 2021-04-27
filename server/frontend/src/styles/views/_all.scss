@@ -1,0 +1,12 @@
+@import "./home.scss";
+@import "./about.scss";
+@import "./session.scss";
+@import "./settings.scss";
+
+.Home,
+.About,
+.Session,
+.Settings {
+    max-width: 100vw;
+    min-height: calc(100vh - var(--navBar-height));    
+}

@@ -1,7 +1,8 @@
 import React, {useContext, useState, useEffect} from "react"
-import {Link, useLocation} from "react-router-dom"
+import {Link, useLocation, useRouteMatch} from "react-router-dom"
 
 import {ViewContext} from "../../context/ViewContext"
+import {UIContext} from "../../context/UIContext"
 
 import NavLink from "./NavLink"
 
@@ -12,6 +13,9 @@ export default function NavBar({
 }) {
 
     const [view, setView] = useContext(ViewContext)
+    const {mobileState} = useContext(UIContext)
+    const [isMobile, setIsMobile] = mobileState
+
     const [showNavbar, setShowNavbar] = useState(false)
 
     const location = useLocation()
@@ -29,7 +33,6 @@ export default function NavBar({
     }
 
     useEffect(() => {
-        
         window.addEventListener("resize", resetNavbar)
 
         return () => {
@@ -39,7 +42,7 @@ export default function NavBar({
     
     return(
         <>
-        <div className={(view.isMedium || view.isSmall)
+        <div className={isMobile
             ? `NavBar--mobile${showNavbar
                 ? ""
                 : "--hidden"}`
@@ -53,7 +56,7 @@ export default function NavBar({
                 <NavLink
                     href="/about"
                     children="About" 
-                    isActive={currentPath == "/about"} 
+                    isActive={currentPath.includes("/about")} 
                 />
             </div>
             <div className="NavBar-center">
@@ -65,16 +68,16 @@ export default function NavBar({
                 <NavLink 
                     href="/sessions"
                     children="Sessions" 
-                    isActive={currentPath == "/sessions"} 
+                    isActive={currentPath.includes("/sessions")} 
                 />
                 <NavLink 
                     href="/settings"
                     children="Settings" 
-                    isActive={currentPath == "/settings"}     
+                    isActive={currentPath.includes("/settings")}     
                 />
             </div>
         </div>
-        {(view.isMedium || view.isSmall) && <span 
+        {isMobile && <span 
             className="NavBar-toggle" 
             onClick={navbarToggle}
         >

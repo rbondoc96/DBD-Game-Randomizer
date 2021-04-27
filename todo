@@ -33,3 +33,10 @@ Effect {
 
 Adding Effects
 - Summing modifiers if modifierTypes match
+
+
+# 26 April
+- Fix Session host client logic
+- Fix 
+- Fix Obsession picking logic - DONE
+- Fix Session leaving logic

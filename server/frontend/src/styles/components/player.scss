@@ -24,9 +24,12 @@ The info bar displaying the Player's type, name, and ID
     display: grid;
     align-items: end;
     grid-template-columns: 
-    fit-content(100%) fit-content(100%) fit-content(100%);
+    fit-content(100%) 
+    fit-content(100%) 
+    fit-content(100%) 
+    fit-content(100%);
 
-    margin: 1em 0;
+    margin: 0.6em 0;
 }
 .PlayerInfo-icon {
     display: grid;
@@ -53,6 +56,19 @@ The info bar displaying the Player's type, name, and ID
     font-size: 18px;
     font-weight: 600;
 }
+.PlayerInfo-host,
+.PlayerInfo-obsession {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    > img {
+        position: relative;
+        width: 40px;
+        top: 5px;
+    }
+}
+
 
 /*
 The player's assets (character, perks, item/power, add-ons, offering)

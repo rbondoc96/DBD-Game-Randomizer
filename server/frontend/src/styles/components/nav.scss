@@ -5,7 +5,7 @@
     align-self: end;
 
     width: 950px;
-    height: 150px;
+    height: var(--navBar-height);
     border-top: 1px solid var(--color-text);
     margin: 0 auto;
 
@@ -50,15 +50,14 @@ A Text Link for the Navbar component
         font-size: 20px;
         font-weight: 300;
 
-        transition-property: font-size;
+        transition-property: color;
         transition-duration: 0.3s;
     }
     > a:hover {
         color: var(--color-link);
-        font-size: 24px;
         font-weight: 400;
 
-        transition-property: font-size;
+        transition-property: color;
         transition-duration: 0.3s;
     }
 }
@@ -76,16 +75,10 @@ A Text Link for the Navbar component
     > a {
         text-decoration: none;
         color: var(--color-link);
-        font-weight: 400;
+        font-weight: var(--fontWeight-bold);
         font-size: 20px;
 
-        transition-property: font-size;
-        transition-duration: 0.3s;
-    }
-    > a:hover {
-        font-size: 24px;
-
-        transition-property: font-size;
+        transition-property: color;
         transition-duration: 0.3s;
     }    
 }
@@ -130,11 +123,12 @@ A Text Link for the Navbar component
     bottom: 3%;
     left: 3%;
 
-    height: 3.5em;
-    width: 3.5em;
+    height: 3.2em;
+    width: 3.2em;
 
     border-radius: 50%;
     border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
     
     transition: 0.3s border-color;
 

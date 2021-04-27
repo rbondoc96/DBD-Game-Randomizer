@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 websocket = "*"
+colorama = "*"
 
 [packages]
 django = "*"

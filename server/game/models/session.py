@@ -9,7 +9,6 @@ def generate_session_id():
 class Session(models.Model):
     
     class GameMode(models.TextChoices):
-        killer = "Killer", _("Killer")
         survivor = "Survivor", _("Survivor")
         custom = "Custom", _("Custom")
     

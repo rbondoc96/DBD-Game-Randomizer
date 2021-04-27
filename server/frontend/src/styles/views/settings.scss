@@ -1,0 +1,47 @@
+.Settings-info {
+    font-weight: var(--fontWeight-light);
+    margin: 1.1em 0;
+
+    span {
+        font-size: 0.68em;
+        font-weight: var(--fontWeight-bold);
+    }
+}
+
+.SettingsTextField,
+.SettingsEditableTextField {
+   font-size: 22px;
+   margin: 0.4em 0;   
+}
+
+.SettingsTextField-label,
+.SettingsEditableTextField-label {
+   display: inline-block;
+   font-weight: var(--fontWeight-bold);
+   
+   width: 10em;
+}
+
+.SettingsTextField-value,
+.SettingsEditableTextField-value {
+    display: inline-block;
+    outline: none;
+    margin-right: 40px;
+
+    font-weight: var(--fontWeight-light);
+}
+.SettingsEditableTextField-value--editable {
+    background-color: rgb(39, 39, 43);
+}
+
+.SettingsEditableTextField-button {
+   outline: none;
+   border: none;
+   background-color: var(--color-bg);
+   cursor: pointer;
+   margin-right: 1.3em;
+
+   font-size: 20px;
+   font-family: "Source Sans Pro", sans-serif;
+   color: var(--color-link);
+}

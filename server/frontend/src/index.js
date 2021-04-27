@@ -7,6 +7,7 @@ import {IconProvider} from "./context/IconContext"
 import {GameProvider} from "./context/GameContext"
 import {PlayerProvider} from "./context/PlayerContext"
 import {SessionProvider} from "./context/SessionContext"
+import {UIProvider} from "./context/UIContext"
 
 import App from "./app"
 
@@ -16,11 +17,13 @@ ReactDOM.render(
             <SessionProvider>
                 <PlayerProvider>
                     <ViewProvider>
-                        <SelfProvider>
-                            <IconProvider>
-                                <App />
-                            </IconProvider>
-                        </SelfProvider>
+                        <UIProvider>
+                            <SelfProvider>
+                                <IconProvider>
+                                    <App />
+                                </IconProvider>
+                            </SelfProvider>
+                        </UIProvider>        
                     </ViewProvider>
                 </PlayerProvider>
             </SessionProvider>

@@ -5,9 +5,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from game.utils.logs import Logger
+
 # Importing module to avoid ImportError
 import game.models as models
-
 from game.serializers import(
     PlayerSerializer,
     PlayerCreateSerializer,
@@ -15,7 +16,14 @@ from game.serializers import(
 
 from game.utils.random import get_random_index
 
+TAG = "PlayerAPI"
+logger = Logger(TAG)
+
 def randomize_player(instance, role, no_licensed_chars=False):
+    # Auto Survivor assignment may avoid issue with 2+ Killers in a session
+    if(role is None):
+        role = "Survivor"
+
     role__proper = role.title()
     
     instance.role = role__proper
@@ -31,7 +39,7 @@ def randomize_player(instance, role, no_licensed_chars=False):
     # Get random Player offering
     offering = None
     if randint(0,3):
-        if role=="survivor":
+        if role.lower() == "survivor":
             offerings = models.Offering.objects.exclude(type="Killer")
         else:
             offerings = models.Offering.objects.exclude(type="Survivor")
@@ -44,7 +52,7 @@ def randomize_player(instance, role, no_licensed_chars=False):
     # Must reset Player resource from previous randomization
     instance.item = None;
     instance.power = None;
-    if role == "survivor":
+    if role.lower() == "survivor":
         items = models.Item.objects.all()
         item = random_choice(items)
         instance.item = item
@@ -115,23 +123,56 @@ class PlayerAPI(APIView):
         
         else:
             id = player.get("player_id")
-            player = models.Player.objects.get(player_id=id)
+            try:
+                player = models.Player.objects.get(player_id=id)
+            except models.Player.DoesNotExist:
+                player = models.Player.objects.create()
+                data = PlayerSerializer(player).data          
+                
+                request.session["player"] = data
         
         params = request.query_params
         action = params.get("action")
         role = params.get("role")
+        name = params.get("name")
         no_licensed_chars = params.get("noLicensedChars")
 
         if no_licensed_chars is not None:
             no_licensed_chars = True \
                 if params.get("noLicensedChars").lower() == "true" else False
 
-        if action == "randomize" and role is not None:
-            player = randomize_player(
-                player, 
-                role,
-                no_licensed_chars=no_licensed_chars
-            )
+        if action == "randomize":
+            if role is not None and no_licensed_chars is not None:
+                player = randomize_player(
+                    player, 
+                    role,
+                    no_licensed_chars=no_licensed_chars
+                )
+            elif role is not None and no_licensed_chars is None:
+                player = randomize_player(
+                    player, 
+                    role,
+                )        
+            elif role is None and no_licensed_chars is not None:
+                player = randomize_player(
+                    player, 
+                    player.role,
+                    no_licensed_chars=no_licensed_chars
+                ) 
+            else:
+                player = randomize_player(
+                    player, 
+                    player.role,
+                ) 
+
+        elif action == "rename" and name is not None:
+            if len(name) <= 255:
+                player.name = name.strip()
+                player.save()
+            else:
+                return Response({
+                    "error": "Name is longer than 255 characters."
+                }, status=status.HTTP_400_BAD_REQUEST)
         
         payload = PlayerSerializer(player).data
         return Response({

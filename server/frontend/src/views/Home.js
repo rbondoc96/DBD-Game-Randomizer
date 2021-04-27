@@ -2,6 +2,7 @@ import React, {useRef, useState, useContext, useEffect} from "react"
 
 import {ViewContext} from "../context/ViewContext"
 import {SelfContext} from "../context/SelfContext"
+import {UIContext} from "../context/UIContext"
 
 import Player from "../components/player/Player"
 
@@ -14,13 +15,24 @@ function HomeRadioText({
     onClick,
 }) {
 
+    const {mobileState} = useContext(UIContext)
+    const [isMobile, setIsMobile] = mobileState    
+
+    let labelClass
+    if((role == value) && isMobile) {
+        labelClass="HomeRadioText-label--mobile--active"
+    } else if((role == value) && !isMobile) {
+        labelClass="HomeRadioText-label--active"
+    } else if((role != value) && isMobile) {
+        labelClass="HomeRadioText-label--mobile"
+    } else if((role != value) && !isMobile) {
+        labelClass="HomeRadioText-label"
+    }
+
     return(
         <div className="HomeRadioText">
             <label htmlFor={id} 
-                className={role==value
-                    ? "HomeRadioText-label--active"
-                    : "HomeRadioText-label"
-                }
+                className={labelClass}
             >
                 {children}
                 <input
@@ -39,47 +51,40 @@ function HomeRadioText({
 export default function Home() {
     const [view, setView] = useContext(ViewContext)
     const [self, setSelf] = useContext(SelfContext)
+    const {mobileState} = useContext(UIContext)
+    const [isMobile, setIsMobile] = mobileState
     const [role, setRole] = useState(null)
 
     const homeRadioOnClick = event => {
-        let self = event.currentTarget
-        if(self.checked) {
-            setRole(self.getAttribute("value"))
+        let target = event.currentTarget
+        let button = document.querySelector(
+            ".Home .Player .Player-button .button"
+        )
+        if(target.checked) {
+            setRole(target.getAttribute("value"))
+
+            button.classList.add("button--pulse")
         }
     }
 
     useEffect(() => {
-        fetch("api/player/")
-        .then(res => res.json())
-        .then(json => {
-            let player = json.player
-            console.log(player)
-
-            if(player.role) {
-                setRole(json.player.role.toLowerCase())
-            } else {
-                setRole("killer")
-            }
-
-            setSelf(json.player)
-        })
-    }, [])
+        if(self && self.role) {
+            setRole(self.role.toLowerCase())
+        }  
+    }, [self])
     
     return(
         <div className="Home">
             <div className="Home-randomizer">
-                <Player size={
-                    view.isLarge
-                    ? "large"
-                    : view.isMedium
-                        ? "medium"
-                        : "small"
-                } 
-                role={role} 
-                data={self}
+                <Player 
+                    role={role} 
+                    data={self}
+                    isSelf={true}
                 />
             </div>
-            <div className="Home-randomizer-options">
+            <div className={
+                isMobile? "Home-randomizer-options--mobile": "Home-randomizer-options"
+                }>
                 <HomeRadioText
                     onClick={homeRadioOnClick} 
                     value="killer"

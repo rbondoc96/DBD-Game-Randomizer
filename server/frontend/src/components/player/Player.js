@@ -15,13 +15,13 @@ import PlayerAddons from "./PlayerAddons"
 import PlayerOffering from "./PlayerOffering"
 import PlayerStatList from "./PlayerStatList"
 
-/* 
-Button Click:   By default, the button will fetch a random Player build.
-*/
 export default function Player({
     role,
     size,
     data,
+    isSelf,
+    isSessionHost,
+    isObsession,
     buttonText="Randomize",
     buttonOnClick=null,
 }) {
@@ -38,13 +38,21 @@ export default function Player({
     }
 
     const randomize = event => {
-        var params = new URLSearchParams({
-            "action": "randomize",
-            "role": role,
-            "noLicensedChars": noLicensedChars,
-        })
+        var params
+        if(role) {
+            params = new URLSearchParams({
+                "action": "randomize",
+                "role": role,
+                "noLicensedChars": noLicensedChars,
+            })
+        } else {
+            params = new URLSearchParams({
+                "action": "randomize",
+                "noLicensedChars": noLicensedChars,
+            })
+        }
 
-        fetch("/api/player/" + "?" + params)
+        fetch("/api/player/?" + params)
         .then(res => res.json())
         .then(json => {
             let data = json.player
@@ -52,9 +60,15 @@ export default function Player({
             // Only if the acquired player is the current User
             if(self.player_id == data.player_id) {
                 setSelf(data)
-                setPlayer(data)
             }
+            setPlayer(data)
         })
+
+        /* Cleaning up button style */
+        let button = event.currentTarget
+        if(button.classList.contains("button--pulse")) {
+            button.classList.remove("button--pulse")
+        }
     }
 
     const statListOnClick = event => {
@@ -73,20 +87,15 @@ export default function Player({
         }    
     }, [data])
 
-    // const isHost = player.player_id == session.session.host.player_id 
-
     const headers = (player && player.role && player.role.toLowerCase() == "killer")
         ? ["Power", "Buffs", "Debuffs", "Tracking", "Special"] 
         : ["Item", "Buffs", "Debuffs", "Auras", "Special"]
 
     return(
-        <div className={`Player Player--${
-            size=="small"? "sm"
-            : size=="medium"||!size? "md"
-            : size=="large"? "lg"
-            : "md" 
-        }`}>    
+        <div className="Player">    
             <PlayerInfo 
+                isSessionHost={isSessionHost}
+                isObsession={isObsession}
                 role={(player && player.role)? player.role : role}
                 name={player && player.name}
                 playerId={player && player.player_id}
@@ -155,15 +164,15 @@ export default function Player({
                 : <PlayerPerks />
                 }
 
-                <div className="Player-checkbox">
+                {isSelf && <div className="Player-checkbox">
                     <CheckboxInput 
                         id={"no-licensed-chars"}
                         name={"no-licensed-chars"}
                         label={"Free characters only?"}
                         onChange={toggleCharacterChoice}
                     />
-                </div>
-                <div className="Player-button">
+                </div>}
+                {isSelf && <div className="Player-button">
                     <button className="button" onClick={
                         buttonOnClick
                         ? buttonOnClick
@@ -171,9 +180,9 @@ export default function Player({
                     }>
                         {buttonText}
                     </button>
-                </div>
+                </div>}
             </div>
-            {/* <div className="Player-stats">
+            {/* To add later <div className="Player-stats">
                 <h3 className="Player-stats-header">Player Stats</h3>
                 <div className="Player-statlists">
                     {headers.map(str => {
