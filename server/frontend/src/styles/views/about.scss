@@ -8,6 +8,51 @@
 .About-text > div {
     font-weight: var(--fontWeight-light);
 }
+
+.app .About-examples,
+.app--mobile .About-examples {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+
+    // &::before {
+    //     position: absolute;
+    //     top: 0;
+
+    //     width: 98%;
+    //     height: 1px;
+    //     background-color: var(--color-text);
+
+    //     content: "";
+    //     transform: translate(1%, 0);
+    // }
+
+    // &::after {
+    //     position: absolute;
+    //     bottom: 0;
+
+    //     width: 98%;
+    //     height: 2px;
+    //     background-color: var(--color-text);
+
+    //     content: "";
+    //     transform: translate(1%, 0);
+    // }
+}
+.app .About-examples {
+    .PlayerPerks {
+        grid-template-rows: fit-content(100%) fit-content(100%);
+        grid-template-columns: none;
+        row-gap: 0.5em;
+        column-gap: 0;
+    }    
+    .PlayerPerks .Player-perkset {
+        justify-self: center;
+    }
+}
+.app--mobile .About-examples {
+    grid-auto-flow: row;
+}
 .About-footer-text > div {
-    font-size: 1rem;        
+    font-size: 1rem;
 }

@@ -1,11 +1,17 @@
-import React from "react"
+import React, {useContext} from "react"
+import {UIContext} from "../../context/UIContext"
 
 export default function Page({
     classes="",
     children,
 }) {
+    const {mobileState} = useContext(UIContext)
+    const isMobile = mobileState[0]
 
     let classNames = `Page ${classes}`
+    if(isMobile) {
+        classNames = `Page--mobile ${classes}`
+    }
 
     return(
         <div className={classNames}>

@@ -4,8 +4,6 @@
     width: fit-content;
 
     &:hover {
-        cursor: pointer;
-
         .Icon-info {
             display: block;
     
@@ -13,9 +11,33 @@
     }
 }
 .Icon-bg {
+    display: block;
     position: absolute;
 }
+.Icon-border {
+    cursor: pointer;
+    position: absolute;
+    z-Index: var(--zIndex-9);
+    top: 13%;
+    left: 12%;
+    transform: rotate(45deg);
+
+    width: calc(40px + 4.5vw);
+    height: calc(40px + 4.5vw);
+    max-width: 60px;
+    max-height: 60px;
+    border: 2px solid transparent;
+
+    transition: 0.2s border-color ease-out;
+
+    &:hover {
+        border-color: #FFF;
+
+        transition: 0.2s border-color ease-out;
+    }
+}
 .Icon-image {
+    display: block;
     position: relative;
     z-index: var(--zIndex-1);
     
@@ -23,10 +45,12 @@
 .Icon--md .Icon-image,
 .Icon--md .Icon-bg {
     width: calc(40px + 4.5vw);
+    max-width: 85px;
 }
 .Icon--sm .Icon-image,
 .Icon--sm .Icon-bg {
     width: calc(28px + 3.5vw);
+    max-width: 70px;
 }
 
 .Icon-info {

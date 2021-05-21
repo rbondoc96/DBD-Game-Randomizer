@@ -109,6 +109,7 @@ A Text Link for the Navbar component
     }
 }
 .NavBar--mobile {
+    position: fixed;
     top: 0;
 
     border-bottom: 1px solid var(--color-border);
@@ -127,14 +128,31 @@ A Text Link for the Navbar component
     width: 3.2em;
 
     border-radius: 50%;
-    border: 1px solid var(--color-border);
+    border: 3px solid var(--color-border);
     background-color: var(--color-bg);
     
-    transition: 0.3s border-color;
+    transition: 0.3s border-color, var(--msecs-200) bottom ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
         cursor: pointer;
         border-color: var(--color-text);
         transition: 0.3s border-color;
+
+        svg {
+            fill: var(--color-text);
+            transition: 0.3s fill;
+        }
     }
+}
+.NavBar-toggle svg {
+    fill: var(--color-border);
+    transition: 0.3s fill;
+}
+.NavBar-toggle--hidden {
+    bottom: -100%;
+    transition: var(--msecs-200) bottom ease-in-out;
 }

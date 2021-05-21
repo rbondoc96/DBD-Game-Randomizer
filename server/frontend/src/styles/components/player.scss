@@ -264,6 +264,16 @@ Styles for the PlayerStatList component
     max-height: 220px;
 }
 
+@media only screen and (min-width: 1250px) {
+    .PlayerPerks .Player-perkset:first-child {
+        justify-self: end;
+    }
+    .PlayerPerks .Player-perkset:last-child {
+        justify-self: start;
+    }    
+}
+
+/* Make perks occupy 2 rows */
 @media only screen and (max-width: 1250px) {
     .PlayerPerks {
         grid-template-rows: fit-content(100%) fit-content(100%);

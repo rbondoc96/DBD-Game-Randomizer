@@ -135,6 +135,7 @@ class PlayerAPI(APIView):
         action = params.get("action")
         role = params.get("role")
         name = params.get("name")
+        block_list = params.get("blockList")
         no_licensed_chars = params.get("noLicensedChars")
 
         if no_licensed_chars is not None:
@@ -174,6 +175,9 @@ class PlayerAPI(APIView):
                     "error": "Name is longer than 255 characters."
                 }, status=status.HTTP_400_BAD_REQUEST)
         
+        elif action == "block" and block_list is not None:
+            pass
+
         payload = PlayerSerializer(player).data
         return Response({
             "player": payload

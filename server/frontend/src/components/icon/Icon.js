@@ -27,6 +27,7 @@ export default function Icon({
     src2,
     src3,
     type,
+    clickable=false,
     reference,
     name,
     tiers,
@@ -227,10 +228,9 @@ export default function Icon({
                 className="Icon-bg" 
                 src={filename}
             />}
-            {(type && type.toLowerCase() == "perk")
-                ? <img className="Icon-image" src={src} title="Click to Change Tier" />
-                : <img className="Icon-image" src={src} />
-            }
+            <img className="Icon-image" src={src}/>
+            {false && clickable && <div className="Icon-border"></div>}
+
             {false && <div className="Icon-info scrollbar">
                 <div className={`Icon-info-header Icon--${
                     rarity

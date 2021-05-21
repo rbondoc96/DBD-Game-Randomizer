@@ -1,4 +1,5 @@
 import regeneratorRuntime from "regenerator-runtime"
+import throttle from "lodash/throttle"
 
 import React, {useContext, useEffect, useState} from "react"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
@@ -35,13 +36,28 @@ import IconWindow from "./components/icon/IconWindow"
 export default function App(props) {
 
     const [view, setView] = useContext(ViewContext)
-    const {mobileState} = useContext(UIContext)
+    const {mobileState, navToggle} = useContext(UIContext)
     const [isMobile, setIsMobile] = mobileState
+    const [showNavToggle, setShowNavToggle] = navToggle
+
     const [self, setSelf] = useContext(SelfContext)
 
     // const [game, setGameContext] = useContext(GameContext)
     // const [player, setPlayer] = useContext(PlayerContext)
     // const [session, setSession] = useContext(SessionContext)
+
+    var prevScrollPos = window.pageYOffset
+    const onScroll = event => {
+        var currScrollPos = window.pageYOffset
+
+        if(prevScrollPos > currScrollPos) {
+            setShowNavToggle(true)
+        } else {
+            setShowNavToggle(false)
+        }
+
+        prevScrollPos = currScrollPos
+    }     
 
     const handleResize = () => {
         setIsMobile(window.innerWidth < 960)
@@ -54,7 +70,10 @@ export default function App(props) {
     }
 
     useEffect(() => {
+        const throttledScroll = throttle(onScroll, 100)
+
         window.addEventListener("resize", handleResize)
+        window.addEventListener("scroll", throttledScroll)
 
         if(self == null) {
             fetch("api/player/")
@@ -69,13 +88,16 @@ export default function App(props) {
     
         return () => {
             window.removeEventListener("resize", handleResize)
+            window.removeEventListener("scroll", throttledScroll)
         }
     }, [])
+
+    let cssClass = !isMobile? "app":"app--mobile"
 
     return(
         <>
             <Router>
-                <div className="app">
+                <div className={cssClass}>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />

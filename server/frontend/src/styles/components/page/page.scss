@@ -1,13 +1,21 @@
 .Page {
-    width: 85vw;
-    max-width: 960px;
+    width: 85%;
+    min-height: calc(90vh - var(--navBar-height));
     
     justify-self: center;
     margin-top: 2.5rem;
+    margin-bottom: 2em;
+}
+.Page--mobile {
+    width: 85%;
+    overflow-x: hidden;
+    
+    justify-self: center;
+    margin: 2.5rem 0;
 }
 
-.PageHeader {
-    font-size: 1.05rem;
+.PageHeader h1 {
+    font-size: var(--fontSize-h1);
 }
 
 .PageFooter {
@@ -17,8 +25,11 @@
 
 .PageSubheader {
     font-size: 1.6rem;
+    margin-bottom: 1.8rem;
+    margin-top: 4rem;
 }
 
 .PageText {
-    font-size: 1.3rem;
+    font-size: var(--fontSize-text);
+    margin: 1.5rem 0;
 }

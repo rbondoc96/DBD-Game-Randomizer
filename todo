@@ -36,7 +36,23 @@ Adding Effects
 
 
 # 26 April
-- Fix Session host client logic
-- Fix 
+- Fix Session host client logic - DONE
+    Buttons and icons now appear correctly
 - Fix Obsession picking logic - DONE
-- Fix Session leaving logic
+    O(n^2)
+- Fix Session Host switching logic - DONE
+    Issue due to instance not being saved after host switch
+- Fix Session leaving logic - DONE
+    Added server_init() to delete all Players and sessions on server start up
+    Players leaving normally exit correctly
+- Finish About Randomizer page - DONE
+    Added text content and example cards
+- Add hatch location?
+    Later
+- Add Killer not being able to see other Player's perks
+    Add in v1.1
+
+- Adjust font sizes for smaller screens - DONE
+    Changed in About and Settings
+- Get Navbar-toggle icon - DONE
+    Added SVG, took scroll from website

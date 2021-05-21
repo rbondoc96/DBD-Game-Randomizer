@@ -13,23 +13,27 @@ export default function NavBar({
 }) {
 
     const [view, setView] = useContext(ViewContext)
-    const {mobileState} = useContext(UIContext)
+    const {mobileState, navToggle} = useContext(UIContext)
     const [isMobile, setIsMobile] = mobileState
+    const [showNavToggle, setShowNavToggle] = navToggle
 
-    const [showNavbar, setShowNavbar] = useState(false)
+    const [showNavBar, setShowNavBar] = useState(false)
 
     const location = useLocation()
-    const currentPath = location.pathname
+    const currentPath = location.pathname   
 
     const navbarToggle = event => {
-        setShowNavbar(!showNavbar)
+        setShowNavBar(!showNavBar)
     }
 
-    // Hides navbar once the screen gets bigger
     const resetNavbar = event => {
         if(window.innerWidth >= 950) {
-            setShowNavbar(false)
+            setShowNavBar(false)
         }
+    }
+
+    const hideMobileNavbar = event => {
+        setShowNavBar(false)
     }
 
     useEffect(() => {
@@ -43,7 +47,7 @@ export default function NavBar({
     return(
         <>
         <div className={isMobile
-            ? `NavBar--mobile${showNavbar
+            ? `NavBar--mobile${showNavBar
                 ? ""
                 : "--hidden"}`
             : "NavBar"}>
@@ -51,11 +55,13 @@ export default function NavBar({
                 <NavLink 
                     href="/"
                     children="Home" 
+                    onClick={hideMobileNavbar}
                     isActive={currentPath == "/"} 
                 />
                 <NavLink
                     href="/about"
                     children="About" 
+                    onClick={hideMobileNavbar}
                     isActive={currentPath.includes("/about")} 
                 />
             </div>
@@ -68,19 +74,26 @@ export default function NavBar({
                 <NavLink 
                     href="/sessions"
                     children="Sessions" 
+                    onClick={hideMobileNavbar}
                     isActive={currentPath.includes("/sessions")} 
                 />
                 <NavLink 
                     href="/settings"
                     children="Settings" 
+                    onClick={hideMobileNavbar}
                     isActive={currentPath.includes("/settings")}     
                 />
             </div>
         </div>
         {isMobile && <span 
-            className="NavBar-toggle" 
+            className={`NavBar-toggle${showNavToggle? "":" NavBar-toggle--hidden"}`}
             onClick={navbarToggle}
         >
+            <svg viewBox="0 0 100 80" width="32" height="32">
+                <rect width="100" height="10"></rect>
+                <rect y="30" width="100" height="10"></rect>
+                <rect y="60" width="100" height="10"></rect>
+            </svg>
         </span>}
         </>
     )

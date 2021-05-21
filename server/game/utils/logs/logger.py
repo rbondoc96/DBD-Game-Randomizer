@@ -1,3 +1,4 @@
+from django.conf import settings
 from colorama import (
     Fore, Style, 
     init as colorama_init, 
@@ -48,18 +49,20 @@ class Logger:
 
     def log(self, *args):
         self._console_print(args)
-
+        
 
     def debug(self, *args):
-        color = self._get_preamble("debug")
-        args = color + args
-        self._console_print(args)        
+        if settings.DEBUG:
+            color = self._get_preamble("debug")
+            args = color + args
+            self._console_print(args)        
 
 
     def info(self, *args):
-        color = self._get_preamble("info")
-        args = color + args
-        self._console_print(args)
+        if settings.DEBUG:
+            color = self._get_preamble("info")
+            args = color + args
+            self._console_print(args)
 
 
     def warn(self, *args):

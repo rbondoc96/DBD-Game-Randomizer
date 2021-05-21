@@ -6,7 +6,6 @@ import {SessionContext} from "../../context/SessionContext"
 import Button from "../inputs/Button"
 import CheckboxInput from "../inputs/CheckboxInput"
 
-// Player Card Components
 import PlayerInfo from "./PlayerInfo"
 import PlayerCharacter from "./PlayerCharacter"
 import PlayerPerks from "./PlayerPerks"
@@ -172,15 +171,19 @@ export default function Player({
                         onChange={toggleCharacterChoice}
                     />
                 </div>}
-                {isSelf && <div className="Player-button">
-                    <button className="button" onClick={
-                        buttonOnClick
-                        ? buttonOnClick
-                        : randomize
-                    }>
+
+                <div className="Player-button">
+                    {isSelf
+                    ? <button className="button" onClick={randomize}>
+                        Randomize
+                    </button>
+                    
+                    : isSessionHost 
+                    ? <button className="button" onClick={buttonOnClick}>
                         {buttonText}
                     </button>
-                </div>}
+                    : ""}
+                </div>
             </div>
             {/* To add later <div className="Player-stats">
                 <h3 className="Player-stats-header">Player Stats</h3>

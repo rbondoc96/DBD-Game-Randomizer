@@ -14,6 +14,7 @@ export default function PlayerPerks({
             perkNodes.push(<Icon
                 src={perk.overlay} 
                 name={perk.name}
+                clickable={true}
 
                 tiers={perk.tiers}
                 rarities={perk.rarities}

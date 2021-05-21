@@ -51,7 +51,7 @@ initialValue    - Initial value before changes
 fieldName       - Field name in the api
 buttonText      - Button Text to toggle edit
 */
-function SettingsEditableTextField({
+function SettingsEditableTextField({ 
     label,
     initialValue,
     fieldName,    

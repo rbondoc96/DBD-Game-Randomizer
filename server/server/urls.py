@@ -15,9 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sessions.models import Session
 
 from django.conf import settings
 from django.conf.urls.static import static
+
+from game.models import Player
+from game.utils.logs import Logger
+
+TAG = "TopURLs"
+logger = Logger(TAG)
+
+def server_init():
+    logger.debug("Initializing server")
+
+    # Clear Players, therefore clearing all Sessions
+    Player.objects.all().delete()
+    logger.debug("All players deleted.")
+        
 
 urlpatterns = [
     path("", include("frontend.urls")),
@@ -25,9 +40,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-# Allows uploaded images uploaded by a user to be served during development
+# Allows images uploaded by a user to be served during development
 # DO NOT use for production
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, 
         document_root=settings.MEDIA_ROOT)
+
+server_init() 

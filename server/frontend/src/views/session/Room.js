@@ -16,6 +16,10 @@ export default function SessionRoom() {
     const [self, setSelf] = useContext(SelfContext)
     const [session, setSession] = useContext(SessionContext)
 
+    const changeHostOnClick = event => {
+        console.log("Changing Host")
+    }
+
     useEffect(() => {
         const wsUrl = `ws://${window.location.host}/ws/session/${session.session_id}/`        
         const websocket = new WebSocket(wsUrl)
@@ -93,6 +97,7 @@ export default function SessionRoom() {
             </div>
             <div className="SessionRoom-Players">
                 {session.players && session.players.slice(0, 2) && session.players.slice(0, 2).map(elem => {
+                    let isSelf = self.player_id == elem.player_id
                     let isSessionHost = session.host.player_id == elem.player_id
                     
                     let isObsession = false
@@ -102,34 +107,53 @@ export default function SessionRoom() {
                     return(<div className="SessionRoom-Player">
                         <Player 
                             data={elem}
+                            isSelf={isSelf}
                             isSessionHost={isSessionHost}
                             isObsession={isObsession}
+                            buttonText="Make Host"
+                            buttonOnClick={isSelf? null : changeHostOnClick}
                         />
                     </div>)
                 })}
             </div>
             <div className="SessionRoom-Players">
                 {session.players && session.players.slice(2, 4) && session.players.slice(2, 4).map(elem => {
-                    let isHost = self.player_id == elem.player_id
+                    let isSelf = self.player_id == elem.player_id
+                    let isSessionHost = session.host.player_id == elem.player_id
+                    
+                    let isObsession = false
+                    if(session.obsession && (session.obsession.player_id == elem.player_id))
+                        isObsession = true
                     
                     return(<div className="SessionRoom-Player">
                         <Player 
                             data={elem}
+                            isSelf={isSelf}
                             isSessionHost={isSessionHost}
                             isObsession={isObsession}
+                            buttonText="Make Host"                            
+                            buttonOnClick={isSelf? null : changeHostOnClick}
                         />
                     </div>)
                 })}
             </div>
             <div className="SessionRoom-Players">
                 {session.players && session.players.slice(4) && session.players.slice(4).map(elem => {
-                    let isHost = self.player_id == elem.player_id
+                    let isSelf = self.player_id == elem.player_id
+                    let isSessionHost = session.host.player_id == elem.player_id
+                    
+                    let isObsession = false
+                    if(session.obsession && (session.obsession.player_id == elem.player_id))
+                        isObsession = true
                     
                     return(<div className="SessionRoom-Player">
                         <Player 
                             data={elem}
+                            isSelf={isSelf}
                             isSessionHost={isSessionHost}
                             isObsession={isObsession}
+                            buttonText="Make Host"                            
+                            buttonOnClick={isSelf? null : changeHostOnClick}
                         />
                     </div>)
                 })}

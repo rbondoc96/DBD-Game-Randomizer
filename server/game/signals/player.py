@@ -133,8 +133,6 @@ def decide_obsession(session):
         perks = player.perks.all()
 
         for perk in perks:
-            logger.debug(pl["player"], pl["luck"])
-            
             if perk.name == "Blood Pact":
                 pl["luck"] -= 1
             elif perk.name == "Decisive Strike":
@@ -146,9 +144,7 @@ def decide_obsession(session):
             elif perk.name == "Object of Obsession":
                 pl["luck"] += 1
             elif perk.name == "Sole Survivor":
-                pl["luck"] += 1
-
-            logger.debug(pl["player"], pl["luck"])                
+                pl["luck"] += 1                
 
     # Find dict with the largest luck
     max_val = 0
@@ -157,14 +153,11 @@ def decide_obsession(session):
         pl = player_lucks[idx]
         max_idx = idx if pl["luck"] > max_val else max_idx        
         max_val = pl["luck"] if pl["luck"] > max_val else max_val
-    
-    logger.debug("Val", max_val, "Idx", max_idx)
 
     # There is an obsession to be found
+    obsession = None
     if max_val != 0:
-        logger.debug(player_lucks)
         max_pl = player_lucks.pop(max_idx)
-        logger.debug("PL", pl)
 
         if len(player_lucks) > 0:
             new_max = 0
@@ -177,9 +170,6 @@ def decide_obsession(session):
             obsession = max_pl["player"]
 
     session.obsession = obsession
-
-    logger.debug("Obsession", obsession)
-
     return session
 
 

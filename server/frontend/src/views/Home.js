@@ -6,6 +6,8 @@ import {UIContext} from "../context/UIContext"
 
 import Player from "../components/player/Player"
 
+import Page from "../components/page/Page"
+
 function HomeRadioText({
     name,
     id,
@@ -70,10 +72,13 @@ export default function Home() {
     useEffect(() => {
         if(self && self.role) {
             setRole(self.role.toLowerCase())
-        }  
+        } else {
+            setRole("killer")
+        }
     }, [self])
     
     return(
+        <Page classes={"overflow-y-initial"}>
         <div className="Home">
             <div className="Home-randomizer">
                 <Player 
@@ -104,5 +109,6 @@ export default function Home() {
                 />
             </div>
         </div>
+    </Page>
     )
 }

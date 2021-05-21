@@ -25,11 +25,17 @@
     --navBar-height: 150px;
 
     /* Font Properties */
-    --fontSize-h2: calc(1.5rem + 0.4vw);
+    --fontSize-growthRate: 0.3vw;
+    --fontSize-h1: calc(1.6rem + var(--fontSize-growthRate));
+    --fontSize-h2: calc(1.4rem + var(--fontSize-growthRate));
+    --fontSize-h3: calc(1.2rem + var(--fontSize-growthRate));
+    --fontSize-text: calc(1rem + var(--fontSize-growthRate));
 
     --fontWeight-light: 300;
     --fontWeight-regular: 400;
     --fontWeight-bold: 600;
+    --fontWeight-extraBold: 700;
+    --fontWeight-black: 900;
 
     --zIndex-1: 100;
     --zIndex-2: 200;
@@ -101,6 +107,13 @@ Classes to force a display setting
     display: inline-grid !important;
 }
 
+.overflow-y-auto {
+    overflow-y: auto;
+}
+.overflow-y-initial {
+    overflow-y: initial
+}
+
 
 html {
     margin: 0;
@@ -133,11 +146,12 @@ h3 {
     color: var(--color-text);
 }
 
-.app {
+.app,
+.app--mobile {
     position: relative;
     
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto fit-content(100%);
     min-height: 100vh;
     height: 100%;
     width: 100%;

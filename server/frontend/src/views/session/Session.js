@@ -7,6 +7,8 @@ import JoinSession from "./Join"
 import CreateSession from "./Create"
 import SessionRoom from "./Room"
 
+import Page from "../../components/page/Page"
+
 function SessionStart() {
 
     const {mobileState} = useContext(UIContext)
@@ -28,11 +30,13 @@ export default function Session() {
     const [session, setSession] = useContext(SessionContext)
 
     return(
-        <div className="Session">
-            {session && session.session_id
-            ?   <SessionRoom />
-            :   <SessionStart />
-            }
-        </div>
+        <Page classes={"overflow-y-initial"}>
+            <div className="Session">
+                {session && session.session_id
+                ?   <SessionRoom />
+                :   <SessionStart />
+                }
+            </div>
+        </Page>
     )
 }

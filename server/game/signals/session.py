@@ -39,27 +39,33 @@ def session_changed(sender, instance, *args, **kwargs):
 @receiver(m2m_changed, sender=Session.players.through)
 def session_players_changed(sender, instance, *args, **kwargs):
     if kwargs["action"] == "pre_add":
-        print(f"Added into session: {instance}")
+        logger.debug(f"Added into session: {instance}")
         
         players = instance.players.all()
         if len(players) == 0:
-            print("no players. adding 1st")
+            logger.debug("no players. adding 1st")
         elif len(players) < 5:
-            print("not capacity")
+            logger.debug("not capacity")
         elif len(players) >= 5:
-            print("Room is at capacity")
+            logger.debug("Room is at capacity")
 
     if kwargs["action"] == "post_remove":
+        logger.debug("Player removed from session")
         players = instance.players.all()
+        
+        # Host left the session
+        if instance.host not in players and len(players) > 0:
+            instance.host = players[0]
+            instance.save()
 
-        if len(players) == 0:
-            logger.debug("no players left. removing")
-            
+        else:
+            logger.debug("No players left. Deleting session")
+
             try:
                 instance.delete()
                 return
             except:
-                logger.error("Delete failed")
+                logger.error("Delete Session failed")
                 return
 
     decide_obsession(instance)
@@ -100,7 +106,6 @@ def decide_obsession(session):
         perks = player.perks.all()
 
         for perk in perks:
-            logger.debug(pl["player"], pl["luck"])
             
             if perk.name == "Blood Pact":
                 pl["luck"] -= 1
@@ -114,8 +119,7 @@ def decide_obsession(session):
                 pl["luck"] += 1
             elif perk.name == "Sole Survivor":
                 pl["luck"] += 1
-
-            logger.debug(pl["player"], pl["luck"])                
+          
 
     # Find dict with the largest luck
     max_val = 0
@@ -125,13 +129,10 @@ def decide_obsession(session):
         max_idx = idx if pl["luck"] > max_val else max_idx        
         max_val = pl["luck"] if pl["luck"] > max_val else max_val
     
-    logger.debug("Val", max_val, "Idx", max_idx)
 
     # There is an obsession to be found
     if max_val != 0:
-        logger.debug(player_lucks)
         max_pl = player_lucks.pop(max_idx)
-        logger.debug("PL", pl)
 
         if len(player_lucks) > 0:
             new_max = 0
