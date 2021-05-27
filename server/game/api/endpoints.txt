@@ -1,6 +1,0 @@
-/api/player
-- params {
-    "action" : <<string>>
-    "playerRole": <<string>>
-    "noLicensedChars": <<boolean>>
-}

@@ -1,8 +1,7 @@
 import React, {useRef, useState, useContext, useEffect} from "react"
 
-import {ViewContext} from "../context/ViewContext"
-import {SelfContext} from "../context/SelfContext"
 import {UIContext} from "../context/UIContext"
+import {SelfContext} from "../context/SelfContext"
 
 import Player from "../components/player/Player"
 
@@ -51,7 +50,6 @@ function HomeRadioText({
 }
 
 export default function Home() {
-    const [view, setView] = useContext(ViewContext)
     const [self, setSelf] = useContext(SelfContext)
     const {mobileState} = useContext(UIContext)
     const [isMobile, setIsMobile] = mobileState

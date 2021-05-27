@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect} from "react"
 
 import {SelfContext} from "../../context/SelfContext"
-import {SessionContext} from "../../context/SessionContext"
 
 import Button from "../inputs/Button"
 import CheckboxInput from "../inputs/CheckboxInput"
@@ -24,7 +23,6 @@ export default function Player({
     buttonText="Randomize",
     buttonOnClick=null,
 }) {
-    const [session, setSession] = useContext(SessionContext)
     const [self, setSelf] = useContext(SelfContext)
 
     const [player, setPlayer] = useState(null)

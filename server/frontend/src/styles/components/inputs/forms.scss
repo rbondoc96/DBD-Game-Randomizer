@@ -1,35 +1,16 @@
-.Button,
-.HomeButton {
+.Button {
     width: fit-content;
  }
  .Button button {
     padding: 1.6em 2.2em;
  }
- .HomeButton {
-     width: 100%;
- }
- .Button a,
- .HomeButton a {
+ .Button a {
      text-decoration: none;
- }
- .HomeButton button {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
- }
- .HomeButton button > img {
-     width: 100px;
  }
  .Button button {
      font-size: 1rem;
  }
- .HomeButton button > div {
-     padding-right: 1.2em;
-     font-size: 1.25rem;
-     width: 100%;
- }
- .Button button,
- .HomeButton button {
+ .Button button{
     position: relative;
     width: 100%;
     background-color: var(--color-bg);

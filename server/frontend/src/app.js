@@ -4,47 +4,29 @@ import throttle from "lodash/throttle"
 import React, {useContext, useEffect, useState} from "react"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 
-import {ViewContext} from "./context/ViewContext"
-import {SelfContext} from "./context/SelfContext"
-import {GameContext} from "./context/GameContext"
-import {PlayerContext} from "./context/PlayerContext"
-import {SessionContext} from "./context/SessionContext"
 import {UIContext} from "./context/UIContext"
+import {SelfContext} from "./context/SelfContext"
+import {SessionProvider} from "./context/SessionContext"
 
-// Styles
 import "./styles/theme.scss"
 import "./styles/views/_all.scss"
-import "./styles/components/page/_all.scss"
-import "./styles/components/inputs/_all.scss"
-import "./styles/components/nav.scss"
-import "./styles/components/icon.scss"
-import "./styles/components/inputs.scss"
-import "./styles/components/player.scss"
-import "./styles/components/scrollbar.scss"
+import "./styles/components/_all.scss"
 
-
-// Views
 import Home from "./views/Home"
 import About from "./views/About"
 import Session from "./views/session/Session"
 import Settings from "./views/Settings"
 
 import NavBar from "./components/nav/NavBar"
-
 import IconWindow from "./components/icon/IconWindow"
 
 export default function App(props) {
 
-    const [view, setView] = useContext(ViewContext)
-    const {mobileState, navToggle} = useContext(UIContext)
+    const [self, setSelf] = useContext(SelfContext)
+    const {mobileState, navToggle, pScrollPos} = useContext(UIContext)
     const [isMobile, setIsMobile] = mobileState
     const [showNavToggle, setShowNavToggle] = navToggle
 
-    const [self, setSelf] = useContext(SelfContext)
-
-    // const [game, setGameContext] = useContext(GameContext)
-    // const [player, setPlayer] = useContext(PlayerContext)
-    // const [session, setSession] = useContext(SessionContext)
 
     var prevScrollPos = window.pageYOffset
     const onScroll = event => {
@@ -61,12 +43,6 @@ export default function App(props) {
 
     const handleResize = () => {
         setIsMobile(window.innerWidth < 960)
-
-        // setView({
-        //     isLarge: window.innerWidth > 950,
-        //     isMedium: window.innerWidth <= 950 && window.innerWidth > 650,
-        //     isSmall: window.innerWidth <= 650,
-        // })
     }
 
     useEffect(() => {
@@ -78,10 +54,7 @@ export default function App(props) {
         if(self == null) {
             fetch("api/player/")
             .then(res => res.json())
-            .then(json => {
-                let player = json.player
-                console.log("App call" , player)
-    
+            .then(json => {    
                 setSelf(json.player)
             })
         }        
@@ -101,7 +74,11 @@ export default function App(props) {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />
-                    <Route path="/sessions" component={Session} />
+                    <Route path="/sessions" render={() => (
+                        <SessionProvider>
+                            <Session />
+                        </SessionProvider>
+                    )}/>
                     <Route path="/settings" component={Settings} />
                 </Switch>
                 {/* <IconWindow 

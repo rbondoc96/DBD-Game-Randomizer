@@ -10,11 +10,12 @@ import UnknownRealm from "../../../public/session/unknown-realm.png"
 
 export default function SessionRoom() {
     const tag = "[SessionRoom]"
-    const {mobileState} = useContext(UIContext)
-    const [isMobile] = mobileState
-
-    const [self, setSelf] = useContext(SelfContext)
+    
     const [session, setSession] = useContext(SessionContext)
+    const [self, setSelf] = useContext(SelfContext)
+    const {mobileState} = useContext(UIContext)
+    const [isMobile, setIsMobile] = mobileState
+    
 
     const changeHostOnClick = event => {
         console.log("Changing Host")

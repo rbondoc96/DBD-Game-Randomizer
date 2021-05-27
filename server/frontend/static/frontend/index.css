@@ -568,6 +568,7 @@ The "Killer" and Survivor options for the randomizer.
   font-size: var(--fontSize-text);
   margin: 1.5rem 0;
 }
+
 .IconButton {
   width: calc(260px + 1vw);
   display: grid;
@@ -643,151 +644,314 @@ The "Killer" and Survivor options for the randomizer.
     box-shadow: 0 0 0 10px var(--color-link-0);
   }
 }
-.NavBar {
-  position: -webkit-sticky;
-  position: sticky;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  align-self: end;
-  width: 950px;
-  height: var(--navBar-height);
-  border-top: 1px solid var(--color-text);
-  margin: 0 auto;
-  background-color: var(--color-bg);
+.Button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
-.NavBar-left,
-.NavBar-right {
-  display: grid;
-  grid-template-rows: none;
-  grid-template-columns: auto auto;
-  justify-items: center;
+.Button button {
+  padding: 1.6em 2.2em;
 }
 
-.NavBar-center {
-  text-align: center;
-}
-.NavBar-center img {
-  width: 110px;
-  margin: 0.8rem 0;
-}
-
-/* 
-A Text Link for the Navbar component
-
-.NavLink > a            - The link text
-.NavLink--active        - The link text to the page the User is currently on
-*/
-.NavLink {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 50px;
-  width: 110px;
-  margin: 1.5rem 0;
-}
-.NavLink > a {
+.Button a {
   text-decoration: none;
+}
+
+.Button button {
+  font-size: 1rem;
+}
+
+.Button button {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
   color: var(--color-text);
-  font-size: 20px;
-  font-weight: 300;
-  transition-property: color;
-  transition-duration: 0.3s;
+  font-family: "Roboto", sans-serif;
 }
-.NavLink > a:hover {
-  color: var(--color-link);
-  font-weight: 400;
-  transition-property: color;
-  transition-duration: 0.3s;
+.Button button:focus {
+  outline: none;
+  border: 2px solid var(--color-text);
 }
-
-.NavLink--active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 50px;
-  width: 110px;
-  margin: 1.5rem 0;
-}
-.NavLink--active > a {
-  text-decoration: none;
-  color: var(--color-link);
-  font-weight: var(--fontWeight-bold);
-  font-size: 20px;
-  transition-property: color;
-  transition-duration: 0.3s;
-}
-
-/* Mobile Styles width<950px */
-.NavBar--mobile,
-.NavBar--mobile--hidden {
-  position: absolute;
-  z-index: var(--zIndex-8);
-  transition: 0.5s top;
-  width: 100vw;
-  display: grid;
-  grid-template-rows: auto auto;
-  background-color: var(--color-bg);
-}
-.NavBar--mobile .NavBar-left,
-.NavBar--mobile .NavBar-right,
-.NavBar--mobile--hidden .NavBar-left,
-.NavBar--mobile--hidden .NavBar-right {
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: none;
-  justify-items: center;
-}
-.NavBar--mobile .NavBar-center,
-.NavBar--mobile--hidden .NavBar-center {
-  display: none;
-}
-
-.NavBar--mobile {
-  position: fixed;
-  top: 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.NavBar--mobile--hidden {
-  top: -100%;
-}
-
-.NavBar-toggle {
-  position: fixed;
-  bottom: 3%;
-  left: 3%;
-  height: 3.2em;
-  width: 3.2em;
-  border-radius: 50%;
-  border: 3px solid var(--color-border);
-  background-color: var(--color-bg);
-  transition: 0.3s border-color, var(--msecs-200) bottom ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.NavBar-toggle:hover {
+.Button button:hover {
   cursor: pointer;
-  border-color: var(--color-text);
-  transition: 0.3s border-color;
 }
-.NavBar-toggle:hover svg {
-  fill: var(--color-text);
-  transition: 0.3s fill;
+.Button button:hover::before {
+  -webkit-animation: TopRightAnimate var(--msecs-300) linear forwards;
+          animation: TopRightAnimate var(--msecs-300) linear forwards;
+}
+.Button button:hover::after {
+  -webkit-animation: BottomLeftAnimate var(--msecs-300) linear forwards;
+          animation: BottomLeftAnimate var(--msecs-300) linear forwards;
+}
+.Button button:not(:hover)::before {
+  -webkit-animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+          animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+}
+.Button button:not(:hover)::after {
+  -webkit-animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+          animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+}
+.Button button::before, .Button button::after {
+  position: absolute;
+  content: "";
+  top: -2px;
+  left: -2px;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
 }
 
-.NavBar-toggle svg {
-  fill: var(--color-border);
-  transition: 0.3s fill;
+@-webkit-keyframes TopRightAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
 }
 
-.NavBar-toggle--hidden {
-  bottom: -100%;
-  transition: var(--msecs-200) bottom ease-in-out;
+@keyframes TopRightAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
 }
+@-webkit-keyframes BottomLeftAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
+}
+@keyframes BottomLeftAnimateReverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    border-color: transparent;
+  }
+}
+@-webkit-keyframes TopRightAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@keyframes TopRightAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-text);
+    border-right-color: var(--color-text);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@-webkit-keyframes BottomLeftAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+}
+@keyframes BottomLeftAnimate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: var(--color-text);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--color-text);
+    border-left-color: var(--color-text);
+  }
+}
+.TextInput,
+.SelectInput {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-row-gap: 5px;
+  row-gap: 5px;
+  margin: 10px 0;
+}
+.TextInput label,
+.SelectInput label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.TextInput select, .TextInput input,
+.SelectInput select,
+.SelectInput input {
+  padding: 0.6em 0.8em;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+/*
+An encapsulated checkbox input and its associated label.
+
+.CheckboxInput > label            - The label containing the input box and text
+*/
+.CheckboxInput {
+  width: 100%;
+}
+
+.CheckboxInput > label {
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+  grid-column-gap: 0.8em;
+  -moz-column-gap: 0.8em;
+       column-gap: 0.8em;
+  align-items: center;
+  font-weight: 300;
+  font-size: calc(1em + 0.3vw);
+  color: var(--color-text);
+  transition: var(--msecs-300) color;
+}
+.CheckboxInput > label:hover {
+  cursor: pointer;
+  color: var(--color-link);
+  transition: var(--msecs-300) color;
+}
+
 .Icon {
   position: relative;
   margin: 0;
@@ -1059,344 +1223,153 @@ Styles for the IconWindow component
 .IconWindow-main-stats {
   grid-area: stats;
 }
-.Button,
-.HomeButton {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
 
-.Button button {
-  padding: 1.6em 2.2em;
-}
-
-.HomeButton {
-  width: 100%;
-}
-
-.Button a,
-.HomeButton a {
-  text-decoration: none;
-}
-
-.HomeButton button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.HomeButton button > img {
-  width: 100px;
-}
-
-.Button button {
-  font-size: 1rem;
-}
-
-.HomeButton button > div {
-  padding-right: 1.2em;
-  font-size: 1.25rem;
-  width: 100%;
-}
-
-.Button button,
-.HomeButton button {
-  position: relative;
-  width: 100%;
+.NavBar {
+  position: -webkit-sticky;
+  position: sticky;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-self: end;
+  width: 950px;
+  height: var(--navBar-height);
+  border-top: 1px solid var(--color-text);
+  margin: 0 auto;
   background-color: var(--color-bg);
-  border: 2px solid var(--color-border);
+}
+
+.NavBar-left,
+.NavBar-right {
+  display: grid;
+  grid-template-rows: none;
+  grid-template-columns: auto auto;
+  justify-items: center;
+}
+
+.NavBar-center {
+  text-align: center;
+}
+.NavBar-center img {
+  width: 110px;
+  margin: 0.8rem 0;
+}
+
+/* 
+A Text Link for the Navbar component
+
+.NavLink > a            - The link text
+.NavLink--active        - The link text to the page the User is currently on
+*/
+.NavLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  width: 110px;
+  margin: 1.5rem 0;
+}
+.NavLink > a {
+  text-decoration: none;
   color: var(--color-text);
-  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  transition-property: color;
+  transition-duration: 0.3s;
 }
-.Button button:focus,
-.HomeButton button:focus {
-  outline: none;
-  border: 2px solid var(--color-text);
+.NavLink > a:hover {
+  color: var(--color-link);
+  font-weight: 400;
+  transition-property: color;
+  transition-duration: 0.3s;
 }
-.Button button:hover,
-.HomeButton button:hover {
-  cursor: pointer;
+
+.NavLink--active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  width: 110px;
+  margin: 1.5rem 0;
 }
-.Button button:hover::before,
-.HomeButton button:hover::before {
-  -webkit-animation: TopRightAnimate var(--msecs-300) linear forwards;
-          animation: TopRightAnimate var(--msecs-300) linear forwards;
+.NavLink--active > a {
+  text-decoration: none;
+  color: var(--color-link);
+  font-weight: var(--fontWeight-bold);
+  font-size: 20px;
+  transition-property: color;
+  transition-duration: 0.3s;
 }
-.Button button:hover::after,
-.HomeButton button:hover::after {
-  -webkit-animation: BottomLeftAnimate var(--msecs-300) linear forwards;
-          animation: BottomLeftAnimate var(--msecs-300) linear forwards;
-}
-.Button button:not(:hover)::before,
-.HomeButton button:not(:hover)::before {
-  -webkit-animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
-          animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
-}
-.Button button:not(:hover)::after,
-.HomeButton button:not(:hover)::after {
-  -webkit-animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
-          animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
-}
-.Button button::before, .Button button::after,
-.HomeButton button::before,
-.HomeButton button::after {
+
+/* Mobile Styles width<950px */
+.NavBar--mobile,
+.NavBar--mobile--hidden {
   position: absolute;
-  content: "";
-  top: -2px;
-  left: -2px;
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: 2px solid transparent;
-  border-radius: 0.25em;
-}
-
-@-webkit-keyframes TopRightAnimateReverse {
-  0% {
-    width: 100%;
-    height: 100%;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  50% {
-    width: 100%;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  100% {
-    width: 0;
-    height: 0;
-    border-color: transparent;
-  }
-}
-
-@keyframes TopRightAnimateReverse {
-  0% {
-    width: 100%;
-    height: 100%;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  50% {
-    width: 100%;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  100% {
-    width: 0;
-    height: 0;
-    border-color: transparent;
-  }
-}
-@-webkit-keyframes BottomLeftAnimateReverse {
-  0% {
-    width: 100%;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  50% {
-    width: 0;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  100% {
-    width: 0;
-    height: 0;
-    border-color: transparent;
-  }
-}
-@keyframes BottomLeftAnimateReverse {
-  0% {
-    width: 100%;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  50% {
-    width: 0;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  100% {
-    width: 0;
-    height: 0;
-    border-color: transparent;
-  }
-}
-@-webkit-keyframes TopRightAnimate {
-  0% {
-    width: 0;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  50% {
-    width: 100%;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-}
-@keyframes TopRightAnimate {
-  0% {
-    width: 0;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  50% {
-    width: 100%;
-    height: 0;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    border-top-color: var(--color-text);
-    border-right-color: var(--color-text);
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-}
-@-webkit-keyframes BottomLeftAnimate {
-  0% {
-    width: 0;
-    height: 0;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: var(--color-text);
-  }
-  50% {
-    width: 0;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-}
-@keyframes BottomLeftAnimate {
-  0% {
-    width: 0;
-    height: 0;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: var(--color-text);
-  }
-  50% {
-    width: 0;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-  100% {
-    width: 100%;
-    height: 100%;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: var(--color-text);
-    border-left-color: var(--color-text);
-  }
-}
-.TextInput,
-.SelectInput {
+  z-index: var(--zIndex-8);
+  transition: 0.5s top;
+  width: 100vw;
   display: grid;
   grid-template-rows: auto auto;
-  grid-row-gap: 5px;
-  row-gap: 5px;
-  margin: 10px 0;
+  background-color: var(--color-bg);
 }
-.TextInput label,
-.SelectInput label {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 300;
-}
-.TextInput select, .TextInput input,
-.SelectInput select,
-.SelectInput input {
-  padding: 0.6em 0.8em;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-}
-
-/*
-An encapsulated checkbox input and its associated label.
-
-.CheckboxInput > label            - The label containing the input box and text
-*/
-.CheckboxInput {
-  width: 100%;
-}
-
-.CheckboxInput > label {
+.NavBar--mobile .NavBar-left,
+.NavBar--mobile .NavBar-right,
+.NavBar--mobile--hidden .NavBar-left,
+.NavBar--mobile--hidden .NavBar-right {
   display: grid;
-  grid-template-columns: fit-content(100%) fit-content(100%);
-  grid-column-gap: 0.8em;
-  -moz-column-gap: 0.8em;
-       column-gap: 0.8em;
+  grid-template-rows: auto auto;
+  grid-template-columns: none;
+  justify-items: center;
+}
+.NavBar--mobile .NavBar-center,
+.NavBar--mobile--hidden .NavBar-center {
+  display: none;
+}
+
+.NavBar--mobile {
+  position: fixed;
+  top: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.NavBar--mobile--hidden {
+  top: -100%;
+}
+
+.NavBar-toggle {
+  position: fixed;
+  bottom: 3%;
+  left: 3%;
+  height: 3.2em;
+  width: 3.2em;
+  border-radius: 50%;
+  border: 3px solid var(--color-border);
+  background-color: var(--color-bg);
+  transition: 0.3s border-color, var(--msecs-200) bottom ease-in-out;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  font-weight: 300;
-  font-size: calc(1em + 0.3vw);
-  color: var(--color-text);
-  transition: var(--msecs-300) color;
 }
-.CheckboxInput > label:hover {
+.NavBar-toggle:hover {
   cursor: pointer;
-  color: var(--color-link);
-  transition: var(--msecs-300) color;
+  border-color: var(--color-text);
+  transition: 0.3s border-color;
 }
+.NavBar-toggle:hover svg {
+  fill: var(--color-text);
+  transition: 0.3s fill;
+}
+
+.NavBar-toggle svg {
+  fill: var(--color-border);
+  transition: 0.3s fill;
+}
+
+.NavBar-toggle--hidden {
+  bottom: -100%;
+  transition: var(--msecs-200) bottom ease-in-out;
+}
+
 .Player {
   display: grid;
   grid-template-rows: fit-content(100%) auto;
