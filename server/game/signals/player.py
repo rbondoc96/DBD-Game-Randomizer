@@ -29,11 +29,12 @@ def player_updated_perks(sender, instance, *args, **kwargs):
 
             # send_updated_session(session)              
 
+
 @receiver(post_save, sender=Player)
 def player_updated(sender, instance, *args, **kwargs):
 
-    logger.debug(instance)
-    logger.debug(instance.sessions.count())
+    logger.debug("Updated " + str(instance))
+    logger.debug("# of Sessions: "+ str(instance.sessions.count()))
 
     if instance.sessions.count() > 0:
         session = instance.sessions.all()[0]
@@ -46,6 +47,7 @@ def player_updated(sender, instance, *args, **kwargs):
         decide_obsession(session)
         decide_realm(session)
         send_updated_session(session)   
+
 
 def decide_realm(session):
     logger.debug("Deciding Realm")

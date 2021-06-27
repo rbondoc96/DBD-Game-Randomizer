@@ -23,7 +23,7 @@ import IconWindow from "./components/icon/IconWindow"
 export default function App(props) {
 
     const [self, setSelf] = useContext(SelfContext)
-    const {mobileState, navToggle, pScrollPos} = useContext(UIContext)
+    const {mobileState, navToggle} = useContext(UIContext)
     const [isMobile, setIsMobile] = mobileState
     const [showNavToggle, setShowNavToggle] = navToggle
 

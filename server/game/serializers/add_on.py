@@ -11,12 +11,24 @@ class ItemAddOnSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ItemAddOn
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "type",
+            "rarities",
+            "overlay",
+        ]
 
 class PowerAddOnSerializer(serializers.ModelSerializer):
-    power = PowerSerializer()
+    power = serializers.StringRelatedField()
     rarities  = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = PowerAddOn
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "power",
+            "rarities",
+            "overlay"
+        ]

@@ -111,8 +111,6 @@ export default function SessionRoom() {
                             isSelf={isSelf}
                             isSessionHost={isSessionHost}
                             isObsession={isObsession}
-                            buttonText="Make Host"
-                            buttonOnClick={isSelf? null : changeHostOnClick}
                         />
                     </div>)
                 })}

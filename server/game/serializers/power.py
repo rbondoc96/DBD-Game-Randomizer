@@ -5,8 +5,15 @@ from game.models import Power
 from game.serializers import CharacterSerializer
 
 class PowerSerializer(serializers.ModelSerializer):
-    owner = CharacterSerializer()
+    owner = serializers.StringRelatedField()
 
     class Meta:
         model = Power
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "owner",
+            "primary_overlay",
+            "secondary_overlay",
+            "tertiary_overlay",
+        ]

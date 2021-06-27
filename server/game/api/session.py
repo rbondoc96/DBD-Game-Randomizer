@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from game.utils.error import ErrorResponse, ErrorTypes
 from game.utils.logs import Logger
 from game.models import(
     Session,
@@ -23,6 +24,8 @@ from game.serializers import(
 )
 
 from game.utils import get_random_index
+from game.utils.player import PlayerUtils
+from game.utils.session import SessionUtils
 
 TAG = "SessionAPI"
 logger = Logger(TAG)
@@ -201,244 +204,171 @@ def reverse_player_role(player):
         print("Role change unsuccessful")    
         return player
 
-class SessionAPI(APIView):
-    def get(self, request, *args, **kwargs):
 
+
+
+
+class SessionAPI(APIView):
+
+    def create_session(self, player):
+        pass       
+
+
+    def get(self, request, *args, **kwargs):
         params = request.query_params
         action = params.get("action")
 
-        if action is not None:
-            player = request.session.get("player")
-            logger.debug(request.session)              
-            logger.debug("Session Key", request.session.session_key)
-
-            if action.lower() == "join":
-                session_id = params.get("sessionId")
-
-                if session_id is not None:
-                    session = None
-                    try:
-                        session_id__proper = str(session_id).upper()
-                        session = Session.objects.get(
-                            session_id=session_id__proper
-                        )
-                        logger.debug("Existing session acquired.")
-
-                    except Session.DoesNotExist:
-                        return Response({
-                            "error": \
-                            "There are no sessions with that session ID."
-                            }, status=status.HTTP_400_BAD_REQUEST)
-
-                    if session.mode.lower() == "survivor":
-                        if player is not None:
-                            player_id = player.get("player_id")
-
-                            try:
-                                player = Player.objects.get(player_id=player_id)
-                                logger.debug("Acquired existing player")
-
-                                if player.role is None:
-                                    player = randomize_player(
-                                        player,
-                                        role="survivor"
-                                    )
-
-                                elif player.role.lower() == "killer":
-                                    player = reverse_player_role(
-                                        player,
-                                        no_licensed_chars,
-                                    )
-                            
-                            except Player.DoesNotExist:
-                                player = generate_player(
-                                    role="survivor",
-                                    no_licensed_chars=no_licensed_chars,
-                                )
-                                request.session["playerId"] = player.player_id
-                        else:
-                            logger.debug("Generating new player")
-                            player = generate_player(
-                                role="survivor",
-                            )
-                            request.session["playerId"] = player.player_id
-
-                        if player in session.players.all():
-                            pass
-                        else:
-                            if session.players.count() >= 4:
-                                return Response({
-                                    "error": "Session room is already full",
-                                }, status=status.HTTP_226_IM_USED)
-
-                            else:
-                                logger.debug(f"Adding player to session {session.session_id}")
-                                session.players.add(player)
-                                session.save()
-
-                    return Response({
-                        "session": SessionSerializer(session).data,
-                    }, status=status.HTTP_202_ACCEPTED)                            
-
-            elif action.lower() == "create":
-                mode = params.get("mode")
-
-                if mode is None:
-                    return Response({
-                        "message": "Session mode must be specified"
-                    }, status=status.HTTP_400_BAD_REQUEST)    
-                
-                mode = str(mode).lower()
-                    
-                if mode == "survivor":
-                    if player is not None:
-                        session = None
-
-                        try:
-                            # Get actual Player model instance from 
-                            # request["session"]["player"]
-                            player_id = player.get("player_id")
-                            player = Player.objects.get(player_id=player_id)
-                            logger.debug("Found existing player")
-
-                        except Player.DoesNotExist:
-                            logger.warn("Player did not exist. Creating a new one")
-                            player = generate_player(role="survivor")    
-                            request.session["player"] = PlayerSerializer(
-                                player
-                            ).data
-
-                        # If player doesn't have any Player data
-                        if player.role is None:
-                            player = randomize_player(player, role="survivor")
-
-                        # Convert player to survivor 
-                        elif player.role.lower() == "killer":
-                            player = reverse_player_role(player)
-
-                        try:
-                            # Check for & grab existing session, if it exists
-                            session = Session.objects.get(host=player)
-                            serializer = SessionSerializer(session)
-                            return Response({
-                                "session": serializer.data
-                            }, status=status.HTTP_200_OK)
-
-                        except Session.DoesNotExist:
-                            logger.warn(f"Player {player.player_id} not hosting any sessions. Creating one.")
-
-                            session = generate_session(
-                                mode="survivor",
-                                host=player,
-                            )
-
-                        return Response({
-                            "session": SessionSerializer(session).data,
-                        }, status=status.HTTP_201_CREATED)
-
-                elif mode == "custom":
-                    if player is not None:
-                        session = None
-
-                        try:
-                            # Get actual Player model instance
-                            player_id = player.get("player_id")
-                            player = Player.objects.get(player_id=player_id)
-
-                        except Player.DoesNotExist:
-                            logger.debug("Player did not exist. Creating a new one")
-                            player = generate_player(role="killer")    
-                            request.session["player"] = PlayerSerializer(
-                                player
-                            ).data
-
-                        try:
-                            # Check for & grab existing session, if it exists
-                            session = Session.objects.get(host=player)
-                            serializer = SessionSerializer(session)
-                            
-                            return Response({
-                                "session": serializer.data
-                            }, status=status.HTTP_200_OK)
-
-                        except Session.DoesNotExist:
-                            logger.debug(f"Player {player.player_id} not hosting any sessions. Creating one.")
-
-                            # Convert player to killer, the host must be the killer
-                            if player.role.lower() == "survivor":
-                                player = reverse_player_role(player)
-
-                            session = generate_session(
-                                mode="custom",
-                                host=player,
-                            )
-
-                            logger.debug("Session", session)
-
-                        return Response({
-                            "session": SessionSerializer(session).data,
-                        }, status=status.HTTP_201_CREATED) 
-
-
-                    return Response({
-                        "session": SessionSerializer(session).data,
-                        "playerId": request.session["playerId"]
-                    }, status=status.HTTP_201_CREATED)     
-
-                else:
-                    return Response({
-                        "error": "Session mode not supported"
-                    }, status=status.HTTP_400_BAD_REQUEST)               
-
-            elif action.lower() == "changehost":
-                new_host_id = params.get("newHostId")
-                session_id = params.get("sessionId")
-                
-                session = None
-                host = None
-
-                try:
-                    session = Session.objects.get(
-                        session_id=session_id
-                    )      
-                    host = Player.objects.get(
-                        player_id=new_host_id
-                    )
-
-                    session.host = host
-                    session.save()
-                    return Response({
-                        "message": "Session host changed"
-                    }, status=status.HTTP_200_OK)       
-
-                except Session.DoesNotExist:
-                    return Response({
-                        "error": "A Session with that ID does not exist."
-                    }, status=status.HTTP_400_BAD_REQUEST)
-
-                except Player.DoesNotExist:
-                    return Response({
-                        "error": "A Player with that ID does not exist."
-                    }, status=status.HTTP_400_BAD_REQUEST)
-
-            else:
-                return Response({
-                    "error": f"Action <<{action}>> not supported"
-                }, status=status.HTTP_400_BAD_REQUEST)
-        
-        else:
+        if action is None:
             return Response({
                 "error": "Please specify an action",
             }, status=status.HTTP_400_BAD_REQUEST)
-             
 
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        print(data)
+        player = PlayerUtils.get_client_player(request)
 
-        # session = generate_session()
+        session = None
+        if action.lower() == "join":
+            sid = params.get("sessionId")
 
-        return Response({**data}, status=status.HTTP_200_OK)
+            if sid is None:
+                err = ErrorResponse(
+                    ErrorTypes.NoSessionIdGiven.code,
+                    "Please provide a session ID."
+                )
+                return Response(
+                    err.message(), 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-    def delete(self, request, *args, **kwargs):
-        pass
+            try:
+                session = SessionUtils.join_session(sid, player)
+            
+            except ErrorTypes.UnsupportedSessionMode as e_mode:
+                err = ErrorResponse(
+                    e_mode.code,
+                    "Critical Error! Session is assigned an unsupported mode."
+                )
+                return Response(
+                    err.message(), 
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
+            except ErrorTypes.SessionIsFull as e_full:
+                err = ErrorResponse(
+                    e_full.code,
+                    f"Session {sid} is full"
+                )
+                return Response(
+                    err.message(), 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            if session is None:
+                err = ErrorResponse(
+                    ErrorTypes.NoSessionWithMatchingId.code,
+                    "There are no sessions with that session ID"
+                )
+                return Response(
+                    err.message(), 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            return Response({
+                "session": SessionSerializer(session).data,
+            }, status=status.HTTP_202_ACCEPTED)                            
+
+
+        elif action.lower() == "create":
+            mode = params.get("mode")
+
+            if mode is None:
+                return Response({
+                    "message": "Session mode must be specified"
+                }, status=status.HTTP_400_BAD_REQUEST)    
+            
+            mode = str(mode).title()
+                
+            try:
+                session = SessionUtils.create_session(mode, player)
+
+            except ErrorTypes.UnsupportedSessionMode as e_mode:
+                err = ErrorResponse(
+                    e_mode.code,
+                    "Session mode is not supported."
+                )
+                return Response(
+                    err.message(), 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            if session is None:
+                err = ErrorResponse(
+                    ErrorTypes.UnableToCreateSession.code,
+                    "Critical Error! Server could not create a new session."
+                )
+                return Response(
+                    err.message(),
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
+            return Response({
+                "session": SessionSerializer(session).data,
+            }, status=status.HTTP_201_CREATED)
+
+ 
+        elif action.lower() == "changehost":
+            new_host_id = params.get("newHostId")
+            session_id = params.get("sessionId")
+
+            if new_host_id is None:
+                err = ErrorResponse(
+                    ErrorTypes.NoHostIdGiven.code,
+                    "New Player host ID was not provided."
+                )
+                return Response(
+                    err.message(),
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            if session_id is None:
+                err = ErrorResponse(
+                    ErrorTypes.NoSessionIdGiven.code,
+                    "Session ID was not provided."
+                )
+                return Response(
+                    err.message(),
+                    status=status.HTTP_400_BAD_REQUEST
+                )                
+            
+            try:
+                SessionUtils.switch_host(session_id, new_host_id)
+
+            except ErrorTypes.NoSessionWithMatchingId as e_session:
+                err = ErrorResponse(
+                    ErrorTypes.NoSessionWithMatchingId.code,
+                    f"Session with ID {session_id} could not be found."
+                )
+                return Response(
+                    err.message(),
+                    status=status.HTTP_400_BAD_REQUEST
+                ) 
+
+            except ErrorTypes.NoPlayerWithMatchingId as e_player:
+                err = ErrorResponse(
+                    ErrorTypes.NoPlayerWithMatchingId.code,
+                    f"Player with ID {new_host_id} could not be found."
+                )
+                return Response(
+                    err.message(),
+                    status=status.HTTP_400_BAD_REQUEST
+                ) 
+
+            return Response({
+                "message": "Session host changed"
+            }, status=status.HTTP_200_OK)            
+
+
+        else:
+            return Response({
+                "error": f"Action <<{action}>> not supported"
+            }, status=status.HTTP_400_BAD_REQUEST)
+    

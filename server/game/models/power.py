@@ -63,25 +63,7 @@ class Power(models.Model):
         blank=True,
         null=True
     )
-
-    # primary_image = models.ImageField(
-    #     upload_to=primary_power_directory_path, 
-    #     storage=OverwriteStorage(),
-    #     blank=True,
-    #     null=True
-    # )
-    # secondary_image = models.ImageField(
-    #     upload_to=secondary_power_directory_path,
-    #     storage=OverwriteStorage(),
-    #     blank=True,
-    #     null=True
-    # )
-    # tertiary_image = models.ImageField(
-    #     upload_to=tertiary_power_directory_path,
-    #     storage=OverwriteStorage(),
-    #     blank=True,
-    #     null=True
-    # )    
+       
     flavor = models.CharField(max_length=255, null=True, blank=True)    
 
     patch_version = models.CharField(

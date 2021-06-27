@@ -170,7 +170,7 @@ export default function About() {
 
             <PageSubheader tag="h3">Session Hosts</PageSubheader>
             <PageText classes="About-text">
-                Whenever a player creates a new session, that player will be the Session's Host. In Custom Game sessions, the Host is always the Killer. 
+                Whenever a player creates a new session, that player will be the session's Host. In Custom Game sessions, the Host is always the Killer. 
             </PageText>
 
             <PageText classes="About-text">

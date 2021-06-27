@@ -56,3 +56,12 @@ Adding Effects
     Changed in About and Settings
 - Get Navbar-toggle icon - DONE
     Added SVG, took scroll from website
+
+
+Final Touches
+0. Code Cleanup
+    - Finish cleaning Session API and grouping into SessionUtils - DONE
+    - Fix issues with Session...again
+1. Finish Killer Perks list
+2. Finish Power Add-ons list 
+3. Add Resident Evil characters

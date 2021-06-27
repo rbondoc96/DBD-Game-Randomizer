@@ -22,7 +22,20 @@ class PlayerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Player
-        fields = "__all__"
+        fields = [
+            "id",
+            "player_id",
+            "name",
+            "role",
+            "character",
+            "item",
+            "power",
+            "item_addons",
+            "power_addons",
+            "offering",
+            "perks",
+            "created",
+        ]
 
 class PlayerCreateSerializer(serializers.ModelSerializer):
     class Meta:

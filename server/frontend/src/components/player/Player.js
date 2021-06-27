@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from "react"
 
 import {SelfContext} from "../../context/SelfContext"
+import {SessionContext} from "../../context/SessionContext"
 
 import Button from "../inputs/Button"
 import CheckboxInput from "../inputs/CheckboxInput"
@@ -24,8 +25,11 @@ export default function Player({
     buttonOnClick=null,
 }) {
     const [self, setSelf] = useContext(SelfContext)
+    const [session] = useContext(Session)[0]
 
     const [player, setPlayer] = useState(null)
+    const [isHost, setIsHost] = useState(false)
+    const [isObsession, setIsObsession] = useState(false)
     const [noLicensedChars, setNoLicensedChars] = useState(false)
     const [activeStatList, setActiveStatList] = useState(null)
 
@@ -78,10 +82,14 @@ export default function Player({
     }    
 
     useEffect(() => {
-        // Render prefetched data
-        if(data) {
+        if(session && data) {
             setPlayer(data)
-        }    
+            setIsHost(session.host.player_id == data.player_id)
+            setIsObsession(session.obsession.player_id == data.player_id)
+        } else if(session && self) {
+            setIsHost(session.host.player_id == self.player_id)
+            setIsObsession(session.obsession.player_id == self.player_id)
+        }
     }, [data])
 
     const headers = (player && player.role && player.role.toLowerCase() == "killer")
@@ -176,7 +184,7 @@ export default function Player({
                         Randomize
                     </button>
                     
-                    : isSessionHost 
+                    : isSessionHost
                     ? <button className="button" onClick={buttonOnClick}>
                         {buttonText}
                     </button>

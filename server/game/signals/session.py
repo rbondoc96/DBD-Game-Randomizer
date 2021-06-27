@@ -58,15 +58,14 @@ def session_players_changed(sender, instance, *args, **kwargs):
             instance.host = players[0]
             instance.save()
 
-        else:
+        elif len(players) <= 0:
             logger.debug("No players left. Deleting session")
 
             try:
                 instance.delete()
-                return
             except:
                 logger.error("Delete Session failed")
-                return
+            return
 
     decide_obsession(instance)
 
@@ -94,7 +93,6 @@ def session_players_changed(sender, instance, *args, **kwargs):
 def decide_obsession(session):
     logger.debug("Deciding Obsession")
     players = session.players.all()
-    players_luck = [0 for p in players]
 
     player_lucks = [{
         "player": p,
@@ -106,18 +104,20 @@ def decide_obsession(session):
         perks = player.perks.all()
 
         for perk in perks:
-            
-            if perk.name == "Blood Pact":
+            name = str(perk.name).lower()
+
+            if name in [
+                "blood pact",
+                "for the people",
+            ]:
                 pl["luck"] -= 1
-            elif perk.name == "Decisive Strike":
-                pl["luck"] += 1
-            elif perk.name == "For the People":
-                pl["luck"] -= 1
-            elif perk.name == "Mettle of Man":
-                pl["luck"] += 1
-            elif perk.name == "Object of Obsession":
-                pl["luck"] += 1
-            elif perk.name == "Sole Survivor":
+
+            elif name in [
+                "decisive strike",
+                "mettle of man",
+                "object of obsession",
+                "sole survivor"
+            ]:
                 pl["luck"] += 1
           
 
