@@ -2,13 +2,9 @@
     position: relative;
     margin: 0;
     width: fit-content;
-
-    &:hover {
-        .Icon-info {
-            display: block;
-    
-        }
-    }
+}
+.Icon:hover .Icon-info {
+    display: block;
 }
 .Icon-bg {
     display: block;
@@ -29,18 +25,15 @@
     border: 2px solid transparent;
 
     transition: 0.2s border-color ease-out;
-
-    &:hover {
-        border-color: #FFF;
-
-        transition: 0.2s border-color ease-out;
-    }
+}
+.Icon-border:hover {
+    border-color: #FFF;
+    transition: 0.2s border-color ease-out;
 }
 .Icon-image {
     display: block;
     position: relative;
     z-index: var(--zIndex-1);
-    
 }
 .Icon--md .Icon-image,
 .Icon--md .Icon-bg {
@@ -161,47 +154,39 @@ Styles for the IconWindow component
 .IconWindow-header-toggle {
     grid-area: toggle;
     height: fit-content;
-
-    &:hover {
-
-        > button {
-            cursor: pointer;
-
-            font-weight: 600;
-            transition: var(--msecs-500) font-weight;
-        }
-    }
-
-    > button {
-        width: 100%;
-        height: var(--button-height);
-
-        margin: 0;
-        padding: 0;
-        border: 0;
-
-        background-color: transparent;
-        color: var(--color-text);
-
-        font-size: calc(var(--button-height) - 0.4em);
-        font-weight: 300;
-        transition: var(--msecs-500) font-weight;
-
-        &:focus {
-            outline: none;
-        }
-    }
 }
-.IconWindow-header-name {
-    h1 {
-        display: grid;
-        grid-template-columns: fit-content(100%) fit-content(100%);
-        column-gap: 0.3em;
+.IconWindow-header-toggle > button {
+    width: 100%;
+    height: var(--button-height);
 
-        margin: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 
-        font-size: calc(2em + 1vw);
-    }
+    background-color: transparent;
+    color: var(--color-text);
+
+    font-size: calc(var(--button-height) - 0.4em);
+    font-weight: 300;
+    transition: var(--msecs-500) font-weight;
+}
+.IconWindow-header-toggle > button:focus {
+    outline: none;
+}
+.IconWindow-header-toggle:hover > button {
+    cursor: pointer;
+
+    font-weight: 600;
+    transition: var(--msecs-500) font-weight;
+}
+.IconWindow-header-name h1 {
+    display: grid;
+    grid-template-columns: fit-content(100%) fit-content(100%);
+    column-gap: 0.3em;
+
+    margin: 0;
+
+    font-size: calc(2em + 1vw);
 }
 .IconWindow-header-content {
     grid-area: header-content;
@@ -259,18 +244,16 @@ Styles for the IconWindow component
     row-gap: 2em;
 
     width: 100%;
-
-    > img {
-        width: calc(125px + 5vw);
-    }
+}
+.IconWindow-main-image > img {
+    width: calc(125px + 5vw);
 }
 .IconWindow-main-image-extras {
     display: grid;
     row-gap: 1em;
-
-    img {
-        width: calc(100px + 4vw)
-    }
+}
+.IconWindow-main-image-extras img {
+    width: calc(100px + 4vw)
 }
 .IconWindow-main-separator {
     grid-area: separator;

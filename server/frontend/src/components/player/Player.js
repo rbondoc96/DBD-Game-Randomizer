@@ -20,12 +20,11 @@ export default function Player({
     data,
     isSelf,
     isSessionHost,
-    isObsession,
     buttonText="Randomize",
     buttonOnClick=null,
 }) {
     const [self, setSelf] = useContext(SelfContext)
-    const [session] = useContext(Session)[0]
+    const [session, setSession] = useContext(SessionContext)
 
     const [player, setPlayer] = useState(null)
     const [isHost, setIsHost] = useState(false)
@@ -84,11 +83,19 @@ export default function Player({
     useEffect(() => {
         if(session && data) {
             setPlayer(data)
-            setIsHost(session.host.player_id == data.player_id)
-            setIsObsession(session.obsession.player_id == data.player_id)
+            if(session.host) {
+                setIsHost(session.host.player_id == data.player_id)
+            }
+            if(session.obsession) {
+                setIsObsession(session.obsession.player_id == data.player_id)
+            }
         } else if(session && self) {
-            setIsHost(session.host.player_id == self.player_id)
-            setIsObsession(session.obsession.player_id == self.player_id)
+            if(session.host) {
+                setIsHost(session.host.player_id == self.player_id)
+            }
+            if(session.obsession) {
+                setIsObsession(session.obsession.player_id == self.player_id)
+            }
         }
     }, [data])
 

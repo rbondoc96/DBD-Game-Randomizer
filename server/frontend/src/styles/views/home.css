@@ -54,42 +54,41 @@ The "Killer" and Survivor options for the randomizer.
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    input[type="radio"] {
-        display: none;
-    }
 }
+.HomeRadioText input[type="radio"] {
+    display: none;
+}
+
+
 .HomeRadioText:first-child,
 .HomeRadioText:last-child {
     justify-content: flex-end;
 }
 .HomeRadioText-label,
 .HomeRadioText-label--mobile {
+    cursor: pointer;
     font-weight: 600;
     font-size: calc(24px + 1.2vw);
     
     color: var(--color-inactive);
     transition: color 0.3s;
-
-    &:hover {
-        cursor: pointer;
-        color: var(--color-link);
-        transition: color 0.3s;
-    }
+}
+.HomeRadioText-label:hover,
+.HomeRadioText-label--mobile:hover {
+    color: var(--color-link);
+    transition: color 0.3s;
 }
 .HomeRadioText-label--mobile {
     font-size: 24px;
 }
 .HomeRadioText-label--active,
 .HomeRadioText-label--mobile--active {
+    cursor: pointer;
     color: var(--color-link);
     font-weight: 600;
     font-size: calc(24px + 1.2vw);
-
-    &:hover {
-        cursor: pointer;
-    }
 }
+
 .HomeRadioText-label--mobile--active {
     font-size: 24px;
 }

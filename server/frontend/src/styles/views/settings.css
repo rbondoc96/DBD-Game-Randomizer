@@ -1,11 +1,10 @@
 .Settings-info {
     font-weight: var(--fontWeight-light);
     margin: 1.1em 0;
-
-    span {
-        font-size: 0.68em;
-        font-weight: var(--fontWeight-bold);
-    }
+}
+.Settings-info span {
+    font-size: 0.68em;
+    font-weight: var(--fontWeight-bold);
 }
 
 .SettingsTextField,

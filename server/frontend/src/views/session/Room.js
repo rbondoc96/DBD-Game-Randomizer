@@ -110,7 +110,6 @@ export default function SessionRoom() {
                             data={elem}
                             isSelf={isSelf}
                             isSessionHost={isSessionHost}
-                            isObsession={isObsession}
                         />
                     </div>)
                 })}
@@ -129,7 +128,6 @@ export default function SessionRoom() {
                             data={elem}
                             isSelf={isSelf}
                             isSessionHost={isSessionHost}
-                            isObsession={isObsession}
                             buttonText="Make Host"                            
                             buttonOnClick={isSelf? null : changeHostOnClick}
                         />
@@ -150,7 +148,6 @@ export default function SessionRoom() {
                             data={elem}
                             isSelf={isSelf}
                             isSessionHost={isSessionHost}
-                            isObsession={isObsession}
                             buttonText="Make Host"                            
                             buttonOnClick={isSelf? null : changeHostOnClick}
                         />

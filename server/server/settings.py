@@ -90,9 +90,9 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbd-game-creator',
+        'NAME': 'tiamat',
         'USER': 'postgres',
-        'PASSWORD': '#bbp69',
+        'PASSWORD': '#RQueen69',
         'HOST': 'localhost',
         'PORT': '5432'
     }

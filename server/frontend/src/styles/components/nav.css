@@ -20,11 +20,10 @@
 }
 .NavBar-center {
     text-align: center;
-    
-    img {
-        width: 110px;
-        margin: 0.8rem 0;
-    }
+}
+.NavBar-center img {
+    width: 110px;
+    margin: 0.8rem 0;
 }
 
 /* 
@@ -43,23 +42,22 @@ A Text Link for the Navbar component
     width: 110px;
 
     margin: 1.5rem 0;
+}
+.NavLink > a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 20px;
+    font-weight: 300;
 
-    > a {
-        text-decoration: none;
-        color: var(--color-text);
-        font-size: 20px;
-        font-weight: 300;
+    transition-property: color;
+    transition-duration: 0.3s;
+}
+.NavLink > a:hover {
+    color: var(--color-link);
+    font-weight: 400;
 
-        transition-property: color;
-        transition-duration: 0.3s;
-    }
-    > a:hover {
-        color: var(--color-link);
-        font-weight: 400;
-
-        transition-property: color;
-        transition-duration: 0.3s;
-    }
+    transition-property: color;
+    transition-duration: 0.3s;
 }
 .NavLink--active {
     display: flex;
@@ -71,17 +69,16 @@ A Text Link for the Navbar component
     width: 110px;
 
     margin: 1.5rem 0;
-
-    > a {
-        text-decoration: none;
-        color: var(--color-link);
-        font-weight: var(--fontWeight-bold);
-        font-size: 20px;
-
-        transition-property: color;
-        transition-duration: 0.3s;
-    }    
 }
+.NavLink--active > a {
+    text-decoration: none;
+    color: var(--color-link);
+    font-weight: var(--fontWeight-bold);
+    font-size: 20px;
+
+    transition-property: color;
+    transition-duration: 0.3s;
+} 
 
 /* Mobile Styles width<950px */
 .NavBar--mobile,
@@ -95,19 +92,23 @@ A Text Link for the Navbar component
     display: grid;
     grid-template-rows: auto auto;
     background-color: var(--color-bg);
-
-    .NavBar-left,
-    .NavBar-right {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-template-columns: none;
-        justify-items: center;
-    }
-
-    .NavBar-center {
-        display: none;
-    }
 }
+.NavBar--mobile .NavBar-left,
+.NavBar--mobile .NavBar-right,
+.NavBar--mobile--hidden .NavBar-left,
+.NavBar--mobile--hidden .NavBar-right {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: none;
+    justify-items: center;
+}
+
+.NavBar--mobile .NavBar-center,
+.NavBar--mobile--hidden .NavBar-center {
+    display: none;
+}
+
+
 .NavBar--mobile {
     position: fixed;
     top: 0;
@@ -120,6 +121,7 @@ A Text Link for the Navbar component
 }
 
 .NavBar-toggle {
+    cursor: pointer;
     position: fixed;
     bottom: 3%;
     left: 3%;
@@ -136,17 +138,14 @@ A Text Link for the Navbar component
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &:hover {
-        cursor: pointer;
-        border-color: var(--color-text);
-        transition: 0.3s border-color;
-
-        svg {
-            fill: var(--color-text);
-            transition: 0.3s fill;
-        }
-    }
+}
+.NavBar-toggle:hover {
+    border-color: var(--color-text);
+    transition: 0.3s border-color;
+}
+.NavBar-toggle:hover svg {
+    fill: var(--color-text);
+    transition: 0.3s fill;
 }
 .NavBar-toggle svg {
     fill: var(--color-border);

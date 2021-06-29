@@ -5,6 +5,9 @@
 # Frontend
 **/node_modules/*
 
+# Virtual Environment
+env/*
+
 # Test Images
 **/imgs/*
 
@@ -19,3 +22,4 @@
 
 # Styleguide (Personal)
 styleguide.md
+.DS_Store

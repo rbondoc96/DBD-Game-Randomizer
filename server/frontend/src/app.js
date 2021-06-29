@@ -8,9 +8,9 @@ import {UIContext} from "./context/UIContext"
 import {SelfContext} from "./context/SelfContext"
 import {SessionProvider} from "./context/SessionContext"
 
-import "./styles/theme.scss"
-import "./styles/views/_all.scss"
-import "./styles/components/_all.scss"
+import "./styles/theme.css"
+import "./styles/views/_all.css"
+import "./styles/components/_all.css"
 
 import Home from "./views/Home"
 import About from "./views/About"
@@ -75,9 +75,7 @@ export default function App(props) {
                     <Route exact path="/" component={Home} />
                     <Route path="/about" component={About} />
                     <Route path="/sessions" render={() => (
-                        <SessionProvider>
-                            <Session />
-                        </SessionProvider>
+                        <Session />
                     )}/>
                     <Route path="/settings" component={Settings} />
                 </Switch>

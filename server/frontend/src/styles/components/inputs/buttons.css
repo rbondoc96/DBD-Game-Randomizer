@@ -12,17 +12,15 @@
     border: 1px solid var(--color-border);
 
     transition: var(--msecs-300) border-color;
-
-    &:hover {
-        cursor: pointer;
-        border-color: var(--color-text);
-        transition: var(--msecs-300) border-color;
-    }
-
-    &:focus {
-        outline: none;
-        border-color: var(--color-text);
-    }
+}
+.IconButton:hover {
+    cursor: pointer;
+    border-color: var(--color-text);
+    transition: var(--msecs-300) border-color;
+}
+.IconButton:focus {
+    outline: none;
+    border-color: var(--color-text);
 }
 
 .IconButton img {
@@ -44,25 +42,16 @@
     border: 1px solid var(--color-border);
 
     transition: var(--msecs-300) border-color, var(--msecs-300) color;
-
-    &:hover {
-        cursor: pointer;
-        color: var(--color-link);
-        border-color: var(--color-link);
-        transition: var(--msecs-300) border-color, var(--msecs-300) color;
-    }
-
-    &:focus {
-        outline: none;
-    }
 }
-
-
-// .button--force-active {
-//     color: var(--color-link);
-//     background-color: var(--color-bg);
-//     border: 1px solid var(--color-link);
-// }
+.button:hover {
+    cursor: pointer;
+    color: var(--color-link);
+    border-color: var(--color-link);
+    transition: var(--msecs-300) border-color, var(--msecs-300) color;
+}
+.button:focus {
+    outline: none;
+}
 
 .button--pulse {
     color: var(--color-link);
@@ -70,12 +59,10 @@
     border: 1px solid var(--color-link);
 
 	box-shadow: 0 0 0 0 var(--color-link-0p7);
-	// transform: box-shadow scale(1);
 	animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
-
-    &:hover {
-        animation: none;
-    }
+}
+.button--pulse:hover {
+    animation: none;
 }
 
 @keyframes pulse {

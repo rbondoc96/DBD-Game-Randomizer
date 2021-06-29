@@ -20,12 +20,12 @@
 .SessionStart--mobile {
     grid-auto-flow: row;
     justify-content: center;
+}
 
-    .SessionStart-vertical-line {
-        width: 100%;
-        height: 2px;
-        background-color: var(--color-text);
-    }
+.SessionStart--mobile .SessionStart-vertical-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text);
 }
 
 .Session-create {

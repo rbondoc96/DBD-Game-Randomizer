@@ -1,16 +1,17 @@
 .Button {
     width: fit-content;
- }
- .Button button {
+}
+.Button button {
     padding: 1.6em 2.2em;
- }
- .Button a {
-     text-decoration: none;
- }
- .Button button {
-     font-size: 1rem;
- }
- .Button button{
+}
+.Button a {
+    text-decoration: none;
+}
+.Button button {
+    font-size: 1rem;
+}
+.Button button {
+    cursor: pointer;
     position: relative;
     width: 100%;
     background-color: var(--color-bg);
@@ -18,41 +19,38 @@
     
     color: var(--color-text);
     font-family: "Roboto", sans-serif;
- 
-    &:focus {
-       outline: none;
-       border: 2px solid var(--color-text);      
-    }
-    
-    &:hover { 
-       cursor: pointer;
-       &::before {
-          animation: TopRightAnimate var(--msecs-300) linear forwards;
-       }
-       &::after {
-          animation: BottomLeftAnimate var(--msecs-300) linear forwards;
-       }
-    }   
-    &:not(:hover) {
-        &::before {
-           animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
-        }
-        &::after {
-           animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
-        }      
-     }
-     &::before, &::after {
-        position: absolute;
-        content: "";
-        top: -2px;
-        left: -2px;
-        width: 0;
-        height: 0;
-        background: transparent;
-        border: 2px solid transparent;
-        border-radius: 0.25em;
-     }
- }
+}
+.Button button:focus {
+    outline: none;
+    border: 2px solid var(--color-text);    
+}
+.Button button::before,
+.Button button::after {
+    position: absolute;
+    content: "";
+    top: -2px;
+    left: -2px;
+    width: 0;
+    height: 0;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 0.25em;
+}
+.Button button:hover::before {
+    animation: TopRightAnimate var(--msecs-300) linear forwards;
+}
+.Button button:hover::after {
+    animation: BottomLeftAnimate var(--msecs-300) linear forwards;
+}
+.Button button:not(:hover)::before {
+    animation: TopRightAnimateReverse var(--msecs-300) linear forwards;
+}
+.Button button:not(:hover)::after {
+    animation: BottomLeftAnimateReverse var(--msecs-300) linear forwards;
+}
+
+
+
 @keyframes TopRightAnimateReverse {
 0% { 
     width: 100%; 
@@ -171,18 +169,22 @@
     grid-template-rows: auto auto;
     row-gap: 5px;
     margin: 10px 0;
+}
+.TextInput label,
+.SelectInput label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
 
-    label {
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 300;
-    }
-    select, input {
-        padding: 0.6em 0.8em;
-        width: 100%;
-        box-sizing: border-box;
-        font-family: "Roboto", sans-serif;
-    }
+.TextInput select,
+.SelectInput select,
+.TextInput input,
+.SelectInput input {
+    padding: 0.6em 0.8em;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 /*
@@ -203,11 +205,9 @@ An encapsulated checkbox input and its associated label.
     font-size: calc(1em + 0.3vw);
     color: var(--color-text);
     transition: var(--msecs-300) color;
-
-    &:hover {
-        cursor: pointer;
-
-        color: var(--color-link);
-        transition: var(--msecs-300) color;
-    }
+}
+.CheckboxInput > label:hover {
+    cursor: pointer;
+    color: var(--color-link);
+    transition: var(--msecs-300) color;
 }
